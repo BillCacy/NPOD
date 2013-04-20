@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundChanger.cs" />
+    <Compile Include="BackgroundImage.cs" />
     <Compile Include="NasaPicOfDay.cs">
       <SubType>Form</SubType>
     </Compile>
