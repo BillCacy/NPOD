@@ -2,9 +2,6 @@
 //  BackgroundChanger.m
 //  NASA Desktop
 //
-//  Created by Ruffridge, Brandon J. (GRC-VA00) on 4/2/13.
-//  Copyright (c) 2013 Ruffridge, Brandon J. (GRC-VA00). All rights reserved.
-//
 
 #import "BackgroundChanger.h"
 
@@ -12,7 +9,7 @@
 
 @synthesize receivedData;
 
--(void)setWallpaper
+-(void)setWallpaper:(NSTextField *)iotdTitle getIotdDescription:(NSTextField *)iotdDescription
 {
 
     // get first <ig> under root. This is the latest image of the day.
@@ -46,6 +43,30 @@
         // download the file.
         myURL = [NSURL URLWithString:latestImgXMLHref];
         iotdxml = [[NSXMLDocument alloc] initWithContentsOfURL:myURL options:0 error:&err];
+        
+        NSString *iotdTitleString = @"";
+        NSString *iotdDescriptionString = @"";
+        
+        // get the title
+        nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/title[1]"
+            error:&err];
+        if ([nodes count] > 0 ) {
+            // do something with element
+            NSXMLElement *iotdTitleElement = [nodes objectAtIndex:0];
+            iotdTitleString = [iotdTitleElement stringValue];
+        }
+
+        // get the description
+        nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/description[1]"
+            error:&err];
+        if ([nodes count] > 0 ) {
+            // do something with element
+            NSXMLElement *iotdDescriptionElement = [nodes objectAtIndex:0];
+            iotdDescriptionString = [iotdDescriptionElement stringValue];
+        }
+
+        [iotdTitle setStringValue:iotdTitleString];
+        [iotdDescription setStringValue:iotdDescriptionString];
         
         // get the <href> in <image> - <size> with <type>Full_Size</type>
         nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/image[1]/size[type=\"Full_Size\"][1]/href"
@@ -124,6 +145,8 @@
     NSLog(@"Succeeded! Received %ld bytes of data",[receivedData length]);
     NSError *err = nil;
     NSWorkspace *sws = [NSWorkspace sharedWorkspace];
+    
+    //check file if 1 write to 2 and delete 1. if 2 write to 1 and delete 2.
     
     NSString *writeToFile = [@"~/Pictures/nasaiotd.jpg" stringByExpandingTildeInPath];
     

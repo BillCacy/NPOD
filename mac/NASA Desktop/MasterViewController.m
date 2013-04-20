@@ -2,14 +2,14 @@
 //  MasterViewController.m
 //  NASA Desktop
 //
-//  Created by Ruffridge, Brandon J. (GRC-VA00) on 4/2/13.
-//  Copyright (c) 2013 Ruffridge, Brandon J. (GRC-VA00). All rights reserved.
-//
 
 #import "MasterViewController.h"
 #import "BackgroundChanger.h"
 
 @interface MasterViewController ()
+
+@property (weak) IBOutlet NSTextField *iotdTitle;
+@property (weak) IBOutlet NSTextField *iotdDescription;
 
 @end
 
@@ -28,7 +28,7 @@
 -(IBAction)changeBackground:(id)sender
 {
     BackgroundChanger *bc = [BackgroundChanger new];
-    [bc setWallpaper];
+    [bc setWallpaper:_iotdTitle getIotdDescription:_iotdDescription];
 }
 
 @end
