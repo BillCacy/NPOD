@@ -143,6 +143,7 @@ namespace NasaPicOfDay
 
 		/// <summary>
 		/// Set the desktop to the current picture of the day
+		/// <param name="fileName">Full file path to the image to set as the desktop background.</param>
 		/// </summary>
 		public void SetDesktopBackground(string fileName)
 		{
