@@ -25,7 +25,9 @@ namespace NasaPicOfDay
         [STAThread]
          static void Main()
         {
-                        setImage(imageFileName);
+            // first set the bacground image at startup
+            setImage(imageFileName);
+            // now put image in tray
             Application.Run(new nPOD());
 
         }
