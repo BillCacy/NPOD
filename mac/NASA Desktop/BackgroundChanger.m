@@ -125,13 +125,13 @@
     NSError *err = nil;
     NSWorkspace *sws = [NSWorkspace sharedWorkspace];
     
+    NSString *writeToFile = [@"~/Pictures/nasaiotd.jpg" stringByExpandingTildeInPath];
     
-    
-    if ([receivedData writeToFile:@"/Users/bruffrid/Pictures/nasaiotd/nasaiotd.jpg"
+    if ([receivedData writeToFile:writeToFile
         atomically:YES])
     {
         // It was successful, do stuff here
-        NSURL *image = [NSURL fileURLWithPath:@"/Users/bruffrid/Pictures/nasaiotd/nasaiotd.jpg"];
+        NSURL *image = [NSURL fileURLWithPath:writeToFile];
         for (NSScreen *screen in [NSScreen screens]) {
             NSDictionary *opt = [sws desktopImageOptionsForScreen:screen];
             [sws setDesktopImageURL:image forScreen:screen options:opt error:&err];
