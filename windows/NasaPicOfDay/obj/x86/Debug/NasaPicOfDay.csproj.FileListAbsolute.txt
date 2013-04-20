@@ -1,0 +1,10 @@
+c:\users\decoskec\documents\visual studio 2010\Projects\NasaPicOfDay\NasaPicOfDay\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\decoskec\documents\visual studio 2010\Projects\NasaPicOfDay\NasaPicOfDay\bin\Debug\NasaPicOfDay.exe
+c:\users\decoskec\documents\visual studio 2010\Projects\NasaPicOfDay\NasaPicOfDay\bin\Debug\NasaPicOfDay.pdb
+c:\users\decoskec\documents\visual studio 2010\Projects\NasaPicOfDay\NasaPicOfDay\obj\x86\Debug\NasaPicOfDay.exe
+c:\users\decoskec\documents\visual studio 2010\Projects\NasaPicOfDay\NasaPicOfDay\obj\x86\Debug\NasaPicOfDay.pdb
+C:\Users\decoskec\Documents\GitHub\NPOD\windows\NasaPicOfDay\obj\x86\Debug\NasaPicOfDay.exe
+C:\Users\decoskec\Documents\GitHub\NPOD\windows\NasaPicOfDay\obj\x86\Debug\NasaPicOfDay.pdb
+C:\Users\decoskec\Documents\GitHub\NPOD\windows\NasaPicOfDay\bin\Debug\NasaPicOfDay.exe
+C:\Users\decoskec\Documents\GitHub\NPOD\windows\NasaPicOfDay\bin\Debug\NasaPicOfDay.pdb
+C:\Users\decoskec\Documents\GitHub\NPOD\windows\NasaPicOfDay\obj\x86\Debug\ResolveAssemblyReference.cache
