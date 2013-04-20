@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace NasaPicOfDay
 {
@@ -15,6 +16,12 @@ namespace NasaPicOfDay
 	/// </summary>
 	public class BackgroundChanger
 	{
+		[DllImport("user32.dll", CharSet = CharSet.Auto)]
+
+		private static extern Int32 SystemParametersInfo(UInt32 uiAction, UInt32 uiParam, String pvParam, UInt32 fWinIni);
+		private static UInt32 SPI_SETDESKWALLPAPER = 20;
+		private static UInt32 SPIF_UPDATEINIFILE = 0x1;
+
 		private string _nasaLatestImagesXmlUrl = "http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml";
 		private string _nasaImageBaseUrl = "http://www.nasa.gov";
 		private string _nasaCurrentImageXPath = "./rss[1]/channel[1]";
@@ -132,6 +139,14 @@ namespace NasaPicOfDay
 				return false;
 			}
 			
+		}
+
+		/// <summary>
+		/// Set the desktop to the current picture of the day
+		/// </summary>
+		public void SetDesktopBackground(string fileName)
+		{
+			SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, fileName, SPIF_UPDATEINIFILE);
 		}
 	}
 }
