@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PicofDay));
             this.txtImageDescr = new System.Windows.Forms.TextBox();
             this.txtImageTitle = new System.Windows.Forms.TextBox();
             this.btnClose = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.txtImageTitle);
             this.Controls.Add(this.txtImageDescr);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PicofDay";
             this.Text = "NASA Pic Of Day Details";
             this.ResumeLayout(false);

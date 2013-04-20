@@ -44,6 +44,7 @@ namespace NasaPicOfDay
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
+            
 
             // Initialize contextMenu1
             this.contextMenu1.MenuItems.AddRange(
@@ -67,7 +68,7 @@ namespace NasaPicOfDay
 
             // The Icon property sets the icon that will appear
             // in the systray for this application.
-            notifyIcon1.Icon = new Icon("npod_tray.ico");
+            notifyIcon1.Icon = new Icon("trayIcon.ico");
 
             // The ContextMenu property sets the menu that will
             // appear when the systray icon is right clicked.
