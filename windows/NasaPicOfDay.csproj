@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BackgroundChanger.cs" />
     <Compile Include="BackgroundImage.cs" />
+    <Compile Include="ExceptionManager.cs" />
     <Compile Include="PicofDay.cs">
       <SubType>Form</SubType>
     </Compile>
