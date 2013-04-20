@@ -103,7 +103,7 @@ namespace NasaPicOfDay
 			}
 			catch (Exception ex)
 			{
-				//TODO: How to handle exceptions
+				ExceptionManager.WriteException(ex);
 				return null;
 			}
 		}
@@ -133,9 +133,9 @@ namespace NasaPicOfDay
 
 				return true;
 			}
-			catch
+			catch(Exception ex)
 			{
-				//TODO Handle exceptions
+				ExceptionManager.WriteException(ex);
 				return false;
 			}
 			
