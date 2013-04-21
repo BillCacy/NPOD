@@ -1,17 +1,12 @@
-//
-//  BackgroundChanger.m
-//  NASA Desktop
-//
-
 #import "BackgroundChanger.h"
 
 @implementation BackgroundChanger
 
 @synthesize receivedData;
 
--(void)setWallpaper:(NSTextField *)iotdTitle getIotdDescription:(NSTextField *)iotdDescription
+-(NSArray *)setWallpaper
 {
-
+    
     // get first <ig> under root. This is the latest image of the day.
     // get the first <ap>. This contains a link to the xml file for the image.
     // append http://www.nasa.gov to the value.
@@ -21,13 +16,14 @@
     
     //download http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml
     NSError *err = nil;
+    NSArray *titleDesc = nil;
     NSURL *myURL = [NSURL URLWithString:@"http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml"];
     NSXMLDocument *iotdxml = [[NSXMLDocument alloc] initWithContentsOfURL:myURL options:0 error:&err];
     // Root is rss/channel
     // get first <ig> under root. This is the latest image of the day.
     // get the first <ap>. This contains a link to the xml file for the image.
     NSArray *nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/ig[1]/ap[1]"
-        error:&err];
+                                      error:&err];
     if ([nodes count] > 0 ) {
         // do something with element
         NSXMLElement *latestImgXML = [nodes objectAtIndex:0];
@@ -49,28 +45,30 @@
         
         // get the title
         nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/title[1]"
-            error:&err];
+                                 error:&err];
         if ([nodes count] > 0 ) {
             // do something with element
             NSXMLElement *iotdTitleElement = [nodes objectAtIndex:0];
             iotdTitleString = [iotdTitleElement stringValue];
         }
-
+        
         // get the description
         nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/description[1]"
-            error:&err];
+                                 error:&err];
         if ([nodes count] > 0 ) {
             // do something with element
             NSXMLElement *iotdDescriptionElement = [nodes objectAtIndex:0];
             iotdDescriptionString = [iotdDescriptionElement stringValue];
         }
-
-        [iotdTitle setStringValue:iotdTitleString];
-        [iotdDescription setStringValue:iotdDescriptionString];
+        
+        titleDesc = [NSArray arrayWithObjects:iotdTitleString, iotdDescriptionString, nil ];
+        
+        //[iotdTitle setStringValue:iotdTitleString];
+        //[iotdDescription setStringValue:iotdDescriptionString];
         
         // get the <href> in <image> - <size> with <type>Full_Size</type>
         nodes = [iotdxml nodesForXPath:@"./rss[1]/channel[1]/image[1]/size[type=\"Full_Size\"][1]/href"
-            error:&err];
+                                 error:&err];
         if ([nodes count] > 0 ) {
             // do something with element
             NSXMLElement *iotdHrefElement = [nodes objectAtIndex:0];
@@ -83,8 +81,8 @@
             // Download the file and set as wallpaper.
             // Create the request.
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:iotdHrefString]
-                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                timeoutInterval:60.0];
+                                                      cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                  timeoutInterval:60.0];
             // create the connection with the request
             // and start loading the data
             NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
@@ -103,6 +101,7 @@
     if (err != nil) {
         NSLog(@"%@",[err localizedDescription]);
     }
+    return titleDesc;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -149,12 +148,26 @@
     //check file if 1 write to 2 and delete 1. if 2 write to 1 and delete 2.
     
     NSString *writeToFile = [@"~/Pictures/nasaiotd.jpg" stringByExpandingTildeInPath];
+    NSURL *image = [NSURL fileURLWithPath:writeToFile];
+    if([NSData dataWithContentsOfURL:image]) {
+        [[NSFileManager defaultManager] removeItemAtURL:image error:&err];
+        writeToFile = [@"~/Pictures/nasaiotd-alt.jpg" stringByExpandingTildeInPath];
+    }
+    else {
+        NSString *writeToFile2 = [@"~/Pictures/nasaiotd-alt.jpg" stringByExpandingTildeInPath];
+        image = [NSURL fileURLWithPath:writeToFile2];
+        if([NSData dataWithContentsOfURL:image]) {
+            [[NSFileManager defaultManager] removeItemAtURL:image error:&err];
+            writeToFile = [@"~/Pictures/nasaiotd.jpg" stringByExpandingTildeInPath];
+        }
+    }
     
     if ([receivedData writeToFile:writeToFile
-        atomically:YES])
+                       atomically:YES])
     {
         // It was successful, do stuff here
         NSURL *image = [NSURL fileURLWithPath:writeToFile];
+        [NSData dataWithContentsOfURL:image];
         for (NSScreen *screen in [NSScreen screens]) {
             NSDictionary *opt = [sws desktopImageOptionsForScreen:screen];
             [sws setDesktopImageURL:image forScreen:screen options:opt error:&err];
@@ -170,23 +183,7 @@
     {
         // There was a problem writing the file
     }
-    
-    // release the connection, and the data object
-    //[connection release];
-    //[receivedData release];
-}
-
-
-- (void) changeBackground
-{
-    //NSLog(@"Hello World!");
-    //NSURL *url = [[NSURL alloc] init];
-    NSURL *url = [NSURL fileURLWithPath: @"/Users/bruffrid/Pictures/nasalogo.png"];
-    NSError *error;
-    
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:nil, NSWorkspaceDesktopImageFillColorKey, [NSNumber numberWithBool:NO], NSWorkspaceDesktopImageAllowClippingKey, [NSNumber numberWithInteger:NSImageScaleProportionallyUpOrDown], NSWorkspaceDesktopImageScalingKey, nil];
-    
-    [[NSWorkspace sharedWorkspace] setDesktopImageURL:url forScreen:[[NSScreen screens] lastObject]options:options error:&error];
 }
 
 @end
+
