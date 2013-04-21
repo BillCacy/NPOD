@@ -56,6 +56,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -149,17 +162,6 @@
         }
         "Folder"
         {
-            "{1525181F-901A-416C-8A58-119130FE478E}:_140DF9868F5B490B8EA25F63CC8929B8"
-            {
-            "Name" = "8:#1919"
-            "AlwaysCreate" = "11:TRUE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:ProgramMenuFolder"
-                "Folders"
-                {
-                }
-            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_1D21A6E64F8443D082C1CD8C6B915797"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder]\\NPOD"
@@ -170,6 +172,28 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_554886789A384FB882ED372E461922F6"
+            {
+            "Name" = "8:#1919"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:ProgramMenuFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6E64F9EF8D504111AAACEBC3A6A26875"
+                    {
+                    "Name" = "8:NPOD"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_B4ADCFAEC0CE4348BD42D3CCCD1BB54D"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_79A9889679114ECFA6199BD89C1ACE13"
@@ -341,6 +365,20 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
             "Folder" = "8:_F1556A41BEC945519FAD47433F826ED7"
+            "WorkingFolder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
+            "Icon" = "8:_ECDB20E5B75C4BAEAD68EB56EAC4002A"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2ADBB907962E4FE9A0D96F730308E349"
+            {
+            "Name" = "8:NPOD"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
+            "Folder" = "8:_6E64F9EF8D504111AAACEBC3A6A26875"
             "WorkingFolder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
             "Icon" = "8:_ECDB20E5B75C4BAEAD68EB56EAC4002A"
             "Feature" = "8:"
