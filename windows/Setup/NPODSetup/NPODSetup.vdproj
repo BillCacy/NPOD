@@ -49,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -65,6 +73,27 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -133,12 +162,23 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_1D21A6E64F8443D082C1CD8C6B915797"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName}"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\NPOD"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:TARGETDIR"
+                "Folders"
+                {
+                }
+            }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_79A9889679114ECFA6199BD89C1ACE13"
+            {
+            "Name" = "8:#1921"
+            "AlwaysCreate" = "11:TRUE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartMenuFolder"
                 "Folders"
                 {
                 }
@@ -171,7 +211,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
         "ProductCode" = "8:{E790049D-5357-459F-A7C7-5EDA28DB2460}"
-        "PackageCode" = "8:{43E4583B-7572-4B8A-81CA-81C07A0A9FFC}"
+        "PackageCode" = "8:{39ED442E-7316-4F52-920E-7C1C86BF3B34}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -291,7 +331,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4E3C1F147427432FB33B232CBEE35810"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_057D5DA4EF46453095D68A6BF37DE1A2"
             {
             "Name" = "8:NPOD"
             "Arguments" = "8:"
@@ -299,24 +339,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
-            "Folder" = "8:_140DF9868F5B490B8EA25F63CC8929B8"
+            "Target" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
+            "Folder" = "8:_F1556A41BEC945519FAD47433F826ED7"
             "WorkingFolder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
             "Icon" = "8:_ECDB20E5B75C4BAEAD68EB56EAC4002A"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_82DF3CBFC1114194B19AC2145FEBD8B0"
-            {
-            "Name" = "8:Shortcut to User's Desktop"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_F1556A41BEC945519FAD47433F826ED7"
-            "Folder" = "8:_F1556A41BEC945519FAD47433F826ED7"
-            "WorkingFolder" = "8:_F1556A41BEC945519FAD47433F826ED7"
-            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
