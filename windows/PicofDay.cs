@@ -17,6 +17,7 @@ namespace NasaPicOfDay
 		private System.Windows.Forms.ContextMenu contextMenu1;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem2;
+		private Timer appTimer;
 		[STAThread]
 		static void Main()
 		{
@@ -24,22 +25,43 @@ namespace NasaPicOfDay
 		}
 		protected override void OnLoad(EventArgs e)
 		{
-
 			this.Visible = false;
 			this.ShowInTaskbar = false;
 			base.OnLoad(e);
-
 		}
 		public PicofDay()
 		{
 			InitializeComponent();
 
-			BackgroundChanger changer = new BackgroundChanger();
-			BackgroundImage backgroundImage = changer.GetTodaysImage();
-			changer.SetDesktopBackground(backgroundImage.DownloadedPath);
-
 			try
 			{
+				//Creating a timer to retrieve the latest image once a day.
+				//We did it this way to avoid setting up a scheduled task on the user's machine.
+				appTimer = new Timer();
+				appTimer.Interval = 86400000; //milliseconds in 24 hours
+				//appTimer.Interval = 60 * 1000; //testing only
+				appTimer.Tick += new EventHandler(appTimer_Tick);
+
+				//Launch the main part of the data retrieval
+				LoadApplicationContent();
+				//Start the application timer
+				appTimer.Start();
+			}
+			catch (Exception ex)
+			{
+				ExceptionManager.WriteException(ex);
+			}
+		}
+		private void LoadApplicationContent()
+		{
+			try
+			{
+				BackgroundChanger changer = new BackgroundChanger();
+				if (changer == null)
+					throw new Exception("Error retrieving current image information.");
+
+				BackgroundImage backgroundImage = changer.GetTodaysImage();
+				changer.SetDesktopBackground(backgroundImage.DownloadedPath);
 
 				this.components = new System.ComponentModel.Container();
 				this.contextMenu1 = new System.Windows.Forms.ContextMenu();
@@ -94,7 +116,11 @@ namespace NasaPicOfDay
 				ExceptionManager.WriteException(ex);
 			}
 		}
-
+		void appTimer_Tick(object sender, EventArgs e)
+		{
+			//Reload the application content
+			LoadApplicationContent();
+		}
 		private void notifyIcon1_DoubleClick(object Sender, EventArgs e)
 		{
 			try
@@ -114,10 +140,11 @@ namespace NasaPicOfDay
 				ExceptionManager.WriteException(ex);
 			}
 		}
-
 		private void menuItem1_Click(object Sender, EventArgs e)
 		{
 			// Close the form, which closes the application.
+			appTimer.Stop();
+			appTimer = null;
 			this.Close();
 		}
 		private void menuItem2_Click(object Sender, EventArgs e)
@@ -130,12 +157,9 @@ namespace NasaPicOfDay
 			//make the form invisible
 			this.Visible = false;
 		}
-
 		private void lnkURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
-
 		}
-
 	}
 }
