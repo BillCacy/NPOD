@@ -99,7 +99,15 @@ namespace NasaPicOfDay
 
 				// The Text property sets the text that will be displayed,
 				// in a tooltip, when the mouse hovers over the systray icon.
-				notifyIcon1.Text = backgroundImage.ImageTitle;
+
+				/* 4/28/2012 - Bill Cacy: Checking Image title for length > 64 characters.
+				 * Titles that are longer than 64 characters cause an error and the tray icon
+				 * does not load*/
+				if (backgroundImage.ImageTitle.Length >= 63)
+					notifyIcon1.Text = backgroundImage.ImageTitle.Substring(0, 63);
+				else
+					notifyIcon1.Text = backgroundImage.ImageTitle;
+
 				notifyIcon1.Visible = true;
 				this.txtImageDescr.Text = backgroundImage.ImageDescription;
 				this.txtImageTitle.Text = backgroundImage.ImageTitle;
