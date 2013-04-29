@@ -174,6 +174,17 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_2884FD707BCA476290C70B0B6AE5E6EB"
+            {
+            "Name" = "8:#1928"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartupFolder"
+                "Folders"
+                {
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_554886789A384FB882ED372E461922F6"
             {
             "Name" = "8:#1919"
@@ -194,17 +205,6 @@
                         {
                         }
                     }
-                }
-            }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_79A9889679114ECFA6199BD89C1ACE13"
-            {
-            "Name" = "8:#1921"
-            "AlwaysCreate" = "11:TRUE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:StartMenuFolder"
-                "Folders"
-                {
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_F1556A41BEC945519FAD47433F826ED7"
@@ -235,7 +235,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
         "ProductCode" = "8:{E790049D-5357-459F-A7C7-5EDA28DB2460}"
-        "PackageCode" = "8:{39ED442E-7316-4F52-920E-7C1C86BF3B34}"
+        "PackageCode" = "8:{F983B80D-D1EC-4459-B548-5B0693DE395C}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -381,6 +381,20 @@
             "Folder" = "8:_6E64F9EF8D504111AAACEBC3A6A26875"
             "WorkingFolder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
             "Icon" = "8:_ECDB20E5B75C4BAEAD68EB56EAC4002A"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BFCEE715AE894A0D8D1ED94643E04D28"
+            {
+            "Name" = "8:NPOD"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
+            "Folder" = "8:_2884FD707BCA476290C70B0B6AE5E6EB"
+            "WorkingFolder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
