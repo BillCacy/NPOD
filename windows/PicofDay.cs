@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Threading;
 
 namespace NasaPicOfDay
 {
@@ -18,11 +19,23 @@ namespace NasaPicOfDay
 		private MenuItem exitMenuItem;
 		private MenuItem detailsMenuItem;
         private MenuItem updateMenuItem;
-		private Timer appTimer;
+		private System.Windows.Forms.Timer appTimer;
+
+        //Added to ensure that only 1 instance of the application can be running at a time
+        static Mutex mutex = new Mutex(true, "c6ed4943-2c8e-4382-af10-6455ec315896");
+
 		[STAThread]
 		static void Main()
 		{
-			Application.Run(new PicofDay());
+            //Checking to see if the application is running
+            if (mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                Application.Run(new PicofDay());
+            }
+            else
+            {
+                //Not doing anyting since the application is already running
+            }
 		}
 		protected override void OnLoad(EventArgs e)
 		{
@@ -38,7 +51,7 @@ namespace NasaPicOfDay
 			{
 				//Creating a timer to retrieve the latest image once a day.
 				//We did it this way to avoid setting up a scheduled task on the user's machine.
-				appTimer = new Timer();
+				appTimer = new System.Windows.Forms.Timer();
 				appTimer.Interval = 86400000; //milliseconds in 24 hours
 				//appTimer.Interval = 60 * 1000; //testing only
 				appTimer.Tick += new EventHandler(appTimer_Tick);
@@ -67,7 +80,7 @@ namespace NasaPicOfDay
 
                 // The Icon property sets the icon that will appear
                 // in the systray for this application.
-                notifyIcon1.Icon = new Icon("trayIcon.ico");
+                notifyIcon1.Icon = new Icon("world.ico");
 
                 // The ContextMenu property sets the menu that will
                 // appear when the systray icon is right clicked.
