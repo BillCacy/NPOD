@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Xml;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace NasaPicOfDay
 {
@@ -26,7 +23,25 @@ namespace NasaPicOfDay
         private string _nasaImageBaseUrl = "http://www.nasa.gov";
         private string _nasaCurrentImageXPath = "./rss[1]/channel[1]";
 
+        private string _currentScreenResolution;
+
         public BackgroundChanger() { }
+
+        private void GetCurrentScreenResolution()
+        {
+            try
+            {
+                int width = Screen.PrimaryScreen.Bounds.Width;
+                int height = Screen.PrimaryScreen.Bounds.Height;
+
+                _currentScreenResolution = string.Format("{0}x{1}", width, height);
+            }
+            catch
+            {
+                //default in the event of an error
+                _currentScreenResolution = "Full_Size";
+            }
+        }
 
         /// <summary>
         /// Retrieves a BackgroundImage object containing the information downloaded from NASA
@@ -37,6 +52,8 @@ namespace NasaPicOfDay
         {
             try
             {
+                GetCurrentScreenResolution();
+
                 XmlDocument nasaImagesXml = new XmlDocument();
                 //Retrieve the base XML document
                 nasaImagesXml.Load(_nasaLatestImagesXmlUrl);
@@ -59,7 +76,11 @@ namespace NasaPicOfDay
                 if (currentImageXml == null)
                     throw new Exception("Unable to retrieve current image information.");
 
-                XmlNode currentImageNode = currentImageXml.SelectSingleNode(_nasaCurrentImageXPath + "/image[1]/size[type=\"Full_Size\"][1]/href");
+                XmlNode currentImageNode;
+                //First try to grab the image for the current resolution, if unable grab the Full_Size image
+                currentImageNode = currentImageXml.SelectSingleNode(_nasaCurrentImageXPath + "/image[1]/size[type=\"" + _currentScreenResolution + "\"][1]/href");
+                if (currentImageNode == null)
+                    currentImageNode = currentImageXml.SelectSingleNode(_nasaCurrentImageXPath + "/image[1]/size[type=\"Full_Size\"][1]/href");
 
                 //temporary string to hold the unformatted data
                 string temp = currentImageNode.InnerText;
