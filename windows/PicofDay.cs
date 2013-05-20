@@ -12,21 +12,22 @@ using System.Threading;
 
 namespace NasaPicOfDay
 {
-	public partial class PicofDay : Form
-	{
-		private NotifyIcon notifyIcon1;
-		private ContextMenu contextMenu1;
-		private MenuItem exitMenuItem;
-		private MenuItem detailsMenuItem;
+    public partial class PicofDay : Form
+    {
+        private NotifyIcon notifyIcon1;
+        private ContextMenu contextMenu1;
+        private MenuItem exitMenuItem;
+        private MenuItem detailsMenuItem;
         private MenuItem updateMenuItem;
-		private System.Windows.Forms.Timer appTimer;
+        private MenuItem settingsMenuItem;
+        private System.Windows.Forms.Timer appTimer;
 
         //Added to ensure that only 1 instance of the application can be running at a time
         static Mutex mutex = new Mutex(true, "c6ed4943-2c8e-4382-af10-6455ec315896");
 
-		[STAThread]
-		static void Main()
-		{
+        [STAThread]
+        static void Main()
+        {
             //Checking to see if the application is running
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
@@ -36,45 +37,46 @@ namespace NasaPicOfDay
             {
                 //Not doing anyting since the application is already running
             }
-		}
-		protected override void OnLoad(EventArgs e)
-		{
-			this.Visible = false;
-			this.ShowInTaskbar = false;
-			base.OnLoad(e);
-		}
-		public PicofDay()
-		{
-			InitializeComponent();
+        }
+        protected override void OnLoad(EventArgs e)
+        {
+            this.Visible = false;
+            this.ShowInTaskbar = false;
+            base.OnLoad(e);
+        }
+        public PicofDay()
+        {
+            InitializeComponent();
 
-			try
-			{
-				//Creating a timer to retrieve the latest image once a day.
-				//We did it this way to avoid setting up a scheduled task on the user's machine.
-				appTimer = new System.Windows.Forms.Timer();
-				appTimer.Interval = 86400000; //milliseconds in 24 hours
-				//appTimer.Interval = 60 * 1000; //testing only
-				appTimer.Tick += new EventHandler(appTimer_Tick);
+            try
+            {
+                //Creating a timer to retrieve the latest image once a day.
+                //We did it this way to avoid setting up a scheduled task on the user's machine.
+                appTimer = new System.Windows.Forms.Timer();
+                appTimer.Interval = 86400000; //milliseconds in 24 hours
+                //appTimer.Interval = 60 * 1000; //testing only
+                appTimer.Tick += new EventHandler(appTimer_Tick);
 
-				//Launch the main part of the data retrieval
-				LoadApplicationContent();
-				//Start the application timer
-				appTimer.Start();
-			}
-			catch (Exception ex)
-			{
-				ExceptionManager.WriteException(ex);
-			}
-		}
-		private void LoadApplicationContent()
-		{
-			try
-			{
+                //Launch the main part of the data retrieval
+                LoadApplicationContent();
+                //Start the application timer
+                appTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.WriteException(ex);
+            }
+        }
+        private void LoadApplicationContent()
+        {
+            try
+            {
                 this.components = new System.ComponentModel.Container();
                 this.contextMenu1 = new ContextMenu();
                 this.detailsMenuItem = new MenuItem();
                 this.exitMenuItem = new MenuItem();
                 this.updateMenuItem = new MenuItem();
+                this.settingsMenuItem = new MenuItem();
                 // Create the NotifyIcon.
                 this.notifyIcon1 = new NotifyIcon(this.components);
 
@@ -91,112 +93,125 @@ namespace NasaPicOfDay
 
                 UpdateContent();
 
-				// Initialize contextMenu1
-				this.contextMenu1.MenuItems.AddRange(
-				new MenuItem[] { this.detailsMenuItem, this.updateMenuItem, this.exitMenuItem });
+                // Initialize contextMenu1
+                this.contextMenu1.MenuItems.AddRange(
+                new MenuItem[] { this.detailsMenuItem, this.updateMenuItem, this.settingsMenuItem, this.exitMenuItem });
 
-				// Initialize exitMenuItem
-				this.exitMenuItem.Index = 0;
-				this.exitMenuItem.Text = "E&xit";
-				this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
-				// Initialize detailsMenuItem
-				this.detailsMenuItem.Index = 0;
-				this.detailsMenuItem.Text = "&See Details";
-				this.detailsMenuItem.Click += new System.EventHandler(this.detailsMenuItem_Click);
+                // Initialize exitMenuItem
+                this.exitMenuItem.Index = 0;
+                this.exitMenuItem.Text = "E&xit";
+                this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
+                // Initialize detailsMenuItem
+                this.detailsMenuItem.Index = 0;
+                this.detailsMenuItem.Text = "&See Details";
+                this.detailsMenuItem.Click += new System.EventHandler(this.detailsMenuItem_Click);
                 // Initialize updateMenuItem
                 this.updateMenuItem.Index = 0;
                 this.updateMenuItem.Text = "Update";
                 this.updateMenuItem.Click += new EventHandler(updateMenuItem_Click);
+                //Initialize settingsMenuItme
+                this.settingsMenuItem.Index = 0;
+                this.settingsMenuItem.Text = "Settings";
+                this.settingsMenuItem.Click += new EventHandler(settingsMenuItem_Click);
 
-				// Set up how the form should be displayed.
+                // Set up how the form should be displayed.
                 this.TopMost = true;
 
-				
-			}
-			catch (Exception ex)
-			{
-				ExceptionManager.WriteException(ex);
-			}
-		}
+
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.WriteException(ex);
+            }
+        }
+
+        //Launches the Settings form to allow the user to select previous images from the feed
+        //when the form closes, the main controls will be updated with the new image's information.
+        void settingsMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingForm = new SettingsForm();
+            settingForm.ShowDialog();
+
+            UpdateControlContent();
+        }
 
         private void UpdateContent()
         {
             BackgroundChanger changer = new BackgroundChanger();
-            if (changer == null)
-                throw new Exception("Error retrieving current image information.");
+            GlobalVariables.NasaImage = changer.GetImage();
+            changer.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
 
-            BackgroundImage backgroundImage = changer.GetTodaysImage();
-            changer.SetDesktopBackground(backgroundImage.DownloadedPath);
-
-            // The Text property sets the text that will be displayed,
-            // in a tooltip, when the mouse hovers over the systray icon.
-
-            /* 4/28/2012 - Bill Cacy: Checking Image title for length > 64 characters.
-             * Titles that are longer than 64 characters cause an error and the tray icon
-             * does not load*/
-            if (backgroundImage.ImageTitle.Length >= 63)
-                this.notifyIcon1.Text = backgroundImage.ImageTitle.Substring(0, 63);
-            else
-                this.notifyIcon1.Text = backgroundImage.ImageTitle;
-
-            this.notifyIcon1.Visible = true;
-            this.txtImageDescr.Text = backgroundImage.ImageDescription;
-            this.txtImageTitle.Text = backgroundImage.ImageTitle;
-            this.lnkURL.Text = "Link to this Image";
-            this.lnkURL.Links.Clear();
-            this.lnkURL.Links.Add(0, this.lnkURL.Text.Length, backgroundImage.ImageUrl);
-
-            this.txtDate.Text = backgroundImage.ImageDate.ToLongDateString();
+            UpdateControlContent();
         }
 
-		void appTimer_Tick(object sender, EventArgs e)
-		{
-			//Reload the application content
+        private void UpdateControlContent()
+        {
+            // The Text property sets the text that will be displayed,
+            // in a tooltip, when the mouse hovers over the systray icon.
+            // note: if the title is >= 63 characters, the notify icon will not load unless the text is substringed.
+            if (GlobalVariables.NasaImage.ImageTitle.Length >= 63)
+                this.notifyIcon1.Text = GlobalVariables.NasaImage.ImageTitle.Substring(0, 63);
+            else
+                this.notifyIcon1.Text = GlobalVariables.NasaImage.ImageTitle;
+
+            this.notifyIcon1.Visible = true;
+            this.txtImageDescr.Text = GlobalVariables.NasaImage.ImageDescription;
+            this.txtImageTitle.Text = GlobalVariables.NasaImage.ImageTitle;
+            this.lnkURL.Text = "Link to this Image";
+            this.lnkURL.Links.Clear();
+            this.lnkURL.Links.Add(0, this.lnkURL.Text.Length, GlobalVariables.NasaImage.ImageUrl);
+
+            this.txtDate.Text = GlobalVariables.NasaImage.ImageDate.ToLongDateString();
+        }
+
+        void appTimer_Tick(object sender, EventArgs e)
+        {
+            //Reload the application content
             UpdateContent();
-		}
-		private void notifyIcon1_DoubleClick(object Sender, EventArgs e)
-		{
-			try
-			{
-				// Show the form when the user double clicks on the notify icon.
-				// Set the WindowState to normal if the form is minimized.
-				if (this.WindowState == FormWindowState.Minimized)
-					this.WindowState = FormWindowState.Normal;
+        }
+        private void notifyIcon1_DoubleClick(object Sender, EventArgs e)
+        {
+            try
+            {
+                // Show the form when the user double clicks on the notify icon.
+                // Set the WindowState to normal if the form is minimized.
+                if (this.WindowState == FormWindowState.Minimized)
+                    this.WindowState = FormWindowState.Normal;
 
-				// Activate the form.
-				this.Visible = true;
-				this.Activate();
+                // Activate the form.
+                this.Visible = true;
+                this.Activate();
 
-			}
-			catch (Exception ex)
-			{
-				ExceptionManager.WriteException(ex);
-			}
-		}
-		private void exitMenuItem_Click(object Sender, EventArgs e)
-		{
-			// Close the form, which closes the application.
-			appTimer.Stop();
-			appTimer = null;
-			this.Close();
-		}
-		private void detailsMenuItem_Click(object Sender, EventArgs e)
-		{
-			// Activate the form.
-			this.Visible = true;
-		}
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.WriteException(ex);
+            }
+        }
+        private void exitMenuItem_Click(object Sender, EventArgs e)
+        {
+            // Close the form, which closes the application.
+            appTimer.Stop();
+            appTimer = null;
+            this.Close();
+        }
+        private void detailsMenuItem_Click(object Sender, EventArgs e)
+        {
+            // Activate the form.
+            this.Visible = true;
+        }
         private void updateMenuItem_Click(object sender, EventArgs e)
         {
             UpdateContent();
         }
-		private void btnClose_Click(object sender, EventArgs e)
-		{
-			//make the form invisible
-			this.Visible = false;
-		}
-		private void lnkURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
-		}
-	}
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            //make the form invisible
+            this.Visible = false;
+        }
+        private void lnkURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
+    }
 }

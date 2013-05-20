@@ -18,15 +18,17 @@ namespace NasaPicOfDay
         private static extern Int32 SystemParametersInfo(UInt32 uiAction, UInt32 uiParam, String pvParam, UInt32 fWinIni);
         private static UInt32 SPI_SETDESKWALLPAPER = 20;
         private static UInt32 SPIF_UPDATEINIFILE = 0x1;
-
         private string _nasaLatestImagesXmlUrl = "http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml";
         private string _nasaImageBaseUrl = "http://www.nasa.gov";
         private string _nasaCurrentImageXPath = "./rss[1]/channel[1]";
-
         private string _currentScreenResolution;
+        private int _defaultImagePositionInDoc = 1;
 
         public BackgroundChanger() { }
 
+        /// <summary>
+        /// Retrieves the user's current screen resolution to try and pick the image that will fit.
+        /// </summary>
         private void GetCurrentScreenResolution()
         {
             try
@@ -42,17 +44,28 @@ namespace NasaPicOfDay
                 _currentScreenResolution = "Full_Size";
             }
         }
-
         /// <summary>
         /// Retrieves a BackgroundImage object containing the information downloaded from NASA
         /// regarding the current photo of the day
         /// </summary>
         /// <returns>Null is returned if an error occurred</returns>
-        public BackgroundImage GetTodaysImage()
+        public BackgroundImage GetImage()
+        {
+            return GetImage(_defaultImagePositionInDoc);
+        }
+        /// <summary>
+        /// Overloaded GetImage that allows the retrieval of previous images based on their position in the XML document
+        /// provided from the nasa.gov website.
+        /// </summary>
+        /// <param name="selectedImagePosition">Position of the image within the node list of images, 1 being the very first (newest)</param>
+        public BackgroundImage GetImage(int? selectedImagePosition)
         {
             try
             {
                 GetCurrentScreenResolution();
+
+                if (selectedImagePosition == null)
+                    selectedImagePosition = _defaultImagePositionInDoc;
 
                 XmlDocument nasaImagesXml = new XmlDocument();
                 //Retrieve the base XML document
@@ -62,7 +75,7 @@ namespace NasaPicOfDay
                     throw new Exception("Unable to retrieve current image list information.");
 
                 //Retrieve the information to create the XML document for the current image
-                XmlNode currentImageXmlNode = nasaImagesXml.SelectSingleNode("./rss[1]/channel[1]/ig[1]/ap[1]");
+                XmlNode currentImageXmlNode = nasaImagesXml.SelectSingleNode("./rss[1]/channel[1]/ig[" + selectedImagePosition + "]/ap");
                 string currentImageXmlUrl = currentImageXmlNode.InnerText;
                 string currentImageXmlFullUrl = string.Format("{0}{1}.xml", _nasaImageBaseUrl, currentImageXmlUrl);
 
@@ -168,7 +181,6 @@ namespace NasaPicOfDay
             }
 
         }
-
         /// <summary>
         /// Set the desktop to the current picture of the day
         /// <param name="fileName">Full file path to the image to set as the desktop background.</param>
