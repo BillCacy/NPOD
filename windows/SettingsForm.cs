@@ -132,14 +132,15 @@ namespace NasaPicOfDay
 
                 string fullImagePath = string.Format("{0}\\{1}", thumbNailImagePath, imageName);
 
-                if (!DownloadImage(fullImagePath, imageFullUrl))
-                    throw new Exception("Error downloading image.");
+                //If the thumbnail has been previously downloaded, no need to download it again, just use the current one
+                if (!File.Exists(fullImagePath))
+                {
+                    if (!DownloadImage(fullImagePath, imageFullUrl))
+                        throw new Exception("Error downloading image.");
+                }
 
                 picBoxCurrentImg.ImageLocation = fullImagePath;
                 picBoxCurrentImg.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-
 
                 return true;
             }
