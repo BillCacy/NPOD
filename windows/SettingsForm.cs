@@ -15,6 +15,7 @@ namespace NasaPicOfDay
     public partial class SettingsForm : Form
     {
         private int _CurrentImagePosition = 1;
+        private int _TotalNumberOfImages = 0;
         private string _NasaLatestImagesXmlUrl = "http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml";
         private string _NasaImageBaseUrl = "http://www.nasa.gov";
         private XmlDocument _NasaImageListXml = null;
@@ -31,13 +32,17 @@ namespace NasaPicOfDay
 
         private void btnBackImage_Click(object sender, EventArgs e)
         {
-            _CurrentImagePosition++;
+            if(_CurrentImagePosition < _TotalNumberOfImages)
+                _CurrentImagePosition++;
+
             GetImageThumbnail(_CurrentImagePosition);
         }
 
         private void btnForwardImage_Click(object sender, EventArgs e)
         {
-            _CurrentImagePosition--;
+            if(_CurrentImagePosition > 1)
+                _CurrentImagePosition--;
+
             GetImageThumbnail(_CurrentImagePosition);
         }
 
@@ -84,6 +89,12 @@ namespace NasaPicOfDay
             {
                 _NasaImageListXml = new XmlDocument();
                 _NasaImageListXml.Load(_NasaLatestImagesXmlUrl);
+
+                XmlNode imageCountNode = _NasaImageListXml.SelectSingleNode("./rss[1]/channel[1]/totalImages");
+                int imageCount = Convert.ToInt32(imageCountNode.InnerText);
+                //For some reason the count in the file is 2 larger than the actual number of photos
+                //maybe counting the rss and channel nodes?
+                _TotalNumberOfImages = imageCount - 2;
 
                 if (_NasaImageListXml == null)
                     throw new Exception("Unable to retrieve current image list information.");
