@@ -35,6 +35,7 @@ namespace NasaPicOfDay
             if(_CurrentImagePosition < _TotalNumberOfImages)
                 _CurrentImagePosition++;
 
+            SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
         }
 
@@ -43,12 +44,35 @@ namespace NasaPicOfDay
             if(_CurrentImagePosition > 1)
                 _CurrentImagePosition--;
 
+            SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+        }
+
+        private void SetButtonEnabled()
+        {
+            if (_CurrentImagePosition == _TotalNumberOfImages)
+            {
+                btnBackImage.Enabled = false;
+            }
+            else
+            {
+                btnBackImage.Enabled = true;
+            }
+
+            if (_CurrentImagePosition == 1)
+            {
+                btnForwardImage.Enabled = false;
+            }
+            else
+            {
+                btnForwardImage.Enabled = true;
+            }
         }
 
         private void btnCurrentImage_Click(object sender, EventArgs e)
         {
             _CurrentImagePosition = 1;
+            SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
         }
 
