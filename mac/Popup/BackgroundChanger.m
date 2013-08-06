@@ -40,7 +40,7 @@
             
             // get the title and description
             NSString     *iotdTitleString = [latestImageObj objectForKey: @"title"];
-            NSString     *iotdDescriptionString = [latestImageObj objectForKey: @"image_caption"];
+            NSString     *iotdDescriptionString = [latestImageObj objectForKey: @"trimmed_image_caption"];
                         
             titleDesc = [NSArray arrayWithObjects:iotdTitleString, iotdDescriptionString, nil ];
             
