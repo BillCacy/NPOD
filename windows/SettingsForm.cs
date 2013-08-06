@@ -23,6 +23,7 @@ namespace NasaPicOfDay
         public SettingsForm()
         {
             InitializeComponent();
+            SetButtonEnabled();
         }
 
         private void btnCloseSettings_Click(object sender, EventArgs e)
@@ -32,7 +33,7 @@ namespace NasaPicOfDay
 
         private void btnBackImage_Click(object sender, EventArgs e)
         {
-            if(_CurrentImagePosition < _TotalNumberOfImages)
+            if (_CurrentImagePosition < _TotalNumberOfImages)
                 _CurrentImagePosition++;
 
             SetButtonEnabled();
@@ -41,7 +42,7 @@ namespace NasaPicOfDay
 
         private void btnForwardImage_Click(object sender, EventArgs e)
         {
-            if(_CurrentImagePosition > 1)
+            if (_CurrentImagePosition > 1)
                 _CurrentImagePosition--;
 
             SetButtonEnabled();
