@@ -65,8 +65,10 @@
   <ItemGroup>
     <Compile Include="BackgroundChanger.cs" />
     <Compile Include="BackgroundImage.cs" />
+    <Compile Include="DownloadHelper.cs" />
     <Compile Include="ExceptionManager.cs" />
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="JsonHelper.cs" />
     <Compile Include="Node2.cs" />
     <Compile Include="NasaImages.cs" />
     <Compile Include="Node.cs" />

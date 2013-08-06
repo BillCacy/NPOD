@@ -41,7 +41,7 @@
             // btnBackImage
             // 
             this.btnBackImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackImage.Location = new System.Drawing.Point(52, 12);
+            this.btnBackImage.Location = new System.Drawing.Point(159, 12);
             this.btnBackImage.Name = "btnBackImage";
             this.btnBackImage.Size = new System.Drawing.Size(75, 23);
             this.btnBackImage.TabIndex = 0;
@@ -52,7 +52,7 @@
             // btnCurrentImage
             // 
             this.btnCurrentImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCurrentImage.Location = new System.Drawing.Point(90, 41);
+            this.btnCurrentImage.Location = new System.Drawing.Point(197, 41);
             this.btnCurrentImage.Name = "btnCurrentImage";
             this.btnCurrentImage.Size = new System.Drawing.Size(75, 23);
             this.btnCurrentImage.TabIndex = 1;
@@ -62,8 +62,9 @@
             // 
             // btnForwardImage
             // 
+            this.btnForwardImage.Enabled = false;
             this.btnForwardImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForwardImage.Location = new System.Drawing.Point(133, 12);
+            this.btnForwardImage.Location = new System.Drawing.Point(240, 12);
             this.btnForwardImage.Name = "btnForwardImage";
             this.btnForwardImage.Size = new System.Drawing.Size(89, 23);
             this.btnForwardImage.TabIndex = 2;
@@ -74,7 +75,7 @@
             // btnSetImage
             // 
             this.btnSetImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetImage.Location = new System.Drawing.Point(12, 226);
+            this.btnSetImage.Location = new System.Drawing.Point(120, 336);
             this.btnSetImage.Name = "btnSetImage";
             this.btnSetImage.Size = new System.Drawing.Size(248, 23);
             this.btnSetImage.TabIndex = 3;
@@ -85,7 +86,7 @@
             // btnCloseSettings
             // 
             this.btnCloseSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSettings.Location = new System.Drawing.Point(185, 270);
+            this.btnCloseSettings.Location = new System.Drawing.Point(207, 376);
             this.btnCloseSettings.Name = "btnCloseSettings";
             this.btnCloseSettings.Size = new System.Drawing.Size(75, 23);
             this.btnCloseSettings.TabIndex = 4;
@@ -95,9 +96,9 @@
             // 
             // picBoxCurrentImg
             // 
-            this.picBoxCurrentImg.Location = new System.Drawing.Point(37, 70);
+            this.picBoxCurrentImg.Location = new System.Drawing.Point(12, 70);
             this.picBoxCurrentImg.Name = "picBoxCurrentImg";
-            this.picBoxCurrentImg.Size = new System.Drawing.Size(200, 150);
+            this.picBoxCurrentImg.Size = new System.Drawing.Size(466, 248);
             this.picBoxCurrentImg.TabIndex = 5;
             this.picBoxCurrentImg.TabStop = false;
             // 
@@ -105,7 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(275, 306);
+            this.ClientSize = new System.Drawing.Size(489, 411);
             this.Controls.Add(this.picBoxCurrentImg);
             this.Controls.Add(this.btnCloseSettings);
             this.Controls.Add(this.btnSetImage);
