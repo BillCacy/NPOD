@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace NasaPicOfDay
@@ -26,7 +25,7 @@ namespace NasaPicOfDay
 
         private void btnBackImage_Click(object sender, EventArgs e)
         {
-            if (_CurrentImagePosition < _TotalNumberOfImages)
+            if (_CurrentImagePosition < _TotalNumberOfImages - 1)
                 _CurrentImagePosition++;
 
             SetButtonEnabled();
@@ -109,11 +108,7 @@ namespace NasaPicOfDay
                 if (_Images == null)
                     throw new Exception("Unable to retrieve the image data");
 
-                /* NOTE
-                 * Using Length for now because the json deserialization process only creates 
-                 * 50 nodes, but the actual Count of nodes is alot higher
-                 */
-                _TotalNumberOfImages = _Images.Nodes.Length - 1;
+                _TotalNumberOfImages = _Images.Nodes.Length;
             }
             catch (Exception ex)
             {

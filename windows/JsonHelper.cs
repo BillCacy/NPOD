@@ -8,12 +8,11 @@ namespace NasaPicOfDay
     {
         public static NasaImages DownloadSerializedJsonData(string nasaUrl)
         {
-            using (WebClient client = new WebClient())
+            try
             {
-                string jsonData = string.Empty;
-
-                try
+                using (WebClient client = new WebClient())
                 {
+                    string jsonData = string.Empty;
                     jsonData = client.DownloadString(nasaUrl);
 
                     if (!string.IsNullOrEmpty(jsonData))
@@ -24,11 +23,11 @@ namespace NasaPicOfDay
                     else
                         throw new Exception("Unable to retrieve JSON data");
                 }
-                catch (Exception ex)
-                {
-                    ExceptionManager.WriteException(ex);
-                    return null;
-                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.WriteException(ex);
+                return null;
             }
         }
     }
