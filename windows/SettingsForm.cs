@@ -8,7 +8,7 @@ namespace NasaPicOfDay
     {
         private int _CurrentImagePosition = 0;
         private int _TotalNumberOfImages = 0;
-        private string _NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=50&offset=0&Routes=1446";
+        private string _NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=500&offset=0&Routes=1446";
         private string _NasaImageBaseUrl = "http://www.nasa.gov";
         private NasaImages _Images;
 
@@ -25,11 +25,12 @@ namespace NasaPicOfDay
 
         private void btnBackImage_Click(object sender, EventArgs e)
         {
-            if (_CurrentImagePosition < _TotalNumberOfImages - 1)
+            if (_CurrentImagePosition < _TotalNumberOfImages)
                 _CurrentImagePosition++;
 
             SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentImagePosition + 1).ToString(), _TotalNumberOfImages.ToString());
         }
 
         private void btnForwardImage_Click(object sender, EventArgs e)
@@ -39,6 +40,7 @@ namespace NasaPicOfDay
 
             SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentImagePosition + 1).ToString(), _TotalNumberOfImages.ToString());
         }
 
         private void SetButtonEnabled()
@@ -67,6 +69,7 @@ namespace NasaPicOfDay
             _CurrentImagePosition = 0;
             SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentImagePosition + 1).ToString(), _TotalNumberOfImages.ToString());
         }
 
         private void btnSetImage_Click(object sender, EventArgs e)
@@ -98,6 +101,8 @@ namespace NasaPicOfDay
 
             if (!GetImageThumbnail(_CurrentImagePosition))
                 MessageBox.Show("An error occured retrieving the image.", "Oops!", MessageBoxButtons.OK);
+
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentImagePosition + 1).ToString(), _TotalNumberOfImages.ToString());
         }
 
         private void LoadNasaImageList()
@@ -108,7 +113,7 @@ namespace NasaPicOfDay
                 if (_Images == null)
                     throw new Exception("Unable to retrieve the image data");
 
-                _TotalNumberOfImages = _Images.Nodes.Length;
+                _TotalNumberOfImages = _Images.Count;
             }
             catch (Exception ex)
             {
