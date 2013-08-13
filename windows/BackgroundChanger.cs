@@ -38,7 +38,7 @@ namespace NasaPicOfDay
             catch
             {
                 //default in the event of an error
-                _currentScreenResolution = "Full_Size";
+                _currentScreenResolution = "1600x1200";
             }
         }
         /// <summary>
@@ -72,10 +72,40 @@ namespace NasaPicOfDay
                 //Get the image node
                 Node2 imageNode = nasaImages.Nodes[0].node;
 
-                /*TODO
-                 * Try to grab the URL for the current screen resolution
-                 */
-                string currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.MasterImage);
+                string currentImageFullUrl;
+                switch (_currentScreenResolution)
+                {
+                    case "346x260":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image346x260);
+                        break;
+                    case "466x248":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image466x248);
+                        break;
+                    case "226x170":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image226x170);
+                        break;
+                    case "360x225":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image360x225);
+                        break;
+                    case "430x323":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image430x323);
+                        break;
+                    case "100x75":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image100x75);
+                        break;
+                    case "1600x1200":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image1600x1200);
+                        break;
+                    case "800x600":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image800x600);
+                        break;
+                    case "1024x768":
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image1024x768);
+                        break;
+                    default:
+                        currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.MasterImage);
+                        break;
+                }
 
                 string localImageFolderPath = string.Format("{0}\\NASA\\PicOfTheDay", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
