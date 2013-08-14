@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 
 namespace NasaPicOfDay
 {
@@ -74,7 +71,7 @@ namespace NasaPicOfDay
         public string[] Topics { get; set; }
 
         [JsonProperty("missions")]
-        public string[] Missions { get; set; }
+        public string[] missions { get; set; }
 
         [JsonProperty("collections")]
         public object[] Collections { get; set; }
@@ -86,7 +83,7 @@ namespace NasaPicOfDay
         public string[] Routes { get; set; }
 
         [JsonProperty("Missions")]
-        public string Mission { get; set; }
+        public string Missions { get; set; }
 
         [JsonProperty("field_image_caption")]
         public string FieldImageCaption { get; set; }

@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace NasaPicOfDay
 {
@@ -19,7 +12,7 @@ namespace NasaPicOfDay
         private MenuItem exitMenuItem;
         private MenuItem detailsMenuItem;
         private MenuItem updateMenuItem;
-        ////private MenuItem settingsMenuItem;
+        private MenuItem settingsMenuItem;
         private System.Windows.Forms.Timer appTimer;
 
         //Added to ensure that only 1 instance of the application can be running at a time
@@ -76,7 +69,7 @@ namespace NasaPicOfDay
                 this.detailsMenuItem = new MenuItem();
                 this.exitMenuItem = new MenuItem();
                 this.updateMenuItem = new MenuItem();
-                ////this.settingsMenuItem = new MenuItem();
+                this.settingsMenuItem = new MenuItem();
                 // Create the NotifyIcon.
                 this.notifyIcon1 = new NotifyIcon(this.components);
 
@@ -94,10 +87,8 @@ namespace NasaPicOfDay
                 UpdateContent();
 
                 // Initialize contextMenu1
-                ////this.contextMenu1.MenuItems.AddRange(
-                ////new MenuItem[] { this.detailsMenuItem, this.updateMenuItem, this.settingsMenuItem, this.exitMenuItem });
                 this.contextMenu1.MenuItems.AddRange(
-                new MenuItem[] { this.detailsMenuItem, this.updateMenuItem, this.exitMenuItem });
+                new MenuItem[] { this.detailsMenuItem, this.updateMenuItem, this.settingsMenuItem, this.exitMenuItem });
 
                 // Initialize exitMenuItem
                 this.exitMenuItem.Index = 0;
@@ -111,10 +102,10 @@ namespace NasaPicOfDay
                 this.updateMenuItem.Index = 0;
                 this.updateMenuItem.Text = "Update";
                 this.updateMenuItem.Click += new EventHandler(updateMenuItem_Click);
-                //////Initialize settingsMenuItme
-                ////this.settingsMenuItem.Index = 0;
-                ////this.settingsMenuItem.Text = "Settings";
-                ////this.settingsMenuItem.Click += new EventHandler(settingsMenuItem_Click);
+                //Initialize settingsMenuItme
+                this.settingsMenuItem.Index = 0;
+                this.settingsMenuItem.Text = "Settings";
+                this.settingsMenuItem.Click += new EventHandler(settingsMenuItem_Click);
 
                 // Set up how the form should be displayed.
                 this.TopMost = true;

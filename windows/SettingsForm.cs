@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Net;
 
 namespace NasaPicOfDay
 {
     public partial class SettingsForm : Form
     {
-        private int _CurrentImagePosition = 1;
+        private int _TotalDocImageCount = 0;
+        private int _CurrentImagePosition = 0;
         private int _TotalNumberOfImages = 0;
-        private string _NasaLatestImagesXmlUrl = "http://www.nasa.gov/multimedia/imagegallery/iotdxml.xml";
+        private string _NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=50&offset={0}&Routes=1446";
         private string _NasaImageBaseUrl = "http://www.nasa.gov";
-        private XmlDocument _NasaImageListXml = null;
+        private NasaImages _Images;
+        private int _CurrentOffset = 0;
 
         public SettingsForm()
         {
@@ -33,25 +27,68 @@ namespace NasaPicOfDay
 
         private void btnBackImage_Click(object sender, EventArgs e)
         {
-            if (_CurrentImagePosition < _TotalNumberOfImages)
-                _CurrentImagePosition++;
+            if (_CurrentOffset == _TotalDocImageCount - 1)
+            {
+                btnBackImage.Enabled = false;
+                return;
+            }
+            else
+            {
+                if (_CurrentImagePosition < _TotalNumberOfImages - 1)
+                {
+                    _CurrentImagePosition++;
+                    _CurrentOffset++;
+                }
+                else if (_CurrentImagePosition == _TotalNumberOfImages - 1)
+                {
+                    //need to grab the next 50 images
+                    _CurrentOffset++;
+                    LoadNasaImageList(_CurrentOffset);
+                    _CurrentImagePosition = 0;
+                }
+                else if (_CurrentOffset == _TotalDocImageCount - 1)
+                {
+                    SetButtonEnabled();
+                    return;
+                }
 
-            SetButtonEnabled();
-            GetImageThumbnail(_CurrentImagePosition);
+                SetButtonEnabled();
+                GetImageThumbnail(_CurrentImagePosition);
+                lblCount.Text = string.Format("{0} of {1} images", (_CurrentOffset + 1).ToString(), _TotalDocImageCount.ToString());
+            }
         }
 
         private void btnForwardImage_Click(object sender, EventArgs e)
         {
-            if (_CurrentImagePosition > 1)
-                _CurrentImagePosition--;
+            if (_CurrentOffset == 0)
+            {
+                btnForwardImage.Enabled = false;
+                return;
+            }
+            else
+            {
+                if (_CurrentImagePosition > 0)
+                {
+                    _CurrentImagePosition--;
+                    _CurrentOffset--;
+                }
+                else if (_CurrentOffset % 50 == 0)
+                {
+                    //need to grab the next 50 images
+                    _CurrentOffset--;
+                    LoadNasaImageList(_CurrentOffset - 50);
+                    _CurrentImagePosition = 49;
+                }
+            }
 
             SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentOffset + 1).ToString(), _TotalDocImageCount.ToString());
         }
 
         private void SetButtonEnabled()
         {
-            if (_CurrentImagePosition == _TotalNumberOfImages)
+            if (_CurrentOffset == _TotalDocImageCount)
             {
                 btnBackImage.Enabled = false;
             }
@@ -60,7 +97,7 @@ namespace NasaPicOfDay
                 btnBackImage.Enabled = true;
             }
 
-            if (_CurrentImagePosition == 1)
+            if (_CurrentOffset == 0)
             {
                 btnForwardImage.Enabled = false;
             }
@@ -72,24 +109,27 @@ namespace NasaPicOfDay
 
         private void btnCurrentImage_Click(object sender, EventArgs e)
         {
-            _CurrentImagePosition = 1;
+            _CurrentImagePosition = 0;
+            _CurrentOffset = 0;
+            LoadNasaImageList(0);
             SetButtonEnabled();
             GetImageThumbnail(_CurrentImagePosition);
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentOffset + 1).ToString(), _TotalDocImageCount.ToString());
         }
 
         private void btnSetImage_Click(object sender, EventArgs e)
         {
             BackgroundChanger bgChanger = new BackgroundChanger();
-            GlobalVariables.NasaImage = bgChanger.GetImage(_CurrentImagePosition);
+            GlobalVariables.NasaImage = bgChanger.GetImage(_CurrentOffset);
             bgChanger.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
             this.Close();
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            LoadNasaImageList();
+            LoadNasaImageList(0);
 
-            if (_NasaImageListXml == null)
+            if (_Images == null)
             {
                 btnBackImage.Enabled = false;
                 btnForwardImage.Enabled = false;
@@ -106,23 +146,27 @@ namespace NasaPicOfDay
 
             if (!GetImageThumbnail(_CurrentImagePosition))
                 MessageBox.Show("An error occured retrieving the image.", "Oops!", MessageBoxButtons.OK);
+
+            lblCount.Text = string.Format("{0} of {1} images", (_CurrentOffset + 1).ToString(), _TotalDocImageCount.ToString());
         }
 
-        private void LoadNasaImageList()
+        private void LoadNasaImageList(int offset)
         {
             try
             {
-                _NasaImageListXml = new XmlDocument();
-                _NasaImageListXml.Load(_NasaLatestImagesXmlUrl);
+                if (offset < 0)
+                {
+                    offset = 0;
+                    _CurrentImagePosition = 49;
+                    _CurrentOffset = 49;
+                }
 
-                XmlNode imageCountNode = _NasaImageListXml.SelectSingleNode("./rss[1]/channel[1]/totalImages");
-                int imageCount = Convert.ToInt32(imageCountNode.InnerText);
-                //For some reason the count in the file is 2 larger than the actual number of photos
-                //maybe counting the rss and channel nodes?
-                _TotalNumberOfImages = imageCount - 2;
+                _Images = JsonHelper.DownloadSerializedJsonData(string.Format(_NasaLatestImagesUrl, offset));
+                if (_Images == null)
+                    throw new Exception("Unable to retrieve the image data");
 
-                if (_NasaImageListXml == null)
-                    throw new Exception("Unable to retrieve current image list information.");
+                _TotalDocImageCount = _Images.Count;
+                _TotalNumberOfImages = _Images.Nodes.Length;
             }
             catch (Exception ex)
             {
@@ -135,14 +179,15 @@ namespace NasaPicOfDay
         {
             try
             {
-                if (_NasaImageListXml == null)
-                    LoadNasaImageList();
+                if (_Images == null)
+                    LoadNasaImageList(0);
 
-                if (imagePosition < 1)
+                if (imagePosition < 0)
                     throw new Exception("Invalid image position.");
 
-                XmlNode selectedImageNode = _NasaImageListXml.SelectSingleNode("./rss[1]/channel[1]/ig[" + imagePosition + "]/tn");
-                string imageUrl = selectedImageNode.InnerText;
+                Node2 imageNode = _Images.Nodes[(int)imagePosition].node;
+
+                string imageUrl = imageNode.AutoImage466x248;
                 string imageFullUrl = string.Format("{0}{1}", _NasaImageBaseUrl, imageUrl);
 
                 string thumbNailImagePath = string.Format("{0}\\NASA\\PicOfTheDay\\Thumbnails", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
@@ -152,15 +197,16 @@ namespace NasaPicOfDay
                     Directory.CreateDirectory(thumbNailImagePath);
                 }
 
-                int indexOfLastSlash = imageUrl.LastIndexOf("/");
-                string imageName = imageUrl.Substring(indexOfLastSlash + 1);
+                int slashIdx = imageUrl.LastIndexOf("/");
+                int extensionIdx = imageUrl.LastIndexOf(".jpg");
+                string imageName = imageUrl.Substring(slashIdx + 1, (extensionIdx - slashIdx) + 3);
 
-                string fullImagePath = string.Format("{0}\\{1}", thumbNailImagePath, imageName);
+                string fullImagePath = string.Format("{0}\\thumb{1}", thumbNailImagePath, imageName);
 
                 //If the thumbnail has been previously downloaded, no need to download it again, just use the current one
                 if (!File.Exists(fullImagePath))
                 {
-                    if (!DownloadImage(fullImagePath, imageFullUrl))
+                    if (!DownloadHelper.DownloadImage(fullImagePath, imageFullUrl))
                         throw new Exception("Error downloading image.");
                 }
 
@@ -174,31 +220,6 @@ namespace NasaPicOfDay
                 ExceptionManager.WriteException(ex);
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Handles the actual image download and saving to the user's file system (My Pictures)
-        /// </summary>
-        /// <param name="destinationDir">Physical location of the My Pictures directory on the user's system</param>
-        /// <param name="imageUrl">The NASA url to retrieve the image from</param>
-        /// <returns>True if the download was successful; otherwise false is returned.</returns>
-        private bool DownloadImage(string destinationDir, string imageUrl)
-        {
-            try
-            {
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadFile(imageUrl, destinationDir);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ExceptionManager.WriteException(ex);
-                return false;
-            }
-
         }
     }
 }
