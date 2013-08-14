@@ -20,7 +20,7 @@
     
     NSArray *titleDesc = nil;
     // http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=50&offset=0&Routes=1446
-    NSURL *myURL = [NSURL URLWithString:@"http://www.nasa.gov/ws/image_gallery.jsonp?limit=1"];
+    NSURL *myURL = [NSURL URLWithString:@"http://www.nasa.gov/ws/image_gallery.jsonp?limit=1&routes=1446"];
     
     NSData* data = [NSData dataWithContentsOfURL:myURL options:0 error:&err];
     
