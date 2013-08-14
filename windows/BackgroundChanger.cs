@@ -16,7 +16,7 @@ namespace NasaPicOfDay
         private static extern Int32 SystemParametersInfo(UInt32 uiAction, UInt32 uiParam, String pvParam, UInt32 fWinIni);
         private static UInt32 SPI_SETDESKWALLPAPER = 20;
         private static UInt32 SPIF_UPDATEINIFILE = 0x1;
-        private string _nasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=1&offset={0}&Routes=1446";
+        private string _nasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=1&offset={0}";
         private string _nasaImageBaseUrl = "http://www.nasa.gov";
         private string _currentScreenResolution;
         private int _defaultimageOffset = 0;
