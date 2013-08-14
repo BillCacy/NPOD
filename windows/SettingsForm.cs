@@ -9,7 +9,7 @@ namespace NasaPicOfDay
         private int _TotalDocImageCount = 0;
         private int _CurrentImagePosition = 0;
         private int _TotalNumberOfImages = 0;
-        private string _NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=50&offset={0}";
+        private string _NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=50&offset={0}&routes=1446";
         private string _NasaImageBaseUrl = "http://www.nasa.gov";
         private NasaImages _Images;
         private int _CurrentOffset = 0;
