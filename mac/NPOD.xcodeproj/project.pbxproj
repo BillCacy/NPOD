@@ -10,6 +10,7 @@
 		996C725F172366E4004CCB10 /* icon_20x20.png in Resources */ = {isa = PBXBuildFile; fileRef = 996C725E172366E4004CCB10 /* icon_20x20.png */; };
 		996C7261172366E8004CCB10 /* icon_hover_20x20.png in Resources */ = {isa = PBXBuildFile; fileRef = 996C7260172366E8004CCB10 /* icon_hover_20x20.png */; };
 		996C726517236A29004CCB10 /* BackgroundChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 996C726417236A29004CCB10 /* BackgroundChanger.m */; };
+		99E5622417C80FE300ECF81F /* NPOD.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 99E5622317C80FE300ECF81F /* NPOD.iconset */; };
 		DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4F7C0813C30F9F00825C6E /* Cocoa.framework */; };
 		DD4F7C1513C30F9F00825C6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1413C30F9F00825C6E /* main.m */; };
 		DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */; };
@@ -27,6 +28,7 @@
 		996C7260172366E8004CCB10 /* icon_hover_20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_hover_20x20.png; sourceTree = "<group>"; };
 		996C726317236A29004CCB10 /* BackgroundChanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundChanger.h; sourceTree = "<group>"; };
 		996C726417236A29004CCB10 /* BackgroundChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundChanger.m; sourceTree = "<group>"; };
+		99E5622317C80FE300ECF81F /* NPOD.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = NPOD.iconset; sourceTree = "<group>"; };
 		DD4F7C0413C30F9F00825C6E /* NPOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NPOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0813C30F9F00825C6E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DD4F7C0B13C30F9F00825C6E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -80,6 +82,7 @@
 				DD4F7C0713C30F9F00825C6E /* Frameworks */,
 				DD4F7C0513C30F9F00825C6E /* Products */,
 				DD4F7C1013C30F9F00825C6E /* NPOD-Info.plist */,
+				99E5622317C80FE300ECF81F /* NPOD.iconset */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +233,7 @@
 				DD4F7C4113C31B4A00825C6E /* Panel.xib in Resources */,
 				996C725F172366E4004CCB10 /* icon_20x20.png in Resources */,
 				996C7261172366E8004CCB10 /* icon_hover_20x20.png in Resources */,
+				99E5622417C80FE300ECF81F /* NPOD.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
