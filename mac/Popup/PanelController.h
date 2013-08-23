@@ -20,13 +20,17 @@
     __unsafe_unretained id<PanelControllerDelegate> _delegate;
     __unsafe_unretained NSSearchField *_searchField;
     __unsafe_unretained NSTextField *_iotdTitle;
-    __unsafe_unretained NSTextField *_iotdDescription;
+    __unsafe_unretained NSTextView *_iotdDescription;
+    __unsafe_unretained NSTextField *_iotdUpdateStatus;
 }
 
 @property (nonatomic, unsafe_unretained) IBOutlet BackgroundView *backgroundView;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSearchField *searchField;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *iotdTitle;
-@property (nonatomic, unsafe_unretained) IBOutlet NSTextField *iotdDescription;
+@property (nonatomic, unsafe_unretained) IBOutlet NSTextView *iotdDescription;
+@property (nonatomic, unsafe_unretained) IBOutlet NSTextField *iotdUpdateStatus;
+@property (nonatomic, strong) NSString *iotdTitleText;
+@property (nonatomic, strong) NSString *iotdDescriptionText;
 //@property (nonatomic, unsafe_unretained) NSArray *titleDesc;
 
 @property (nonatomic) BOOL hasActivePanel;

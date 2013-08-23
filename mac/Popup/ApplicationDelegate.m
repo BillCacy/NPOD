@@ -1,9 +1,12 @@
 #import "ApplicationDelegate.h"
+#import "BackgroundChanger.h"
 
 @implementation ApplicationDelegate
 
 @synthesize panelController = _panelController;
 @synthesize menubarController = _menubarController;
+@synthesize iotdTitle = _iotdTitle;
+@synthesize iotdDescription = _iotdDescription;
 
 #pragma mark -
 
@@ -32,6 +35,18 @@ void *kContextActivePanel = &kContextActivePanel;
 {
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
+    
+    //Update Wallpaper.
+    BackgroundChanger *bc = [BackgroundChanger new];
+    NSArray *titleDesc = [bc setWallpaper];
+    if(titleDesc) {
+        _iotdTitle = [titleDesc objectAtIndex:0];
+        _iotdDescription = [titleDesc objectAtIndex:1];
+    }
+    else {
+        _iotdTitle = @"There was a problem downloading the image.";
+        _iotdDescription = @"";
+    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -56,6 +71,8 @@ void *kContextActivePanel = &kContextActivePanel;
     if (_panelController == nil) {
         _panelController = [[PanelController alloc] initWithDelegate:self];
         [_panelController addObserver:self forKeyPath:@"hasActivePanel" options:0 context:kContextActivePanel];
+        _panelController.iotdTitleText = _iotdTitle;
+        _panelController.iotdDescriptionText = _iotdDescription;
     }
     return _panelController;
 }

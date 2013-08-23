@@ -10,7 +10,7 @@
 #define SEARCH_INSET 17
 
 #define POPUP_HEIGHT 300//122
-#define PANEL_WIDTH 550//280
+#define PANEL_WIDTH 539//280
 #define MENU_ANIMATION_DURATION .1
 
 #pragma mark -
@@ -22,6 +22,9 @@
 @synthesize searchField = _searchField;
 @synthesize iotdTitle = _iotdTitle;
 @synthesize iotdDescription = _iotdDescription;
+@synthesize iotdUpdateStatus = _iotdUpdateStatus;
+@synthesize iotdTitleText = _iotdTitleText;
+@synthesize iotdDescriptionText = _iotdDescriptionText;
 
 #pragma mark -
 
@@ -61,11 +64,31 @@
     // Follow search string
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidChangeNotification object:self.searchField];
     
-    //set the title and desc with values from the menubarcontroller.
-    BackgroundChanger *bc = [BackgroundChanger new];
-    NSArray *titleDesc = [bc setWallpaper];
-    [_iotdTitle setStringValue:[titleDesc objectAtIndex:0]];
-    [_iotdDescription setStringValue:[titleDesc objectAtIndex:1]];
+    //set the title and desc.
+    [_iotdTitle setStringValue:_iotdTitleText];//_iotdTitleText @"LSKSDFLKJSDF SDLJKSDLFJSD SDLKJSDLFJSDF LKJASDF ASDF ASDFASDFASDFAASDFASD"
+    [_iotdTitle setSelectable:YES];
+    //[_iotdTitle sizeToFit];
+    
+    /*
+    if (_iotdTitle.frame.size.width > 500) {
+        
+        CGRect frame = _iotdTitle.frame;
+        frame.size.width = 500;
+        frame.size.height = 17*2;
+        _iotdTitle.frame = frame;
+        
+    }
+     */
+    
+    /*CGRect frame = _iotdTitle.frame;
+    frame.size.height = _iotdTitle.attributedStringValue.size.height+20;
+    _iotdTitle.frame = frame;*/
+    //[_iotdTitle sizeToFit];
+    [_iotdDescription insertText:_iotdDescriptionText];
+    [_iotdDescription setSelectable:YES];
+    [_iotdDescription setEditable:NO];
+    [_iotdDescription setTextContainerInset:NSMakeSize(10.0f, 0.0f)];
+    
 }
 
 #pragma mark - Public accessors
@@ -165,8 +188,8 @@
     {
         searchFormat = NSLocalizedString(@"Search for ‘%@’…", @"Format for search request");
     }
-    NSString *searchRequest = [NSString stringWithFormat:searchFormat, searchString];
-    [self.iotdDescription setStringValue:searchRequest];
+    //NSString *searchRequest = [NSString stringWithFormat:searchFormat, searchString];
+    //[self.iotdDescription setStringValue:searchRequest];
 }
 
 #pragma mark - Public methods
@@ -198,6 +221,7 @@
 
 - (void)openPanel
 {
+    [_iotdUpdateStatus setStringValue:@""];
     NSWindow *panel = [self window];
     
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
@@ -254,6 +278,32 @@
         
         [self.window orderOut:nil];
     });
+}
+
+- (IBAction)exitNPOD:sender
+{
+    // exit the application
+    [[NSApplication sharedApplication] terminate:nil];
+}
+
+- (IBAction)updateNPOD:sender
+{
+    // try to get a new image of the day
+    BackgroundChanger *bc = [BackgroundChanger new];
+    NSArray *titleDesc = [bc setWallpaper];
+    if(titleDesc) {
+        if([[titleDesc objectAtIndex:0] isEqualToString:[_iotdTitle stringValue]]) {
+            // show current image is latest message.
+            //NSLog(@"test");
+            [_iotdUpdateStatus setStringValue:@"The latest image is already set."];
+        }
+        [_iotdTitle setStringValue:[titleDesc objectAtIndex:0]];
+        [_iotdDescription insertText:[titleDesc objectAtIndex:1]];
+    }
+    else {
+        [_iotdUpdateStatus setStringValue:@"Error downloading image."];
+        //show error message.
+    }
 }
 
 @end

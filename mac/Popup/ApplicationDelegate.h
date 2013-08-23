@@ -5,6 +5,8 @@
 
 @property (nonatomic, strong) MenubarController *menubarController;
 @property (nonatomic, strong, readonly) PanelController *panelController;
+@property (nonatomic, strong) NSString *iotdTitle;
+@property (nonatomic, strong) NSString *iotdDescription;
 
 - (IBAction)togglePanel:(id)sender;
 
