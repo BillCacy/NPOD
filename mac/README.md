@@ -1,7 +1,7 @@
-# Popup
+# NPOD (Mac Version)
 
-Popup project is a demo with custom popover window appearing from the icon in the Mac OS X status bar.
+This folder contains the xcode project files for the NPOD app.
 
-# License
+### Special thanks
 
-Popup is licensed under the BSD license.
+To Vadim Shpakovski for the [Popup project](https://github.com/shpakovski/Popup) which was used by this app.
