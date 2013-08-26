@@ -38,7 +38,7 @@ void *kContextActivePanel = &kContextActivePanel;
     
     //Update Wallpaper.
     BackgroundChanger *bc = [BackgroundChanger new];
-    NSArray *titleDesc = [bc setWallpaper];
+    NSArray *titleDesc = [bc setWallpaper:nil];
     if(titleDesc) {
         _iotdTitle = [titleDesc objectAtIndex:0];
         _iotdDescription = [titleDesc objectAtIndex:1];

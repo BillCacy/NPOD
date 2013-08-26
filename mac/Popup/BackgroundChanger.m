@@ -4,7 +4,7 @@
 
 @synthesize receivedData;
 
--(NSArray *)setWallpaper
+-(NSArray *)setWallpaper:(NSString *)currentTitle
 {
     // 
     // get first <ig> under root. This is the latest image of the day.
@@ -44,7 +44,12 @@
             NSString     *iotdDescriptionString = [latestImageObj objectForKey: @"trimmed_image_caption"];
             
             titleDesc = [NSArray arrayWithObjects:iotdTitleString, iotdDescriptionString, nil ];
-                        
+            
+            if([iotdTitleString isEqualToString:currentTitle]) {
+                
+                return titleDesc;
+            }
+            
             //titleDesc = [NSArray arrayWithObjects:iotdTitleString, iotdDescriptionString, nil ];
             
             //[iotdTitle setStringValue:iotdTitleString];

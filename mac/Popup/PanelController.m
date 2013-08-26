@@ -65,26 +65,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runSearch) name:NSControlTextDidChangeNotification object:self.searchField];
     
     //set the title and desc.
-    [_iotdTitle setStringValue:_iotdTitleText];//_iotdTitleText @"LSKSDFLKJSDF SDLJKSDLFJSD SDLKJSDLFJSDF LKJASDF ASDF ASDFASDFASDFAASDFASD"
+    [_iotdTitle setStringValue:_iotdTitleText];
     [_iotdTitle setSelectable:YES];
-    //[_iotdTitle sizeToFit];
     
-    /*
-    if (_iotdTitle.frame.size.width > 500) {
-        
-        CGRect frame = _iotdTitle.frame;
-        frame.size.width = 500;
-        frame.size.height = 17*2;
-        _iotdTitle.frame = frame;
-        
-    }
-     */
-    
-    /*CGRect frame = _iotdTitle.frame;
-    frame.size.height = _iotdTitle.attributedStringValue.size.height+20;
-    _iotdTitle.frame = frame;*/
-    //[_iotdTitle sizeToFit];
-    [_iotdDescription insertText:_iotdDescriptionText];
+    NSString* sI = (__bridge NSString*)CFXMLCreateStringByUnescapingEntities(NULL, (__bridge CFStringRef)_iotdDescriptionText, NULL);
+    NSRange range = NSMakeRange(0, [[_iotdDescription textStorage] length]);
+    [[_iotdDescription textStorage] replaceCharactersInRange:range withString:sI];
     [_iotdDescription setSelectable:YES];
     [_iotdDescription setEditable:NO];
     [_iotdDescription setTextContainerInset:NSMakeSize(10.0f, 0.0f)];
@@ -290,15 +276,18 @@
 {
     // try to get a new image of the day
     BackgroundChanger *bc = [BackgroundChanger new];
-    NSArray *titleDesc = [bc setWallpaper];
+    NSArray *titleDesc = [bc setWallpaper:[_iotdTitle stringValue]];
     if(titleDesc) {
         if([[titleDesc objectAtIndex:0] isEqualToString:[_iotdTitle stringValue]]) {
             // show current image is latest message.
-            //NSLog(@"test");
             [_iotdUpdateStatus setStringValue:@"The latest image is already set."];
         }
+        
         [_iotdTitle setStringValue:[titleDesc objectAtIndex:0]];
-        [_iotdDescription insertText:[titleDesc objectAtIndex:1]];
+        NSString * s = [titleDesc objectAtIndex:1];
+        NSString* sI = (__bridge NSString*)CFXMLCreateStringByUnescapingEntities(NULL, (__bridge CFStringRef)s, NULL);
+        NSRange range = NSMakeRange(0, [[_iotdDescription textStorage] length]);
+        [[_iotdDescription textStorage] replaceCharactersInRange:range withString:sI];
     }
     else {
         [_iotdUpdateStatus setStringValue:@"Error downloading image."];

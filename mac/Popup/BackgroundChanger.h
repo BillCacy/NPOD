@@ -6,6 +6,6 @@
 
 @property (retain) NSMutableData *receivedData;
 
-- (NSArray *)setWallpaper;
+- (NSArray *)setWallpaper:(NSString *)currentTitle;
 
 @end
