@@ -69,6 +69,7 @@
     <Compile Include="ExceptionManager.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="NetworkHelper.cs" />
     <Compile Include="Node2.cs" />
     <Compile Include="NasaImages.cs" />
     <Compile Include="Node.cs" />

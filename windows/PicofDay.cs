@@ -130,6 +130,12 @@ namespace NasaPicOfDay
 
         private void UpdateContent()
         {
+            if (!NetworkHelper.InternetAccessIsAvailable())
+            {
+                MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             BackgroundChanger changer = new BackgroundChanger();
             GlobalVariables.NasaImage = changer.GetImage();
             changer.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
