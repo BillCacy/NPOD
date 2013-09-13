@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_19D718747BB50B093F9A74E935BD1724"
+        "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,6 +35,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_19D718747BB50B093F9A74E935BD1724"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -136,6 +148,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_19D718747BB50B093F9A74E935BD1724"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_19D718747BB50B093F9A74E935BD1724"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_990ECA6589C24CCCBC4B4F483E137E7F"
             {
             "SourcePath" = "8:..\\..\\world.ico"
@@ -234,8 +277,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{0259FAAB-E5CE-4626-AA16-F7E67B89525E}"
-        "PackageCode" = "8:{A8928220-E5B3-448D-AB34-DDFC6CF3D221}"
+        "ProductCode" = "8:{FE84E4E2-5449-44ED-AF5B-455C1C0DB7A7}"
+        "PackageCode" = "8:{6630901F-0C33-4737-BFC3-05FC6F054C8A}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

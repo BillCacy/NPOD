@@ -24,13 +24,12 @@ namespace NasaPicOfDay
             //Checking to see if the application is running
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
+                Application.Run(new PicofDay());
                 if (!NetworkHelper.InternetAccessIsAvailable())
                 {
                     MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Application.Exit();
                 }
-                else
-                    Application.Run(new PicofDay());
             }
             else
             {
@@ -128,6 +127,9 @@ namespace NasaPicOfDay
         //when the form closes, the main controls will be updated with the new image's information.
         void settingsMenuItem_Click(object sender, EventArgs e)
         {
+            SettingsForm settingForm = new SettingsForm();
+            settingForm.ShowDialog();
+
             if (!NetworkHelper.InternetAccessIsAvailable())
             {
                 MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -135,9 +137,6 @@ namespace NasaPicOfDay
             }
             else
             {
-                SettingsForm settingForm = new SettingsForm();
-                settingForm.ShowDialog();
-
                 UpdateControlContent();
             }
         }
