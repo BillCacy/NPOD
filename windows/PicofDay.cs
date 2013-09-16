@@ -156,17 +156,6 @@ namespace NasaPicOfDay
 
         private void UpdateContent()
         {
-            ProcessHelper processHelper = new ProcessHelper();
-            processHelper.BackgroundLoading(TestInternetConnection);
-            processHelper.Start();
-            processHelper = null;
-
-            if (!internetAvailable)
-            {
-                MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             BackgroundChanger changer = new BackgroundChanger();
             GlobalVariables.NasaImage = changer.GetImage();
             changer.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
@@ -233,6 +222,17 @@ namespace NasaPicOfDay
         }
         private void updateMenuItem_Click(object sender, EventArgs e)
         {
+            ProcessHelper processHelper = new ProcessHelper();
+            processHelper.BackgroundLoading(TestInternetConnection);
+            processHelper.Start();
+            processHelper = null;
+
+            if (!internetAvailable)
+            {
+                MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             UpdateContent();
         }
         private void btnClose_Click(object sender, EventArgs e)
