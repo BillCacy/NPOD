@@ -25,16 +25,25 @@ namespace NasaPicOfDay
             //Checking to see if the application is running
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-                Application.Run(new PicofDay());
                 if (!NetworkHelper.InternetAccessIsAvailable())
                 {
                     MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Application.Exit();
+                    Environment.Exit(Environment.ExitCode);
+                }
+                else
+                {
+                    //Application is not currently running and there is an available internet connection
+                    Application.Run(new PicofDay());
                 }
             }
             else
             {
-                //Not doing anyting since the application is already running
+                //If application is already running and there is no internet connection available, close the application
+                if (!NetworkHelper.InternetAccessIsAvailable())
+                {
+                    MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Application.ExitThread();
+                }
             }
         }
         protected override void OnLoad(EventArgs e)
@@ -215,6 +224,7 @@ namespace NasaPicOfDay
             appTimer.Stop();
             appTimer = null;
             this.Close();
+            Environment.Exit(Environment.ExitCode);
         }
         private void detailsMenuItem_Click(object Sender, EventArgs e)
         {
