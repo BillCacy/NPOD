@@ -33,6 +33,9 @@ void *kContextActivePanel = &kContextActivePanel;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    // add app to login items.
+    [self addAppAsLoginItem];
+    
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
     
@@ -82,6 +85,33 @@ void *kContextActivePanel = &kContextActivePanel;
 - (StatusItemView *)statusItemViewForPanelController:(PanelController *)controller
 {
     return self.menubarController.statusItemView;
+}
+
+-(void) addAppAsLoginItem{
+	NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    
+	// This will retrieve the path for the application
+	// For example, /Applications/test.app
+	CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
+    
+	// Create a reference to the shared file list.
+    // We are adding it to the current user only.
+    // If we want to add it all users, use
+    // kLSSharedFileListGlobalLoginItems instead of
+    //kLSSharedFileListSessionLoginItems
+	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+                                                            kLSSharedFileListSessionLoginItems, NULL);
+	if (loginItems) {
+		//Insert an item to the list.
+		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
+                                                                     kLSSharedFileListItemLast, NULL, NULL,
+                                                                     url, NULL, NULL);
+		if (item){
+			CFRelease(item);
+        }
+	}
+    
+	CFRelease(loginItems);
 }
 
 @end
