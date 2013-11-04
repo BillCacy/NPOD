@@ -7,6 +7,7 @@ namespace NasaPicOfDay
 {
     public partial class PicofDay : Form
     {
+        private bool internetAvailable = true;
         private NotifyIcon notifyIcon1;
         private ContextMenu contextMenu1;
         private MenuItem exitMenuItem;
@@ -24,11 +25,25 @@ namespace NasaPicOfDay
             //Checking to see if the application is running
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-                Application.Run(new PicofDay());
+                if (!NetworkHelper.InternetAccessIsAvailable())
+                {
+                    MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Environment.Exit(Environment.ExitCode);
+                }
+                else
+                {
+                    //Application is not currently running and there is an available internet connection
+                    Application.Run(new PicofDay());
+                }
             }
             else
             {
-                //Not doing anyting since the application is already running
+                //If application is already running and there is no internet connection available, close the application
+                if (!NetworkHelper.InternetAccessIsAvailable())
+                {
+                    MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Application.ExitThread();
+                }
             }
         }
         protected override void OnLoad(EventArgs e)
@@ -109,8 +124,6 @@ namespace NasaPicOfDay
 
                 // Set up how the form should be displayed.
                 this.TopMost = true;
-
-
             }
             catch (Exception ex)
             {
@@ -122,10 +135,23 @@ namespace NasaPicOfDay
         //when the form closes, the main controls will be updated with the new image's information.
         void settingsMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settingForm = new SettingsForm();
-            settingForm.ShowDialog();
+            ProcessHelper processHelper = new ProcessHelper();
+            processHelper.BackgroundLoading(TestInternetConnection);
+            processHelper.Start();
+            processHelper = null;
 
-            UpdateControlContent();
+            //Present the message that an internet connection is required
+            if (!internetAvailable)
+            {
+                MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                SettingsForm settingForm = new SettingsForm();
+                settingForm.ShowDialog();
+                UpdateControlContent();
+            }
         }
 
         private void UpdateContent()
@@ -187,6 +213,7 @@ namespace NasaPicOfDay
             appTimer.Stop();
             appTimer = null;
             this.Close();
+            Environment.Exit(Environment.ExitCode);
         }
         private void detailsMenuItem_Click(object Sender, EventArgs e)
         {
@@ -195,6 +222,17 @@ namespace NasaPicOfDay
         }
         private void updateMenuItem_Click(object sender, EventArgs e)
         {
+            ProcessHelper processHelper = new ProcessHelper();
+            processHelper.BackgroundLoading(TestInternetConnection);
+            processHelper.Start();
+            processHelper = null;
+
+            if (!internetAvailable)
+            {
+                MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             UpdateContent();
         }
         private void btnClose_Click(object sender, EventArgs e)
@@ -205,6 +243,11 @@ namespace NasaPicOfDay
         private void lnkURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
+
+        private void TestInternetConnection()
+        {
+            internetAvailable = NetworkHelper.InternetAccessIsAvailable();
         }
     }
 }
