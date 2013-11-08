@@ -39,6 +39,59 @@ void *kContextActivePanel = &kContextActivePanel;
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
     
+    [self updateWallpaper];
+    
+    //calculate the n seconds until 10:30am EST
+    
+    //get current date and time.
+    // either as a timeinterval since a reference date, or as a date object.
+    
+    //get the hours and minutes of the current time and determine if the time is before or after 10:30 am.
+    //get a string of the month day and year of the current date.
+    // add to the string the gmt hours
+    // NSDate *exp=[[NSDate alloc] initWithString:@"2011-01-07 10:30:00 -0500"]
+    // get the timeinterval between the current datetime and the 1030 datetime.
+    // if it is greater than zero set the timer to happen after that interval.
+    // otherwise add 1 day to the 1030 datetime calculate the interval again and set the timer to happen after that interval.
+    
+    //start a timer to check for a new wallpaper after n seconds. timer should repeat every 24 hours.
+    NSDate *now = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    
+    NSString *formattedDateString = [dateFormatter stringFromDate:now];
+    NSString *string1030 = [formattedDateString stringByAppendingString:@" 10:30:00 -0500"];
+    NSDate *now1030 = [NSDate dateWithString:string1030];
+    //NSLog(@"formattedDateString: %@", formattedDateString);
+    NSTimeInterval timeTil1030 = [now1030 timeIntervalSinceDate:now];
+    
+    if(timeTil1030 <= 0) {
+        now1030 = [now1030 dateByAddingTimeInterval:86400];
+        timeTil1030 = [now1030 timeIntervalSinceDate:now]; 
+    }
+    [NSTimer scheduledTimerWithTimeInterval:timeTil1030 target:self selector:@selector(update1030:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:NO];
+    
+    //NSLog(@"timeTil1030:%f", timeTil1030);
+    
+}
+
+- (void)update1030:(NSTimer*)theTimer {
+    NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
+    NSLog(@"Timer started on %@", startDate);
+    [self updateWallpaper];
+    [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(update24:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+}
+
+- (void)update24:(NSTimer*)theTimer {
+    NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
+    NSLog(@"Timer started on %@", startDate);
+    [self updateWallpaper];
+}
+
+- (void)updateWallpaper {
     //Update Wallpaper.
     BackgroundChanger *bc = [BackgroundChanger new];
     NSArray *titleDesc = [bc setWallpaper:nil];
