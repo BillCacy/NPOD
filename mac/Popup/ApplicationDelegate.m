@@ -1,8 +1,11 @@
 #import "ApplicationDelegate.h"
 #import "BackgroundChanger.h"
+#import "ZipArchive.h"
+#import "NSApplication+Relaunch.h"
 
 @implementation ApplicationDelegate
 
+@synthesize receivedData;
 @synthesize panelController = _panelController;
 @synthesize menubarController = _menubarController;
 @synthesize iotdTitle = _iotdTitle;
@@ -41,47 +44,41 @@ void *kContextActivePanel = &kContextActivePanel;
     
     [self updateWallpaper];
     
-    //calculate the n seconds until 10:30am EST
+    [self checkForUpdate];
     
-    //get current date and time.
-    // either as a timeinterval since a reference date, or as a date object.
-    
-    //get the hours and minutes of the current time and determine if the time is before or after 10:30 am.
-    //get a string of the month day and year of the current date.
-    // add to the string the gmt hours
-    // NSDate *exp=[[NSDate alloc] initWithString:@"2011-01-07 10:30:00 -0500"]
-    // get the timeinterval between the current datetime and the 1030 datetime.
-    // if it is greater than zero set the timer to happen after that interval.
-    // otherwise add 1 day to the 1030 datetime calculate the interval again and set the timer to happen after that interval.
-    
-    //start a timer to check for a new wallpaper after n seconds. timer should repeat every 24 hours.
+    //get current datetime
     NSDate *now = [NSDate date];
     
+    //get the current month day and year as a string.
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setLocale:usLocale];
-    
     NSString *formattedDateString = [dateFormatter stringFromDate:now];
+    
+    //create a new date object for today at 10:30a EST (GMT-5)
     NSString *string1030 = [formattedDateString stringByAppendingString:@" 10:30:00 -0500"];
     NSDate *now1030 = [NSDate dateWithString:string1030];
-    //NSLog(@"formattedDateString: %@", formattedDateString);
+    
+    //Get the number of seconds between current time and today at 10:30a EST.
     NSTimeInterval timeTil1030 = [now1030 timeIntervalSinceDate:now];
     
+    //if it's already past 10:30 today.
     if(timeTil1030 <= 0) {
+        // set date to tomorrow at 10:30 by adding 24 hours.
         now1030 = [now1030 dateByAddingTimeInterval:86400];
+        // Get the number of seconds between current time and tomorrow at 10:30a EST. 
         timeTil1030 = [now1030 timeIntervalSinceDate:now]; 
     }
+    //create a timer to update the wallpaper after the time interval calculated above has elapsed.
     [NSTimer scheduledTimerWithTimeInterval:timeTil1030 target:self selector:@selector(update1030:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:NO];
-    
-    //NSLog(@"timeTil1030:%f", timeTil1030);
-    
 }
 
 - (void)update1030:(NSTimer*)theTimer {
     NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
     NSLog(@"Timer started on %@", startDate);
     [self updateWallpaper];
+    // create a new timer that will fire after 24 hours and repeats until the app is closed.
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(update24:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
 }
 
@@ -102,6 +99,60 @@ void *kContextActivePanel = &kContextActivePanel;
     else {
         _iotdTitle = @"There was a problem downloading the image.";
         _iotdDescription = @"";
+    }
+}
+
+- (void)checkForUpdate {
+    NSError *err = nil;
+    
+    // start putting the version number in the build.
+    // compare the version number of the running app to the version number from github in the .app package's info.plist xml file.
+    double currentVersion = [[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
+    NSLog(@"%f",currentVersion);
+    NSString *currentVersionStr = [NSString stringWithFormat:@"%.2f", currentVersion];
+    //https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist
+    //[[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
+    
+    NSURL *myURL2 = [NSURL URLWithString:@"https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist"];
+    NSXMLDocument *iotdxml = [[NSXMLDocument alloc] initWithContentsOfURL:myURL2 options:0 error:&err];
+    
+    NSArray *nodes = [iotdxml nodesForXPath:@"./plist[1]/dict[1]/key[text()='CFBundleShortVersionString']"
+                                      error:&err];
+    NSXMLNode *versionNode = [[nodes objectAtIndex:0] nextSibling];
+    double latestVersion = [[versionNode stringValue] doubleValue];
+    NSString *latestVersionStr = [NSString stringWithFormat:@"%.2f", latestVersion];
+    NSLog(@"%f",latestVersion);
+    
+    if(latestVersion > currentVersion) {
+        //ask the user if they would like to update to the latest version.
+        //if they choose yes, continue to update.
+        //if they choose no, don't update.
+        
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        NSString *msgTxt = [[[[@"A new version of NASA Pic Of The Day is available!\n\nCurrent Version: " stringByAppendingString:currentVersionStr] stringByAppendingString:@"\nLatest Version: "] stringByAppendingString:latestVersionStr] stringByAppendingString:@"\n\nWould you like to update now?"];
+        [alert setMessageText:msgTxt];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        
+        if ([alert runModal] == NSAlertFirstButtonReturn) {
+            // Yes clicked, get the new version and install it.
+            //download npod.zip from github to users downloads folder.
+            NSURL *downloadURL = [NSURL URLWithString:@"https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip"];
+            NSURLRequest *theRequest=[NSURLRequest requestWithURL:downloadURL
+                                                      cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                  timeoutInterval:60.0];
+            // create the connection with the request
+            // and start loading the data
+            NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+            if (theConnection) {
+                // Create the NSMutableData to hold the received data.
+                // receivedData is an instance variable declared elsewhere.
+                receivedData = [NSMutableData data];
+            } else {
+                // Inform the user that the connection failed.
+            }
+        }
     }
 }
 
@@ -165,6 +216,84 @@ void *kContextActivePanel = &kContextActivePanel;
 	}
     
 	CFRelease(loginItems);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    // This method is called when the server has determined that it
+    // has enough information to create the NSURLResponse.
+    
+    // It can be called multiple times, for example in the case of a
+    // redirect, so each time we reset the data.
+    
+    // receivedData is an instance variable declared elsewhere.
+    [receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    // Append the new data to receivedData.
+    // receivedData is an instance variable declared elsewhere.
+    [receivedData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection
+  didFailWithError:(NSError *)error
+{
+    // release the connection, and the data object
+    //[connection release];
+    // receivedData is declared as a method instance elsewhere
+    //[receivedData release];
+    
+    // inform the user
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    // do something with the data
+    // receivedData is declared as a method instance elsewhere
+    NSLog(@"Succeeded! Received %ld bytes of data",[receivedData length]);
+    
+    NSString *writeToFile = [@"~/Downloads/NPOD.zip" stringByExpandingTildeInPath];
+    
+    if ([receivedData writeToFile:writeToFile
+                       atomically:YES])
+    {
+        // It was successful, do stuff here
+        //extract it
+        ZipArchive *zipArchive = [[ZipArchive alloc] init];
+        [zipArchive UnzipOpenFile:writeToFile Password:@""];
+        NSString *unzipDir = [@"~/Downloads/" stringByExpandingTildeInPath];
+        [zipArchive UnzipFileTo:unzipDir overWrite:YES];
+        [zipArchive UnzipCloseFile];
+        NSString *newVersionPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app"];
+        NSLog(@"%@", newVersionPath);
+        NSString *appPath = @"/Applications/NPOD.app";
+
+        if ( [[NSFileManager defaultManager] isDeletableFileAtPath:appPath] ) {
+            //copy npod.app to /applications replacing the existing app.
+            if ( [[NSFileManager defaultManager] isReadableFileAtPath:newVersionPath] ) {
+                [[NSFileManager defaultManager] removeItemAtPath:appPath error:nil];
+                [[NSFileManager defaultManager] moveItemAtPath:newVersionPath toPath:appPath error:nil];
+            }
+        }
+        
+        //delete npod.zip from downloads folder.
+        if ( [[NSFileManager defaultManager] isDeletableFileAtPath:[unzipDir stringByAppendingPathComponent:@"NPOD.zip"]] ) {
+            [[NSFileManager defaultManager] removeItemAtPath:[unzipDir stringByAppendingPathComponent:@"NPOD.zip"] error:nil];
+        }
+        
+        //restart the app.
+        [NSApp relaunch:nil];
+        
+    }
+    else
+    {
+        // There was a problem writing the file
+    }
 }
 
 @end
