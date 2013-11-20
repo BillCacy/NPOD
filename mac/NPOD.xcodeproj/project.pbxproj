@@ -536,6 +536,7 @@
 				996941DE1836A565007D8BC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DD4F7BFE13C30F9F00825C6E /* Build configuration list for PBXProject "NPOD" */ = {
 			isa = XCConfigurationList;
