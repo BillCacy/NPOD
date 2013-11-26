@@ -28,114 +28,139 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
-            this.btnBackImage = new System.Windows.Forms.Button();
-            this.btnCurrentImage = new System.Windows.Forms.Button();
-            this.btnForwardImage = new System.Windows.Forms.Button();
-            this.btnSetImage = new System.Windows.Forms.Button();
-            this.btnCloseSettings = new System.Windows.Forms.Button();
-            this.picBoxCurrentImg = new System.Windows.Forms.PictureBox();
-            this.lblCount = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCurrentImg)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // btnBackImage
-            // 
-            this.btnBackImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackImage.Location = new System.Drawing.Point(120, 12);
-            this.btnBackImage.Name = "btnBackImage";
-            this.btnBackImage.Size = new System.Drawing.Size(75, 23);
-            this.btnBackImage.TabIndex = 0;
-            this.btnBackImage.Text = "<< Back";
-            this.btnBackImage.UseVisualStyleBackColor = true;
-            this.btnBackImage.Click += new System.EventHandler(this.btnBackImage_Click);
-            // 
-            // btnCurrentImage
-            // 
-            this.btnCurrentImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCurrentImage.Location = new System.Drawing.Point(201, 12);
-            this.btnCurrentImage.Name = "btnCurrentImage";
-            this.btnCurrentImage.Size = new System.Drawing.Size(75, 23);
-            this.btnCurrentImage.TabIndex = 1;
-            this.btnCurrentImage.Text = "Today\'s";
-            this.btnCurrentImage.UseVisualStyleBackColor = true;
-            this.btnCurrentImage.Click += new System.EventHandler(this.btnCurrentImage_Click);
-            // 
-            // btnForwardImage
-            // 
-            this.btnForwardImage.Enabled = false;
-            this.btnForwardImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForwardImage.Location = new System.Drawing.Point(279, 12);
-            this.btnForwardImage.Name = "btnForwardImage";
-            this.btnForwardImage.Size = new System.Drawing.Size(89, 23);
-            this.btnForwardImage.TabIndex = 2;
-            this.btnForwardImage.Text = "Forward >>";
-            this.btnForwardImage.UseVisualStyleBackColor = true;
-            this.btnForwardImage.Click += new System.EventHandler(this.btnForwardImage_Click);
-            // 
-            // btnSetImage
-            // 
-            this.btnSetImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetImage.Location = new System.Drawing.Point(120, 347);
-            this.btnSetImage.Name = "btnSetImage";
-            this.btnSetImage.Size = new System.Drawing.Size(248, 23);
-            this.btnSetImage.TabIndex = 3;
-            this.btnSetImage.Text = "Set this image as desktop backround";
-            this.btnSetImage.UseVisualStyleBackColor = true;
-            this.btnSetImage.Click += new System.EventHandler(this.btnSetImage_Click);
-            // 
-            // btnCloseSettings
-            // 
-            this.btnCloseSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSettings.Location = new System.Drawing.Point(201, 376);
-            this.btnCloseSettings.Name = "btnCloseSettings";
-            this.btnCloseSettings.Size = new System.Drawing.Size(75, 23);
-            this.btnCloseSettings.TabIndex = 4;
-            this.btnCloseSettings.Text = "Close";
-            this.btnCloseSettings.UseVisualStyleBackColor = true;
-            this.btnCloseSettings.Click += new System.EventHandler(this.btnCloseSettings_Click);
-            // 
-            // picBoxCurrentImg
-            // 
-            this.picBoxCurrentImg.Location = new System.Drawing.Point(11, 82);
-            this.picBoxCurrentImg.Name = "picBoxCurrentImg";
-            this.picBoxCurrentImg.Size = new System.Drawing.Size(466, 248);
-            this.picBoxCurrentImg.TabIndex = 5;
-            this.picBoxCurrentImg.TabStop = false;
-            // 
-            // lblCount
-            // 
-            this.lblCount.AutoSize = true;
-            this.lblCount.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCount.Location = new System.Drawing.Point(198, 52);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(39, 16);
-            this.lblCount.TabIndex = 6;
-            this.lblCount.Text = "label1";
-            // 
-            // SettingsForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 408);
-            this.Controls.Add(this.lblCount);
-            this.Controls.Add(this.picBoxCurrentImg);
-            this.Controls.Add(this.btnCloseSettings);
-            this.Controls.Add(this.btnSetImage);
-            this.Controls.Add(this.btnForwardImage);
-            this.Controls.Add(this.btnCurrentImage);
-            this.Controls.Add(this.btnBackImage);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "SettingsForm";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NPOD Settings";
-            this.Load += new System.EventHandler(this.SettingsForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCurrentImg)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
+			this.btnBackImage = new System.Windows.Forms.Button();
+			this.btnCurrentImage = new System.Windows.Forms.Button();
+			this.btnForwardImage = new System.Windows.Forms.Button();
+			this.btnSetImage = new System.Windows.Forms.Button();
+			this.btnCloseSettings = new System.Windows.Forms.Button();
+			this.picBoxCurrentImg = new System.Windows.Forms.PictureBox();
+			this.lblCount = new System.Windows.Forms.Label();
+			this.chkBoxLogging = new System.Windows.Forms.CheckBox();
+			this.btnSaveSettings = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.picBoxCurrentImg)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// btnBackImage
+			// 
+			this.btnBackImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnBackImage.Location = new System.Drawing.Point(120, 12);
+			this.btnBackImage.Name = "btnBackImage";
+			this.btnBackImage.Size = new System.Drawing.Size(75, 23);
+			this.btnBackImage.TabIndex = 0;
+			this.btnBackImage.Text = "<< Back";
+			this.btnBackImage.UseVisualStyleBackColor = true;
+			this.btnBackImage.Click += new System.EventHandler(this.btnBackImage_Click);
+			// 
+			// btnCurrentImage
+			// 
+			this.btnCurrentImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCurrentImage.Location = new System.Drawing.Point(201, 12);
+			this.btnCurrentImage.Name = "btnCurrentImage";
+			this.btnCurrentImage.Size = new System.Drawing.Size(75, 23);
+			this.btnCurrentImage.TabIndex = 1;
+			this.btnCurrentImage.Text = "Today\'s";
+			this.btnCurrentImage.UseVisualStyleBackColor = true;
+			this.btnCurrentImage.Click += new System.EventHandler(this.btnCurrentImage_Click);
+			// 
+			// btnForwardImage
+			// 
+			this.btnForwardImage.Enabled = false;
+			this.btnForwardImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnForwardImage.Location = new System.Drawing.Point(279, 12);
+			this.btnForwardImage.Name = "btnForwardImage";
+			this.btnForwardImage.Size = new System.Drawing.Size(89, 23);
+			this.btnForwardImage.TabIndex = 2;
+			this.btnForwardImage.Text = "Forward >>";
+			this.btnForwardImage.UseVisualStyleBackColor = true;
+			this.btnForwardImage.Click += new System.EventHandler(this.btnForwardImage_Click);
+			// 
+			// btnSetImage
+			// 
+			this.btnSetImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSetImage.Location = new System.Drawing.Point(120, 347);
+			this.btnSetImage.Name = "btnSetImage";
+			this.btnSetImage.Size = new System.Drawing.Size(248, 23);
+			this.btnSetImage.TabIndex = 3;
+			this.btnSetImage.Text = "Set this image as desktop backround";
+			this.btnSetImage.UseVisualStyleBackColor = true;
+			this.btnSetImage.Click += new System.EventHandler(this.btnSetImage_Click);
+			// 
+			// btnCloseSettings
+			// 
+			this.btnCloseSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCloseSettings.Location = new System.Drawing.Point(201, 407);
+			this.btnCloseSettings.Name = "btnCloseSettings";
+			this.btnCloseSettings.Size = new System.Drawing.Size(75, 23);
+			this.btnCloseSettings.TabIndex = 4;
+			this.btnCloseSettings.Text = "Close";
+			this.btnCloseSettings.UseVisualStyleBackColor = true;
+			this.btnCloseSettings.Click += new System.EventHandler(this.btnCloseSettings_Click);
+			// 
+			// picBoxCurrentImg
+			// 
+			this.picBoxCurrentImg.Location = new System.Drawing.Point(11, 82);
+			this.picBoxCurrentImg.Name = "picBoxCurrentImg";
+			this.picBoxCurrentImg.Size = new System.Drawing.Size(466, 248);
+			this.picBoxCurrentImg.TabIndex = 5;
+			this.picBoxCurrentImg.TabStop = false;
+			// 
+			// lblCount
+			// 
+			this.lblCount.AutoSize = true;
+			this.lblCount.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCount.Location = new System.Drawing.Point(198, 52);
+			this.lblCount.Name = "lblCount";
+			this.lblCount.Size = new System.Drawing.Size(39, 16);
+			this.lblCount.TabIndex = 6;
+			this.lblCount.Text = "label1";
+			// 
+			// chkBoxLogging
+			// 
+			this.chkBoxLogging.AutoSize = true;
+			this.chkBoxLogging.Location = new System.Drawing.Point(172, 380);
+			this.chkBoxLogging.Name = "chkBoxLogging";
+			this.chkBoxLogging.Size = new System.Drawing.Size(115, 17);
+			this.chkBoxLogging.TabIndex = 7;
+			this.chkBoxLogging.Text = "Logging is enabled";
+			this.chkBoxLogging.UseVisualStyleBackColor = true;
+			// 
+			// btnSaveSettings
+			// 
+			this.btnSaveSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSaveSettings.Location = new System.Drawing.Point(293, 376);
+			this.btnSaveSettings.Name = "btnSaveSettings";
+			this.btnSaveSettings.Size = new System.Drawing.Size(75, 23);
+			this.btnSaveSettings.TabIndex = 8;
+			this.btnSaveSettings.Text = "Save";
+			this.btnSaveSettings.UseVisualStyleBackColor = true;
+			this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
+			// 
+			// SettingsForm
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(489, 442);
+			this.Controls.Add(this.btnSaveSettings);
+			this.Controls.Add(this.chkBoxLogging);
+			this.Controls.Add(this.lblCount);
+			this.Controls.Add(this.picBoxCurrentImg);
+			this.Controls.Add(this.btnCloseSettings);
+			this.Controls.Add(this.btnSetImage);
+			this.Controls.Add(this.btnForwardImage);
+			this.Controls.Add(this.btnCurrentImage);
+			this.Controls.Add(this.btnBackImage);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "SettingsForm";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "NPOD Settings";
+			this.Load += new System.EventHandler(this.SettingsForm_Load);
+			((System.ComponentModel.ISupportInitialize)(this.picBoxCurrentImg)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
         }
 
@@ -148,5 +173,7 @@
         private System.Windows.Forms.Button btnCloseSettings;
         private System.Windows.Forms.PictureBox picBoxCurrentImg;
         private System.Windows.Forms.Label lblCount;
+		private System.Windows.Forms.CheckBox chkBoxLogging;
+		private System.Windows.Forms.Button btnSaveSettings;
     }
 }

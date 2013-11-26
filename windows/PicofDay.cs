@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Specialized;
+using System.Configuration;
 
 namespace NasaPicOfDay
 {
@@ -22,12 +24,19 @@ namespace NasaPicOfDay
 		[STAThread]
 		static void Main()
 		{
+			//Checking to see if logging is enabled.
+			GlobalVariables.LoggingEnabled = Properties.Settings.Default.LoggingEnabled;
+
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Application starting.");
+
 			//Checking to see if the application is running
 			if (mutex.WaitOne(TimeSpan.Zero, true))
 			{
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking internet connection.");
 				if (!NetworkHelper.InternetAccessIsAvailable())
 				{
 					MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("No internet connection. Application exiting.");
 					Environment.Exit(Environment.ExitCode);
 				}
 				else
@@ -39,6 +48,7 @@ namespace NasaPicOfDay
 			else
 			{
 				//If application is already running and there is no internet connection available, close the application
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Application is already running. But there is not internet connection. Exiting the application.");
 				if (!NetworkHelper.InternetAccessIsAvailable())
 				{
 					MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -63,16 +73,21 @@ namespace NasaPicOfDay
 				appTimer = new System.Windows.Forms.Timer();
 
 				//Checking for updates at 10:30 a.m. EST (GMT-5) everyday
-				DateTime utcTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking the system time for 10:30 update.");
+
+				DateTime utcTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
 
 				//Get the offset for the current time zone
 				TimeSpan utcOffset = TimeZoneInfo.Local.GetUtcOffset(utcTime);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("UTC Offset is {0} in milliseconds.", utcOffset.TotalMilliseconds.ToString()));
 
 				//create the current time with the GMT Offset
 				DateTime currentTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, (int)(utcTime.Hour + utcOffset.Hours), (int)(utcTime.Minute + utcOffset.Minutes), 0);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Current GMT configured time is {0}", currentTime.ToString()));
 
 				//Get the amount of time between now and 10:30 a.m. EST
 				TimeSpan timeUntilEST1030 = ((TimeSpan)(currentTime - DateTime.Now.ToUniversalTime()));
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 [{0}:{1}:{2}]", timeUntilEST1030.Hours, timeUntilEST1030.Minutes, timeUntilEST1030.Seconds));
 
 				if (timeUntilEST1030.Milliseconds <= 0)
 				{
@@ -80,10 +95,12 @@ namespace NasaPicOfDay
 					currentTime = currentTime.AddHours(24);
 					//get the number of milliseconds between currentTime and tomorrow at 10:30 a.m. EST
 					timeUntilEST1030 = ((TimeSpan)(currentTime - DateTime.Now.ToUniversalTime()));
+					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 [{0}:{1}:{2}]", timeUntilEST1030.Hours, timeUntilEST1030.Minutes, timeUntilEST1030.Seconds));
 				}
 
 				//set the interval for the timer
 				appTimer.Interval = (int)timeUntilEST1030.TotalMilliseconds;
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [{0}:{1}:{2}]", timeUntilEST1030.Hours, timeUntilEST1030.Minutes, timeUntilEST1030.Seconds));
 				appTimer.Tick += new EventHandler(appTimer_Tick);
 
 				//Launch the main part of the data retrieval
@@ -165,11 +182,13 @@ namespace NasaPicOfDay
 		//when the form closes, the main controls will be updated with the new image's information.
 		void settingsMenuItem_Click(object sender, EventArgs e)
 		{
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Settings option selected.");
 			ProcessHelper processHelper = new ProcessHelper();
 			processHelper.BackgroundLoading(TestInternetConnection);
 			processHelper.Start();
 			processHelper = null;
 
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking internet connectivity");
 			//Present the message that an internet connection is required
 			if (!internetAvailable)
 			{
@@ -248,11 +267,13 @@ namespace NasaPicOfDay
 		}
 		private void updateMenuItem_Click(object sender, EventArgs e)
 		{
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Update has been requested.");
 			ProcessHelper processHelper = new ProcessHelper();
 			processHelper.BackgroundLoading(TestInternetConnection);
 			processHelper.Start();
 			processHelper = null;
 
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking internet connectivity");
 			if (!internetAvailable)
 			{
 				MessageBox.Show("NASA Pic of the Day requires an internet connection to retrieve images.\r\nPlease check your internet connection and try again.", "Internet Connection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
