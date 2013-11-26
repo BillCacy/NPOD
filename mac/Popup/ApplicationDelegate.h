@@ -3,6 +3,9 @@
 
 @interface ApplicationDelegate : NSObject <NSApplicationDelegate, PanelControllerDelegate>
 
+@property (retain) NSMutableData *receivedData;
+
+
 @property (nonatomic, strong) MenubarController *menubarController;
 @property (nonatomic, strong, readonly) PanelController *panelController;
 @property (nonatomic, strong) NSString *iotdTitle;
