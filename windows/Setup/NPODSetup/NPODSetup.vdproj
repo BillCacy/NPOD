@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "MsmKey" = "8:_291689BD7A48C5C8E827E2B31C5FD59F"
         "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -40,7 +40,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "OwnerKey" = "8:_291689BD7A48C5C8E827E2B31C5FD59F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -148,14 +148,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23E6C5842DCB676C4AD79F274C75E06B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_291689BD7A48C5C8E827E2B31C5FD59F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_23E6C5842DCB676C4AD79F274C75E06B"
+                    "_291689BD7A48C5C8E827E2B31C5FD59F"
                     {
                     "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
@@ -277,15 +277,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{2BA8A897-0EC6-465B-8F21-DF4120A776C4}"
-        "PackageCode" = "8:{0F2DE2C4-3405-4495-8CCF-2F08D1EE7124}"
+        "ProductCode" = "8:{E517CB64-5708-453B-93E2-CF91B530408D}"
+        "PackageCode" = "8:{E1FCC2B9-B266-4824-A781-C1BC7D8B55F2}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.4"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:SpaceAppsChallenge"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -841,7 +841,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_35FFD80318C44D09B1A5DDD3C0317A84"
             {
-            "SourcePath" = "8:..\\..\\obj\\x86\\Release\\NasaPicOfDay.exe"
+            "SourcePath" = "8:..\\..\\obj\\x86\\Debug\\NasaPicOfDay.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"

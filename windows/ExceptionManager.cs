@@ -17,17 +17,17 @@ namespace NasaPicOfDay
 		public static void WriteException(Exception ex)
 		{
 			//Get the user's application directory
-			string logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			string fullLogFileFolderPath = logFilePath + "\\NPOD";
+			var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			var fullLogFileFolderPath = logFilePath + "\\NPOD";
 
 			if (!Directory.Exists(fullLogFileFolderPath))
 			{
 				Directory.CreateDirectory(fullLogFileFolderPath);
 			}
 
-			string errorLogFilePath = string.Format("{0}\\Error.log", fullLogFileFolderPath);
+			var errorLogFilePath = string.Format("{0}\\Error.log", fullLogFileFolderPath);
 
-			StringBuilder errorBuilder = new StringBuilder();
+			var errorBuilder = new StringBuilder();
 
 			errorBuilder.Append(string.Format("{0:yyyyddMMHHmmss}\t", DateTime.Now));
 			errorBuilder.Append(string.Format("{0}\t", ex.Message));
@@ -36,10 +36,6 @@ namespace NasaPicOfDay
 			WriteData(errorLogFilePath, errorBuilder.ToString());
 
 			errorBuilder.Remove(0, errorBuilder.Length);
-			errorBuilder = null;
-			errorLogFilePath = null;
-			fullLogFileFolderPath = null;
-			logFilePath = null;
 		}
 		/// <summary>
 		/// Handles the actual writing of the data to the file system
@@ -48,7 +44,7 @@ namespace NasaPicOfDay
 		/// <param name="dataToWrite">String data that will be appended to the file</param>
 		private static void WriteData(string fullFilePath, string dataToWrite)
 		{
-			using (StreamWriter writer = new StreamWriter(fullFilePath, true))
+			using (var writer = new StreamWriter(fullFilePath, true))
 			{
 				writer.WriteLine(dataToWrite);
 				writer.Close();
@@ -61,17 +57,17 @@ namespace NasaPicOfDay
 		public static void WriteInformation(string message)
 		{
 			//Get the user's application directory
-			string logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			string fullLogFileFolderPath = logFilePath + "\\NPOD";
+			var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			var fullLogFileFolderPath = logFilePath + "\\NPOD";
 
 			if (!Directory.Exists(fullLogFileFolderPath))
 			{
 				Directory.CreateDirectory(fullLogFileFolderPath);
 			}
 
-			string debugFilePath = string.Format("{0}\\Debug.log", fullLogFileFolderPath);
+			var debugFilePath = string.Format("{0}\\Debug.log", fullLogFileFolderPath);
 
-			StringBuilder messageBuilder = new StringBuilder();
+			var messageBuilder = new StringBuilder();
 
 			messageBuilder.Append(string.Format("{0:yyyyddMM HH:mm:ss}\t", DateTime.Now));
 			messageBuilder.Append(string.Format("{0}\t", message));
@@ -79,10 +75,6 @@ namespace NasaPicOfDay
 			WriteData(debugFilePath, messageBuilder.ToString());
 
 			messageBuilder.Remove(0, messageBuilder.Length);
-			messageBuilder = null;
-			logFilePath = null;
-			fullLogFileFolderPath = null;
-			debugFilePath = null;
 		}
 	}
 }

@@ -12,16 +12,14 @@ namespace NasaPicOfDay
 	public class BackgroundChanger
 	{
 		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-
 		private static extern Int32 SystemParametersInfo(UInt32 uiAction, UInt32 uiParam, String pvParam, UInt32 fWinIni);
-		private static UInt32 SPI_SETDESKWALLPAPER = 20;
-		private static UInt32 SPIF_UPDATEINIFILE = 0x1;
-		private string _nasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=1&offset={0}&routes=1446";
-		private string _nasaImageBaseUrl = "http://www.nasa.gov";
-		private string _currentScreenResolution;
-		private int _defaultimageOffset = 0;
 
-		public BackgroundChanger() { }
+		private const UInt32 SpiSetdeskwallpaper = 20;
+		private const UInt32 SpifUpdateinifile = 0x1;
+		private const string NasaLatestImagesUrl = "http://www.nasa.gov/ws/image_gallery.jsonp?format_output=1&display_id=page_1&limit=1&offset={0}&routes=1446";
+		private const string NasaImageBaseUrl = "http://www.nasa.gov";
+		private string _currentScreenResolution;
+		private const int DefaultimageOffset = 0;
 
 		/// <summary>
 		/// Retrieves the user's current screen resolution to try and pick the image that will fit.
@@ -54,7 +52,7 @@ namespace NasaPicOfDay
 		/// Overloaded GetImage that allows the retrieval of previous images based on their position in the XML document
 		/// provided from the nasa.gov website.
 		/// </summary>
-		/// <param name="selectedImagePosition">Position of the image within the node list of images, 1 being the very first (newest)</param>
+		/// <param name="selectedOffset">Position of the image within the node list of images, 1 being the very first (newest)</param>
 		public BackgroundImage GetImage(int? selectedOffset)
 		{
 			try
@@ -62,10 +60,10 @@ namespace NasaPicOfDay
 				GetCurrentScreenResolution();
 
 				if (selectedOffset == null)
-					selectedOffset = _defaultimageOffset;
+					selectedOffset = DefaultimageOffset;
 
 				//Get the JSON string data
-				NasaImages nasaImages = JsonHelper.DownloadSerializedJsonData(string.Format(_nasaLatestImagesUrl, selectedOffset));
+				var nasaImages = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, selectedOffset));
 				if (nasaImages == null || nasaImages.Nodes.Length == 0)
 					throw new Exception("Unable to retrieve image data from JSON request");
 
@@ -76,67 +74,64 @@ namespace NasaPicOfDay
 				switch (_currentScreenResolution)
 				{
 					case "346x260":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image346x260);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image346x260);
 						break;
 					case "466x248":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image466x248);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image466x248);
 						break;
 					case "226x170":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image226x170);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image226x170);
 						break;
 					case "360x225":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image360x225);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image360x225);
 						break;
 					case "430x323":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image430x323);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image430x323);
 						break;
 					case "100x75":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image100x75);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image100x75);
 						break;
 					case "1600x1200":
 					case "1600x900":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image1600x1200);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image1600x1200);
 						break;
 					case "800x600":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image800x600);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image800x600);
 						break;
 					case "1024x768":
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.Image1024x768);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image1024x768);
 						break;
 					default:
-						currentImageFullUrl = string.Format("{0}{1}", _nasaImageBaseUrl, imageNode.MasterImage);
+						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.MasterImage);
 						break;
 				}
 
-				string localImageFolderPath = string.Format("{0}\\NASA\\PicOfTheDay", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
+				var localImageFolderPath = string.Format("{0}\\NASA\\PicOfTheDay", Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
 				if (!Directory.Exists(localImageFolderPath))
 				{
 					Directory.CreateDirectory(localImageFolderPath);
 				}
 
-				int slashIdx = currentImageFullUrl.LastIndexOf("/");
-				int extensionIdx = currentImageFullUrl.LastIndexOf(".jpg");
-				string imageName = currentImageFullUrl.Substring(slashIdx + 1, (extensionIdx - slashIdx) + 3);
+				var slashIdx = currentImageFullUrl.LastIndexOf("/", StringComparison.Ordinal);
+				var extensionIdx = currentImageFullUrl.LastIndexOf(".jpg", StringComparison.Ordinal);
+				var imageName = currentImageFullUrl.Substring(slashIdx + 1, (extensionIdx - slashIdx) + 3);
 
-				string fullImagePath = string.Format("{0}\\{1}", localImageFolderPath, imageName);
+				var fullImagePath = string.Format("{0}\\{1}", localImageFolderPath, imageName);
 
 				//Download the current image
 				if (!DownloadHelper.DownloadImage(fullImagePath, currentImageFullUrl))
 					throw new Exception("Error downloading current image.");
 
 				//Create BackgroundImage object 
-				BackgroundImage backgroundImage = new BackgroundImage();
-				backgroundImage.ImageTitle = imageNode.Title;
-				backgroundImage.ImageUrl = currentImageFullUrl;
-				backgroundImage.ImageDate = Convert.ToDateTime(imageNode.PromotionalDate);
-				backgroundImage.ImageDescription = StripHtml(imageNode.TrimmedImageCaption);
-				backgroundImage.DownloadedPath = fullImagePath;
-
-				imageNode = null;
-				currentImageFullUrl = null;
-				localImageFolderPath = null;
-				fullImagePath = null;
+				var backgroundImage = new BackgroundImage
+				{
+					ImageTitle = imageNode.Title,
+					ImageUrl = currentImageFullUrl,
+					ImageDate = Convert.ToDateTime(imageNode.PromotionalDate),
+					ImageDescription = StripHtml(imageNode.TrimmedImageCaption),
+					DownloadedPath = fullImagePath
+				};
 
 				return backgroundImage;
 			}
@@ -161,7 +156,16 @@ namespace NasaPicOfDay
 		/// </summary>
 		public void SetDesktopBackground(string fileName)
 		{
-			SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, fileName, SPIF_UPDATEINIFILE);
+			try
+			{
+				SystemParametersInfo(SpiSetdeskwallpaper, 0, fileName, SpifUpdateinifile);
+			}
+			catch (Exception ex)
+			{
+				if(GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("An error occurred updating the desktop background.");
+				ExceptionManager.WriteException(ex);
+			}
+			
 		}
 	}
 }
