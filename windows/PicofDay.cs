@@ -55,7 +55,9 @@ namespace NasaPicOfDay
 							MessageBoxButtons.YesNo);
 						if (dlgResult == DialogResult.Yes)
 						{
-							Process.Start("Updater.exe");
+							//Need the 'runas' verb to allow admin privileges for update
+							var startInfo = new ProcessStartInfo("Updater.exe") { Verb = "runas" };
+							Process.Start(startInfo);
 						}
 					}
 
