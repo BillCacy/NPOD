@@ -9,7 +9,6 @@ namespace Updater
 		{
 			var updater = new NpodUpdater();
 			Console.WriteLine(updater.UpdateNpod() ? "Update Completed" : "Update Failed");
-			Console.ReadLine();
 		}
 	}
 }

@@ -19,6 +19,7 @@ namespace Updater
 				UpdateLogger.WriteInformation(appDirectory, "Starting update process");
 
 				//stop any running NPOD service
+				UpdateLogger.WriteInformation(appDirectory, "Stopping NPOD process");
 				foreach (var proc in Process.GetProcessesByName("NasaPicOfDay"))
 				{
 					try
@@ -39,6 +40,7 @@ namespace Updater
 				}
 
 				//Pull files down
+				UpdateLogger.WriteInformation(appDirectory, "Retrieving updated NPOD files");
 				using (var webClient = new WebClient())
 				{
 					foreach (var file in _fileList)
@@ -48,6 +50,7 @@ namespace Updater
 				}
 
 				//Restart NPOD
+				UpdateLogger.WriteInformation(appDirectory, "Starting NPOD process");
 				Process.Start("NasaPicOfDay.exe");
 
 				return true;

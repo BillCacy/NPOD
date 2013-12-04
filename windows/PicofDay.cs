@@ -51,7 +51,7 @@ namespace NasaPicOfDay
 					if (ApplicationUpdater.UpdateIsAvailable())
 					{
 						//Kick off the updater
-						var dlgResult = MessageBox.Show(Resources.AnUpdateIsAvailable, Resources.AnUpdateIsAvailable,
+						var dlgResult = MessageBox.Show(Resources.UpdateQuestion, Resources.AnUpdateIsAvailable,
 							MessageBoxButtons.YesNo);
 						if (dlgResult == DialogResult.Yes)
 						{
