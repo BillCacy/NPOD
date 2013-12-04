@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasaPicOfDay", "NasaPicOfDa
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NPODSetup", "Setup\NPODSetup\NPODSetup.vdproj", "{78496374-5DE7-4EF2-9619-59BB84E40C14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -18,6 +20,10 @@ Global
 		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Debug|x86.ActiveCfg = Debug
 		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Release|x86.ActiveCfg = Release
 		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Release|x86.Build.0 = Release
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.ActiveCfg = Debug|x86
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.Build.0 = Debug|x86
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.ActiveCfg = Release|x86
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

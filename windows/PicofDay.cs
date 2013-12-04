@@ -28,6 +28,7 @@ namespace NasaPicOfDay
 		{
 			//Checking to see if logging is enabled.
 			GlobalVariables.LoggingEnabled = Settings.Default.LoggingEnabled;
+			GlobalVariables.GetApplicationVersion();
 
 			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Application starting.");
 
@@ -49,9 +50,13 @@ namespace NasaPicOfDay
 					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking for application update.");
 					if (ApplicationUpdater.UpdateIsAvailable())
 					{
-						//TODO
-						// Add update logic for the application
-						MessageBox.Show(Resources.AnUpdateIsAvailable, Resources.AnUpdateIsAvailable, MessageBoxButtons.OK);
+						//Kick off the updater
+						var dlgResult = MessageBox.Show(Resources.AnUpdateIsAvailable, Resources.AnUpdateIsAvailable,
+							MessageBoxButtons.YesNo);
+						if (dlgResult == DialogResult.Yes)
+						{
+							Process.Start("Updater.exe");
+						}
 					}
 
 					Application.Run(new PicofDay());

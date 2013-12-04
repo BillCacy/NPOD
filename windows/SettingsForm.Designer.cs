@@ -38,13 +38,15 @@
 			this.lblCount = new System.Windows.Forms.Label();
 			this.chkBoxLogging = new System.Windows.Forms.CheckBox();
 			this.btnSaveSettings = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.versionLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.picBoxCurrentImg)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnBackImage
 			// 
 			this.btnBackImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnBackImage.Location = new System.Drawing.Point(120, 12);
+			this.btnBackImage.Location = new System.Drawing.Point(120, 35);
 			this.btnBackImage.Name = "btnBackImage";
 			this.btnBackImage.Size = new System.Drawing.Size(75, 23);
 			this.btnBackImage.TabIndex = 0;
@@ -55,7 +57,7 @@
 			// btnCurrentImage
 			// 
 			this.btnCurrentImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnCurrentImage.Location = new System.Drawing.Point(201, 12);
+			this.btnCurrentImage.Location = new System.Drawing.Point(201, 35);
 			this.btnCurrentImage.Name = "btnCurrentImage";
 			this.btnCurrentImage.Size = new System.Drawing.Size(75, 23);
 			this.btnCurrentImage.TabIndex = 1;
@@ -67,7 +69,7 @@
 			// 
 			this.btnForwardImage.Enabled = false;
 			this.btnForwardImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnForwardImage.Location = new System.Drawing.Point(279, 12);
+			this.btnForwardImage.Location = new System.Drawing.Point(279, 35);
 			this.btnForwardImage.Name = "btnForwardImage";
 			this.btnForwardImage.Size = new System.Drawing.Size(89, 23);
 			this.btnForwardImage.TabIndex = 2;
@@ -78,7 +80,7 @@
 			// btnSetImage
 			// 
 			this.btnSetImage.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnSetImage.Location = new System.Drawing.Point(120, 347);
+			this.btnSetImage.Location = new System.Drawing.Point(120, 370);
 			this.btnSetImage.Name = "btnSetImage";
 			this.btnSetImage.Size = new System.Drawing.Size(248, 23);
 			this.btnSetImage.TabIndex = 3;
@@ -89,7 +91,7 @@
 			// btnCloseSettings
 			// 
 			this.btnCloseSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnCloseSettings.Location = new System.Drawing.Point(201, 407);
+			this.btnCloseSettings.Location = new System.Drawing.Point(201, 430);
 			this.btnCloseSettings.Name = "btnCloseSettings";
 			this.btnCloseSettings.Size = new System.Drawing.Size(75, 23);
 			this.btnCloseSettings.TabIndex = 4;
@@ -99,7 +101,7 @@
 			// 
 			// picBoxCurrentImg
 			// 
-			this.picBoxCurrentImg.Location = new System.Drawing.Point(11, 82);
+			this.picBoxCurrentImg.Location = new System.Drawing.Point(11, 105);
 			this.picBoxCurrentImg.Name = "picBoxCurrentImg";
 			this.picBoxCurrentImg.Size = new System.Drawing.Size(466, 248);
 			this.picBoxCurrentImg.TabIndex = 5;
@@ -109,7 +111,7 @@
 			// 
 			this.lblCount.AutoSize = true;
 			this.lblCount.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblCount.Location = new System.Drawing.Point(198, 52);
+			this.lblCount.Location = new System.Drawing.Point(198, 75);
 			this.lblCount.Name = "lblCount";
 			this.lblCount.Size = new System.Drawing.Size(39, 16);
 			this.lblCount.TabIndex = 6;
@@ -118,7 +120,7 @@
 			// chkBoxLogging
 			// 
 			this.chkBoxLogging.AutoSize = true;
-			this.chkBoxLogging.Location = new System.Drawing.Point(172, 380);
+			this.chkBoxLogging.Location = new System.Drawing.Point(172, 403);
 			this.chkBoxLogging.Name = "chkBoxLogging";
 			this.chkBoxLogging.Size = new System.Drawing.Size(115, 17);
 			this.chkBoxLogging.TabIndex = 7;
@@ -128,7 +130,7 @@
 			// btnSaveSettings
 			// 
 			this.btnSaveSettings.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnSaveSettings.Location = new System.Drawing.Point(293, 376);
+			this.btnSaveSettings.Location = new System.Drawing.Point(293, 399);
 			this.btnSaveSettings.Name = "btnSaveSettings";
 			this.btnSaveSettings.Size = new System.Drawing.Size(75, 23);
 			this.btnSaveSettings.TabIndex = 8;
@@ -136,11 +138,32 @@
 			this.btnSaveSettings.UseVisualStyleBackColor = true;
 			this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
 			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(152, 9);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(108, 16);
+			this.label1.TabIndex = 9;
+			this.label1.Text = "Application Version:";
+			// 
+			// versionLabel
+			// 
+			this.versionLabel.AutoSize = true;
+			this.versionLabel.Font = new System.Drawing.Font("Franklin Gothic Book", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.versionLabel.Location = new System.Drawing.Point(266, 9);
+			this.versionLabel.Name = "versionLabel";
+			this.versionLabel.Size = new System.Drawing.Size(0, 16);
+			this.versionLabel.TabIndex = 10;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(489, 442);
+			this.ClientSize = new System.Drawing.Size(489, 466);
+			this.Controls.Add(this.versionLabel);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.btnSaveSettings);
 			this.Controls.Add(this.chkBoxLogging);
 			this.Controls.Add(this.lblCount);
@@ -175,5 +198,7 @@
         private System.Windows.Forms.Label lblCount;
 		private System.Windows.Forms.CheckBox chkBoxLogging;
 		private System.Windows.Forms.Button btnSaveSettings;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label versionLabel;
     }
 }

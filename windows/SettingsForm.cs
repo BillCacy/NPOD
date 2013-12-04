@@ -20,6 +20,7 @@ namespace NasaPicOfDay
 			InitializeComponent();
 			SetButtonEnabled();
 			chkBoxLogging.Checked = GlobalVariables.LoggingEnabled;
+			versionLabel.Text = string.Format("{0}.{1}.{2}.{3}", GlobalVariables.CurrentMajorVersion, GlobalVariables.CurrentMinorVersion, GlobalVariables.CurrentBuildNumber, GlobalVariables.CurrentRevisionNumber);
 		}
 
 		private void btnCloseSettings_Click(object sender, EventArgs e)
