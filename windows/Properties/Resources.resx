@@ -121,4 +121,44 @@
   <data name="_284" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\284.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="InternetRequiredMessage" xml:space="preserve">
+    <value>NASA Pic of the Day requires an internet connection to retrieve images.
+Please check your internet connection and try again.</value>
+  </data>
+  <data name="InternetRequiredTitle" xml:space="preserve">
+    <value>Internet Connection Required</value>
+  </data>
+  <data name="ImageRetrievalError" xml:space="preserve">
+    <value>An error occured retrieving the image.</value>
+  </data>
+  <data name="Oops" xml:space="preserve">
+    <value>Oops!</value>
+  </data>
+  <data name="SettingSaved" xml:space="preserve">
+    <value>Setting saved.</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="AnUpdateIsAvailable" xml:space="preserve">
+    <value>An update is available</value>
+  </data>
+  <data name="ExitLabel" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="SeeDetailsLabel" xml:space="preserve">
+    <value>&amp;See Details</value>
+  </data>
+  <data name="UpdateLabel" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="LinkToThisImage" xml:space="preserve">
+    <value>Link to this Image</value>
+  </data>
+  <data name="UpdateQuestion" xml:space="preserve">
+    <value>An updated is available. Would you like to update?</value>
+  </data>
 </root>

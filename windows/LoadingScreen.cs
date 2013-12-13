@@ -2,11 +2,11 @@
 
 namespace NasaPicOfDay
 {
-    public partial class LoadingScreen : Form
-    {
-        public LoadingScreen()
-        {
-            InitializeComponent();
-        }
-    }
+	public partial class LoadingScreen : Form
+	{
+		public LoadingScreen()
+		{
+			InitializeComponent();
+		}
+	}
 }

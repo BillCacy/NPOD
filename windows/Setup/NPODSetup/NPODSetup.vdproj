@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_19D718747BB50B093F9A74E935BD1724"
+        "MsmKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
         "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
         "MsmSig" = "8:_UNDEFINED"
@@ -40,7 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_19D718747BB50B093F9A74E935BD1724"
+        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -148,13 +160,18 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_19D718747BB50B093F9A74E935BD1724"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23E6C5842DCB676C4AD79F274C75E06B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_23E6C5842DCB676C4AD79F274C75E06B"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -272,15 +289,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{4636A9BB-F558-4975-BEF1-ADD76F01447C}"
-        "PackageCode" = "8:{AE14863F-B04B-4172-96FC-82ABCC2C520B}"
+        "ProductCode" = "8:{E517CB64-5708-453B-93E2-CF91B530408D}"
+        "PackageCode" = "8:{CD37D143-A4B4-464C-AE51-F1DDD97D89B9}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.2"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:SpaceAppsChallenge"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -857,6 +874,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{CB1FE289-C0D5-4FD5-B058-CF412263E904}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EFA0EBFE959F467081FDF283158DE93B"
+            {
+            "SourcePath" = "8:..\\..\\Updater\\obj\\x86\\Release\\Updater.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
