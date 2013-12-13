@@ -1,5 +1,11 @@
 #import "ApplicationDelegate.h"
 #import "BackgroundChanger.h"
+/* Objective-Zip https://github.com/flyingdolphinstudio/Objective-Zip/blob/master/GETTING_STARTED.md
+ Copy ARCHelper, MiniZip, Objective-Zip and Zlib to Controllers directory.
+#import "Objective-Zip/ZipFile.h"
+#import "Objective-Zip/ZipReadStream.h"
+#import "Objective-Zip/FileInZipInfo.h"
+ */
 #import "ZipArchive.h"
 #import "NSApplication+Relaunch.h"
 
@@ -264,15 +270,91 @@ void *kContextActivePanel = &kContextActivePanel;
     {
         // It was successful, do stuff here
         //extract it
+        
+        // Objective-Zip
+        /*
+        NSString *unzipDir = [@"~/Downloads/" stringByExpandingTildeInPath];
+
+        // Open zip descriptor
+        ZipFile *zip= [[ZipFile alloc] initWithFileName:writeToFile mode:ZipFileModeUnzip];
+        
+        NSMutableData *buffer= [[NSMutableData alloc] initWithLength:256];
+        
+        // Loop on file list
+        NSArray *zipContentList= [zip listFileInZipInfos];
+        for (FileInZipInfo *fileInZipInfo in zipContentList) {
+            
+            // Check if it's a directory
+            if ([fileInZipInfo.name hasSuffix:@"/"]) {
+                NSString *dirPath= [unzipDir stringByAppendingPathComponent:fileInZipInfo.name];
+                NSLog(@"%@", dirPath);
+                [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:NULL];
+                continue;
+            }
+            
+            // Create file
+            NSString *filePath= [unzipDir stringByAppendingPathComponent:fileInZipInfo.name];
+            NSLog(@"%@", filePath);
+            [[NSFileManager defaultManager] createFileAtPath:filePath contents:[NSData data] attributes:nil];
+            NSFileHandle *file= [NSFileHandle fileHandleForWritingAtPath:filePath];
+            
+            // Seek file in zip
+            [zip locateFileInZip:fileInZipInfo.name];
+            ZipReadStream *readStream= [zip readCurrentFileInZip];
+            
+            // Reset buffer
+            [buffer setLength:256];
+            
+            // Loop on read stream
+            int totalBytesRead= 0;
+            do {
+                int bytesRead= [readStream readDataWithBuffer:buffer];
+                if (bytesRead > 0) {
+                    
+                    // Write data
+                    [buffer setLength:bytesRead];
+                    [file writeData:buffer];
+                    
+                    totalBytesRead += bytesRead;
+                    
+                } else
+                    break;
+                
+            } while (YES);
+            
+            // Close file
+            [file closeFile];
+            [readStream finishedReading];
+        }
+        
+        // Close zip and release buffer
+        [buffer release];
+        [zip close];
+        [zip release];
+        */
+                
         ZipArchive *zipArchive = [[ZipArchive alloc] init];
         [zipArchive UnzipOpenFile:writeToFile Password:@""];
         NSString *unzipDir = [@"~/Downloads/" stringByExpandingTildeInPath];
         [zipArchive UnzipFileTo:unzipDir overWrite:YES];
         [zipArchive UnzipCloseFile];
+        
+        //set execute permissions on MacOS/NPOD and Resources/relaunch
+        NSString *npodPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app/Contents/MacOS/NPOD"];
+        NSString *relaunchPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app/Contents/Resources/relaunch"];
+        NSLog(@"%@", npodPath);
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:[NSNumber numberWithInt:493] forKey:NSFilePosixPermissions]; /*511 is Decimal for the 777 octal. 493 is Decimal for the 755 octal.*/
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSError *error1;
+        [fm setAttributes:dict ofItemAtPath:npodPath error:&error1];
+        [fm setAttributes:dict ofItemAtPath:relaunchPath error:&error1];
+        
         NSString *newVersionPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app"];
-        NSLog(@"%@", newVersionPath);
+        //NSLog(@"%@", newVersionPath);
         NSString *appPath = @"/Applications/NPOD.app";
-
+        
         if ( [[NSFileManager defaultManager] isDeletableFileAtPath:appPath] ) {
             //copy npod.app to /applications replacing the existing app.
             if ( [[NSFileManager defaultManager] isReadableFileAtPath:newVersionPath] ) {
