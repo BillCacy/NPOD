@@ -11,14 +11,17 @@ namespace NasaPicOfDay
 {
 	public partial class PicofDay : Form
 	{
+		#region Private Properties
 		private bool _internetAvailable = true;
 		private NotifyIcon _notifyIcon1;
 		private ContextMenu _contextMenu1;
 		private MenuItem _exitMenuItem;
 		private MenuItem _detailsMenuItem;
 		private MenuItem _updateMenuItem;
+		private MenuItem _imagesMenuItem;
 		private MenuItem _settingsMenuItem;
 		private Timer _appTimer;
+		#endregion
 
 		//Added to ensure that only 1 instance of the application can be running at a time
 		static readonly Mutex Mutex = new Mutex(true, "c6ed4943-2c8e-4382-af10-6455ec315896");
@@ -75,12 +78,14 @@ namespace NasaPicOfDay
 				}
 			}
 		}
+
 		protected override void OnLoad(EventArgs e)
 		{
 			Visible = false;
 			ShowInTaskbar = false;
 			base.OnLoad(e);
 		}
+
 		public PicofDay()
 		{
 			InitializeComponent();
@@ -150,6 +155,7 @@ namespace NasaPicOfDay
 				_detailsMenuItem = new MenuItem();
 				_exitMenuItem = new MenuItem();
 				_updateMenuItem = new MenuItem();
+				_imagesMenuItem = new MenuItem();
 				_settingsMenuItem = new MenuItem();
 				// Create the NotifyIcon.
 				_notifyIcon1 = new NotifyIcon(components) { Icon = new Icon("world.ico"), ContextMenu = _contextMenu1 };
@@ -161,24 +167,28 @@ namespace NasaPicOfDay
 
 				// Initialize contextMenu1
 				_contextMenu1.MenuItems.AddRange(
-				new[] { _detailsMenuItem, _updateMenuItem, _settingsMenuItem, _exitMenuItem });
+				new[] { _imagesMenuItem, _updateMenuItem, _detailsMenuItem, _settingsMenuItem, _exitMenuItem });
 
-				// Initialize exitMenuItem
-				_exitMenuItem.Index = 0;
-				_exitMenuItem.Text = Resources.ExitLabel;
-				_exitMenuItem.Click += exitMenuItem_Click;
-				// Initialize detailsMenuItem
-				_detailsMenuItem.Index = 0;
-				_detailsMenuItem.Text = Resources.SeeDetailsLabel;
-				_detailsMenuItem.Click += detailsMenuItem_Click;
+				//Initialize imagesMenuItme
+				_imagesMenuItem.Index = 0;
+				_imagesMenuItem.Text = Resources.ImagesLabel;
+				_imagesMenuItem.Click += imagesMenuItem_Click;
 				// Initialize updateMenuItem
-				_updateMenuItem.Index = 0;
+				_updateMenuItem.Index = 1;
 				_updateMenuItem.Text = Resources.UpdateLabel;
 				_updateMenuItem.Click += updateMenuItem_Click;
-				//Initialize settingsMenuItme
-				_settingsMenuItem.Index = 0;
+				// Initialize detailsMenuItem
+				_detailsMenuItem.Index = 2;
+				_detailsMenuItem.Text = Resources.SeeDetailsLabel;
+				_detailsMenuItem.Click += detailsMenuItem_Click;
+				//initialize settingsMenuItem
+				_settingsMenuItem.Index = 3;
 				_settingsMenuItem.Text = Resources.SettingsLabel;
 				_settingsMenuItem.Click += settingsMenuItem_Click;
+				// Initialize exitMenuItem
+				_exitMenuItem.Index = 4;
+				_exitMenuItem.Text = Resources.ExitLabel;
+				_exitMenuItem.Click += exitMenuItem_Click;
 
 				// Set up how the form should be displayed.
 				TopMost = true;
@@ -187,29 +197,6 @@ namespace NasaPicOfDay
 			{
 				ExceptionManager.WriteException(ex);
 			}
-		}
-
-		//Launches the Settings form to allow the user to select previous images from the feed
-		//when the form closes, the main controls will be updated with the new image's information.
-		void settingsMenuItem_Click(object sender, EventArgs e)
-		{
-			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Settings option selected.");
-			var processHelper = new ProcessHelper();
-			processHelper.BackgroundLoading(TestInternetConnection);
-			processHelper.Start();
-
-			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking internet connectivity");
-			//Present the message that an internet connection is required
-			if (!_internetAvailable)
-			{
-				MessageBox.Show(Resources.InternetRequiredMessage, Resources.InternetRequiredTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-				return;
-			}
-
-			var settingForm = new SettingsForm();
-			settingForm.ShowDialog();
-			UpdateControlContent();
-
 		}
 
 		private void UpdateContent()
@@ -238,7 +225,25 @@ namespace NasaPicOfDay
 			txtDate.Text = GlobalVariables.NasaImage.ImageDate.ToLongDateString();
 		}
 
+		private void imagesMenuItem_Click(object sender, EventArgs e)
+		{
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Images option selected.");
+			var processHelper = new ProcessHelper();
+			processHelper.BackgroundLoading(TestInternetConnection);
+			processHelper.Start();
 
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking internet connectivity");
+			//Present the message that an internet connection is required
+			if (!_internetAvailable)
+			{
+				MessageBox.Show(Resources.InternetRequiredMessage, Resources.InternetRequiredTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
+			var imagesForm = new ImagesForm();
+			imagesForm.ShowDialog();
+			UpdateControlContent();
+		}
 		private void notifyIcon1_DoubleClick(object sender, EventArgs e)
 		{
 			try
@@ -287,6 +292,13 @@ namespace NasaPicOfDay
 
 			UpdateContent();
 		}
+		private void settingsMenuItem_Click(object sender, EventArgs e)
+		{
+			if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Settings option selected.");
+
+			var settingForm = new SettingsForm();
+			settingForm.ShowDialog();
+		}
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			//make the form invisible
@@ -296,7 +308,6 @@ namespace NasaPicOfDay
 		{
 			Process.Start(e.Link.LinkData.ToString());
 		}
-
 		private void TestInternetConnection()
 		{
 			_internetAvailable = NetworkHelper.InternetAccessIsAvailable();

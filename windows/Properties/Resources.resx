@@ -161,4 +161,7 @@ Please check your internet connection and try again.</value>
   <data name="UpdateQuestion" xml:space="preserve">
     <value>An updated is available. Would you like to update?</value>
   </data>
+  <data name="ImagesLabel" xml:space="preserve">
+    <value>I&amp;mages</value>
+  </data>
 </root>

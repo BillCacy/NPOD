@@ -95,6 +95,15 @@ namespace NasaPicOfDay.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I&amp;mages.
+        /// </summary>
+        internal static string ImagesLabel {
+            get {
+                return ResourceManager.GetString("ImagesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NASA Pic of the Day requires an internet connection to retrieve images.
         ///Please check your internet connection and try again..
         /// </summary>

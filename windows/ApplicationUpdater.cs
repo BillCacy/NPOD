@@ -72,14 +72,6 @@ namespace NasaPicOfDay
 						//Update is required
 						return true;
 					}
-					else
-					{
-						if (GlobalVariables.CurrentRevisionNumber < _serverRevisionNumber)
-						{
-							//Update is required
-							return true;
-						}
-					}
 				}
 			}
 
