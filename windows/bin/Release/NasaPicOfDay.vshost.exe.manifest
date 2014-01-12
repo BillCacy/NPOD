@@ -4,7 +4,7 @@
   <description asmv2:iconFile="world.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="NasaPicOfDay" version="1.0.1.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="NasaPicOfDay" version="1.0.5.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="NasaPicOfDay.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NasaPicOfDay.exe" size="892416">
-      <assemblyIdentity name="NasaPicOfDay" version="1.0.1.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="NasaPicOfDay" version="1.0.5.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>wZc5lmMdGYzvL8jSZoxKa0sr/14=</dsig:DigestValue>
+        <dsig:DigestValue>oN8ZpofmvKny5xL6uUSjF+Ycabg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -72,7 +72,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>G2fiXU9CW2B9zN1rfNqh9h+KwU0=</dsig:DigestValue>
+      <dsig:DigestValue>COSXlDshmtGF+DZrk75rfayt7is=</dsig:DigestValue>
     </hash>
   </file>
   <file name="world.ico" size="273118">

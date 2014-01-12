@@ -184,9 +184,19 @@ namespace NasaPicOfDay
 					Directory.CreateDirectory(thumbNailImagePath);
 				}
 
-				var slashIdx = imageUrl.LastIndexOf("/", StringComparison.Ordinal);
-				var extensionIdx = imageUrl.LastIndexOf(".jpg", StringComparison.Ordinal);
-				var imageName = imageUrl.Substring(slashIdx + 1, (extensionIdx - slashIdx) + 3);
+				string imageExtension = GetImageExtensionFromUrl(imageFullUrl);
+				if (string.IsNullOrEmpty(imageExtension))
+					throw new Exception("Invalid image extension from URL");
+
+				//Retrieving the file name of the image
+				int slashIdx = imageFullUrl.LastIndexOf("/");
+				int extensionIdx = imageFullUrl.LastIndexOf(imageExtension);
+				/*  All images, besides the master image,
+				 * had ?<random letters> after the file extension. So i had to figure out what the extension was,
+				 * substring from the last '/' up to the end of the extension.
+				 * There might be better ways to do this, but i've been staring at it too long tonight.
+				 */
+				string imageName = imageFullUrl.Substring(slashIdx + 1, ((extensionIdx - 1) + imageExtension.Length) - slashIdx);
 
 				var fullImagePath = string.Format("{0}\\thumb{1}", thumbNailImagePath, imageName);
 
@@ -207,6 +217,19 @@ namespace NasaPicOfDay
 				ExceptionManager.WriteException(ex);
 				return false;
 			}
+		}
+
+		private string GetImageExtensionFromUrl(string url)
+		{
+			if (url.Contains(".jpg")) return ".jpg";
+			if (url.Contains(".jpeg")) return ".jpeg";
+			if (url.Contains(".png")) return ".png";
+			if (url.Contains(".gif")) return ".gif";
+			if (url.Contains(".bmp")) return ".bmp";
+			if (url.Contains(".tiff")) return ".tiff";
+			if (url.Contains(".tif")) return ".tif";
+
+			return string.Empty;
 		}
 	}
 }

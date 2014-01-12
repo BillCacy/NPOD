@@ -99,6 +99,7 @@ namespace NasaPicOfDay
 						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image800x600);
 						break;
 					case "1024x768":
+					case "1366x768":
 						currentImageFullUrl = string.Format("{0}{1}", NasaImageBaseUrl, imageNode.Image1024x768);
 						break;
 					default:
@@ -113,10 +114,21 @@ namespace NasaPicOfDay
 					Directory.CreateDirectory(localImageFolderPath);
 				}
 
-				var slashIdx = currentImageFullUrl.LastIndexOf("/", StringComparison.Ordinal);
-				var extensionIdx = currentImageFullUrl.LastIndexOf(".jpg", StringComparison.Ordinal);
-				var imageName = currentImageFullUrl.Substring(slashIdx + 1, (extensionIdx - slashIdx) + 3);
+				string imageExtension = GetImageExtensionFromUrl(currentImageFullUrl);
+				if (string.IsNullOrEmpty(imageExtension))
+					throw new Exception("Invalid image extension from URL");
 
+				//Retrieving the file name of the image
+				int slashIdx = currentImageFullUrl.LastIndexOf("/");
+				int extensionIdx = currentImageFullUrl.LastIndexOf(imageExtension);
+				/* Retrieving the image name was tricky due to resolution matching. All images, besides the master image
+				 * had ?<random letters> after the file extension. So i had to figure out what the extension was,
+				 * substring from the last '/' up to the end of the extension.
+				 * There might be better ways to do this, but i've been staring at it too long tonight.
+				 */
+				string imageName = currentImageFullUrl.Substring(slashIdx + 1, ((extensionIdx - 1) + imageExtension.Length) - slashIdx);
+
+				//Setting the full local image path to save the file
 				var fullImagePath = string.Format("{0}\\{1}", localImageFolderPath, imageName);
 
 				//Download the current image
@@ -165,7 +177,19 @@ namespace NasaPicOfDay
 				if(GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("An error occurred updating the desktop background.");
 				ExceptionManager.WriteException(ex);
 			}
-			
+		}
+
+		private string GetImageExtensionFromUrl(string url)
+		{
+			if (url.Contains(".jpg")) return ".jpg";
+			if (url.Contains(".jpeg")) return ".jpeg";
+			if (url.Contains(".png")) return ".png";
+			if (url.Contains(".gif")) return ".gif";
+			if (url.Contains(".bmp")) return ".bmp";
+			if (url.Contains(".tiff")) return ".tiff";
+			if (url.Contains(".tif")) return ".tif";
+
+			return string.Empty;
 		}
 	}
 }

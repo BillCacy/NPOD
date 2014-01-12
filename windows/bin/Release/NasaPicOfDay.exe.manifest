@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NasaPicOfDay.exe" size="892416">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NasaPicOfDay.exe" size="892928">
       <assemblyIdentity name="NasaPicOfDay" version="1.0.5.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BpeIBwyrzSB1lheZcLt7uBHjqKk=</dsig:DigestValue>
+        <dsig:DigestValue>BCeT0eKfueKZx6PF9xD5hVWzAUQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

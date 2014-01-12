@@ -48,7 +48,6 @@ namespace NasaPicOfDay
 			Int32.TryParse(versionStrings[0], out _serverMajorVersion);
 			Int32.TryParse(versionStrings[1], out _serverMinorVersion);
 			Int32.TryParse(versionStrings[2], out _serverBuildNumber);
-			Int32.TryParse(versionStrings[3], out _serverRevisionNumber);
 
 			//Compare against global variables for version
 			if (GlobalVariables.CurrentMajorVersion < _serverMajorVersion)
