@@ -43,6 +43,7 @@
 			this.btnSaveSettings.TabIndex = 10;
 			this.btnSaveSettings.Text = "Save";
 			this.btnSaveSettings.UseVisualStyleBackColor = true;
+			this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
 			// 
 			// chkBoxLogging
 			// 

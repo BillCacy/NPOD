@@ -18,6 +18,8 @@ namespace NasaPicOfDay
 			//Save Settings
 			Settings.Default.LoggingEnabled = chkBoxLogging.Checked;
 			GlobalVariables.LoggingEnabled = chkBoxLogging.Checked;
+			Settings.Default.Save();
+			Settings.Default.Reload();
 			MessageBox.Show(Resources.SettingSaved, Resources.Saved, MessageBoxButtons.OK);
 		}
 

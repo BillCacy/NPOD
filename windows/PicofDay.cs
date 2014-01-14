@@ -97,34 +97,28 @@ namespace NasaPicOfDay
 				_appTimer = new Timer();
 
 				//Checking for updates at 10:30 a.m. EST (GMT-5) everyday
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking the system time for 10:30 update.");
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking the system time for 10:30 EST update.");
 
-				var utcTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
-
-				//Get the offset for the current time zone
-				var utcOffset = TimeZoneInfo.Local.GetUtcOffset(utcTime);
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("UTC Offset is {0} in milliseconds.", utcOffset.TotalMilliseconds));
-
-				//create the current time with the GMT Offset
-				var currentTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, utcTime.Hour + utcOffset.Hours, utcTime.Minute + utcOffset.Minutes, 0);
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Current GMT configured time is {0}", currentTime));
+				//Setting the current UTC time
+				DateTime utcNow = DateTime.UtcNow;
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Current UTC time is [Hours:{0}, Minutes:{1}, Seconds:{2}]", utcNow.Hour, utcNow.Minute, utcNow.Second));
+				DateTime updateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0);
 
 				//Get the amount of time between now and 10:30 a.m. EST
-				var timeUntilEst1030 = currentTime - DateTime.Now.ToUniversalTime();
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 [{0}:{1}:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
+				TimeSpan timeUntilEst1030 = utcNow - updateTime;
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 EST [Hours:{0}, Minutes:{1}, Seconds:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
 
 				if (timeUntilEst1030.Milliseconds <= 0)
 				{
 					//set the date to tomorrow by adding 24 hours
-					currentTime = currentTime.AddHours(24);
+					utcNow = utcNow.AddHours(24);
 					//get the number of milliseconds between currentTime and tomorrow at 10:30 a.m. EST
-					timeUntilEst1030 = currentTime - DateTime.Now.ToUniversalTime();
-					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 [{0}:{1}:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
+					timeUntilEst1030 = utcNow - DateTime.Now.ToUniversalTime();
 				}
 
 				//set the interval for the timer
 				_appTimer.Interval = (int)timeUntilEst1030.TotalMilliseconds;
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [{0}:{1}:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [Hours:{0}, Minutes:{1}, Seconds:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
 				_appTimer.Tick += appTimer_Tick;
 
 				//Launch the main part of the data retrieval

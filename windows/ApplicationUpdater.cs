@@ -15,7 +15,6 @@ namespace NasaPicOfDay
 		private static int _serverMajorVersion;
 		private static int _serverMinorVersion;
 		private static int _serverBuildNumber;
-		private static int _serverRevisionNumber;
 
 		public static bool UpdateIsAvailable()
 		{
