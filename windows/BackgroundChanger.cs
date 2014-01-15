@@ -57,12 +57,15 @@ namespace NasaPicOfDay
 		{
 			try
 			{
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Retrieving system screen resolution");
 				GetCurrentScreenResolution();
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("System screen resolution is: {0}", _currentScreenResolution));
 
 				if (selectedOffset == null)
 					selectedOffset = DefaultimageOffset;
 
 				//Get the JSON string data
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Preparing to download image information");
 				var nasaImages = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, selectedOffset));
 				if (nasaImages == null || nasaImages.Nodes.Length == 0)
 					throw new Exception("Unable to retrieve image data from JSON request");
@@ -71,6 +74,7 @@ namespace NasaPicOfDay
 				Node2 imageNode = nasaImages.Nodes[0].node;
 
 				string currentImageFullUrl;
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Selecting image based on current screen resolution");
 				switch (_currentScreenResolution)
 				{
 					case "346x260":
@@ -132,6 +136,7 @@ namespace NasaPicOfDay
 				var fullImagePath = string.Format("{0}\\{1}", localImageFolderPath, imageName);
 
 				//Download the current image
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Preparing to download image: {0}", currentImageFullUrl));
 				if (!DownloadHelper.DownloadImage(fullImagePath, currentImageFullUrl))
 					throw new Exception("Error downloading current image.");
 
@@ -170,7 +175,9 @@ namespace NasaPicOfDay
 		{
 			try
 			{
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Preparing to change desktop background");
 				SystemParametersInfo(SpiSetdeskwallpaper, 0, fileName, SpifUpdateinifile);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Completed desktop background change");
 			}
 			catch (Exception ex)
 			{

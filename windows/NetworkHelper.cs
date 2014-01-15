@@ -17,6 +17,7 @@ namespace NasaPicOfDay
 				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Starting request.");
 				using (WebResponse myResponse = myRequest.GetResponse())
 				{
+					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(myResponse.ToString());
 					myResponse.Close();
 					if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Request completed.");
 					return true;

@@ -46,13 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -289,15 +289,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{35C01966-64E2-489A-A69B-BF71591F3A69}"
-        "PackageCode" = "8:{EDD24AF8-2942-43DE-8989-FDCCB822B4C3}"
+        "ProductCode" = "8:{365F44AE-6150-4352-9ECC-987729740524}"
+        "PackageCode" = "8:{4943BBB9-82AD-4AB1-A8AD-D054A2C5AB6D}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.6"
+        "ProductVersion" = "8:1.0.8"
         "Manufacturer" = "8:SpaceAppsChallenge"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

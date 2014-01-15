@@ -13,6 +13,7 @@ namespace NasaPicOfDay
 				{
 					client.DownloadFile(sourceUrl, targetDirectory);
 				}
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Image download completed");
 
 				return true;
 			}

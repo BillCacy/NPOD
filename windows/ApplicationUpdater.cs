@@ -2,7 +2,6 @@
  * Handles the checking for application updates from GitHub 
  */
 
-
 using System;
 using System.Xml;
 
