@@ -104,23 +104,15 @@ namespace NasaPicOfDay
 				//Setting the current UTC time
 				DateTime utcNow = DateTime.UtcNow;
 				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Current UTC time is [Hours:{0}, Minutes:{1}, Seconds:{2}]", utcNow.Hour, utcNow.Minute, utcNow.Second));
-				DateTime updateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0);
+				DateTime updateTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 15, 30, 0);
 
 				//Get the amount of time between now and 10:30 a.m. EST
 				TimeSpan timeUntilEst1030 = utcNow - updateTime;
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 EST [Hours:{0}, Minutes:{1}, Seconds:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
-
-				if (timeUntilEst1030.Milliseconds <= 0)
-				{
-					//set the date to tomorrow by adding 24 hours
-					utcNow = utcNow.AddHours(24);
-					//get the number of milliseconds between currentTime and tomorrow at 10:30 a.m. EST
-					timeUntilEst1030 = utcNow - DateTime.Now.ToUniversalTime();
-				}
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 EST [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst1030.Hours), Math.Abs(timeUntilEst1030.Minutes), Math.Abs(timeUntilEst1030.Seconds)));
 
 				//set the interval for the timer
-				_appTimer.Interval = (int)timeUntilEst1030.TotalMilliseconds;
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [Hours:{0}, Minutes:{1}, Seconds:{2}]", timeUntilEst1030.Hours, timeUntilEst1030.Minutes, timeUntilEst1030.Seconds));
+				_appTimer.Interval = Math.Abs((int)timeUntilEst1030.TotalMilliseconds);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst1030.Hours), Math.Abs(timeUntilEst1030.Minutes), Math.Abs(timeUntilEst1030.Seconds)));
 				_appTimer.Tick += appTimer_Tick;
 
 				//Launch the main part of the data retrieval

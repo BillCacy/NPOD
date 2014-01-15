@@ -46,13 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -289,8 +289,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{3742B78A-EB44-43CB-889C-0AA7441B61EC}"
-        "PackageCode" = "8:{4C6739AF-438F-4AD7-9952-6BCE5698DF00}"
+        "ProductCode" = "8:{62E0EDEF-5DCB-4216-8813-21FBB15809B0}"
+        "PackageCode" = "8:{B468CE20-1A49-4B89-BEB1-A3E5C61FB30B}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
