@@ -1,4 +1,8 @@
 $( document ).ready(function() {
+
+  if (isIE()) {
+    $('#latestReleaseDiv').hide();
+  }
   
   $.get("https://api.github.com/repos/billcacy/NPOD/commits?path=windows/Setup/NPODSetup/Release/NPODSetup.msi", function( data ) {
     var winLastMod = parseDate(data[0].commit.author.date.substring(0,10));
@@ -24,4 +28,31 @@ $( document ).ready(function() {
     var parts = input.match(/(\d+)/g);
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
   }
+  
+  function getInternetExplorerVersion()
+  // Returns the version of Internet Explorer or a -1
+  // (indicating the use of another browser).
+  {
+    var rv = -1; // Return value assumes failure.
+    if (navigator.appName == 'Microsoft Internet Explorer')
+    {
+      var ua = navigator.userAgent;
+      var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+      if (re.exec(ua) != null)
+        rv = parseFloat( RegExp.$1 );
+    }
+    return rv;
+  }
+  function isIE()
+  {
+    var isIE = false;
+    var ver = getInternetExplorerVersion();
+
+    if ( ver > -1 )
+    {
+      isIE = true;
+    }
+    return isIE;
+  }
+  
 });
