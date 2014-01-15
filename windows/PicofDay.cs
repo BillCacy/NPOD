@@ -62,15 +62,17 @@ namespace NasaPicOfDay
 							var startInfo = new ProcessStartInfo("Updater.exe") { Verb = "runas" };
 							Process.Start(startInfo);
 						}
+						else
+							Application.Run(new PicofDay());
 					}
-
-					Application.Run(new PicofDay());
+					else
+						Application.Run(new PicofDay());
 				}
 			}
 			else
 			{
 				//If application is already running and there is no internet connection available, close the application
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Application is already running. But there is not internet connection. Exiting the application.");
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Application is already running. But there is no internet connection. Exiting the application.");
 				if (!NetworkHelper.InternetAccessIsAvailable())
 				{
 					MessageBox.Show(Resources.InternetRequiredMessage, Resources.InternetRequiredTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);

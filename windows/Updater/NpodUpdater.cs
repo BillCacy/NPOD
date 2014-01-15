@@ -48,6 +48,7 @@ namespace Updater
 						webClient.DownloadFile(new Uri(string.Format("{0}\\{1}", GitPath, file)), string.Format("{0}\\{1}", appDirectory, file));
 					}
 				}
+				UpdateLogger.WriteInformation(appDirectory, "Successfully retrieved files");
 
 				//Restart NPOD
 				UpdateLogger.WriteInformation(appDirectory, "Starting NPOD process");
