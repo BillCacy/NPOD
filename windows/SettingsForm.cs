@@ -22,9 +22,9 @@ namespace NasaPicOfDay
 			Settings.Default.Reload();
 			MessageBox.Show(Resources.SettingSaved, Resources.Saved, MessageBoxButtons.OK);
 			if (GlobalVariables.LoggingEnabled)
-				ExceptionManager.WriteInformation("##################################\r\n\t\tLogging is Enabled\r\n\t\t##################################");
+				ExceptionManager.WriteInformation("##################################\tLogging is Enabled\t##################################");
 			else
-				ExceptionManager.WriteInformation("##################################\r\n\t\tLogging is Disabled\r\n\t\t##################################");
+				ExceptionManager.WriteInformation("##################################\tLogging is Disabled\t##################################");
 		}
 
 		private void btnCloseSettings_Click(object sender, EventArgs e)
