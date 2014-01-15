@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BCeT0eKfueKZx6PF9xD5hVWzAUQ=</dsig:DigestValue>
+        <dsig:DigestValue>56cEMzftBPDmP5SIm4AuIzUkc7s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -66,13 +66,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="NasaPicOfDay.exe.config" size="1448">
+  <file name="NasaPicOfDay.exe.config" size="1520">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>COSXlDshmtGF+DZrk75rfayt7is=</dsig:DigestValue>
+      <dsig:DigestValue>8ddV7RGuID/YSaJgFZsim6wEW6c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="world.ico" size="273118">
