@@ -141,7 +141,7 @@ Please check your internet connection and try again.</value>
     <value>Saved</value>
   </data>
   <data name="AnUpdateIsAvailable" xml:space="preserve">
-    <value>An update is available</value>
+    <value>NASA Pic of the Day update</value>
   </data>
   <data name="ExitLabel" xml:space="preserve">
     <value>E&amp;xit</value>
@@ -159,7 +159,7 @@ Please check your internet connection and try again.</value>
     <value>Link to this Image</value>
   </data>
   <data name="UpdateQuestion" xml:space="preserve">
-    <value>An updated is available. Would you like to update?</value>
+    <value>An update is available. Would you like to update?</value>
   </data>
   <data name="ImagesLabel" xml:space="preserve">
     <value>I&amp;mages</value>

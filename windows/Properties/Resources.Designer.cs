@@ -68,7 +68,7 @@ namespace NasaPicOfDay.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An update is available.
+        ///   Looks up a localized string similar to NASA Pic of the Day update.
         /// </summary>
         internal static string AnUpdateIsAvailable {
             get {
@@ -186,7 +186,7 @@ namespace NasaPicOfDay.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An updated is available. Would you like to update?.
+        ///   Looks up a localized string similar to An update is available. Would you like to update?.
         /// </summary>
         internal static string UpdateQuestion {
             get {

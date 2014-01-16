@@ -47,6 +47,12 @@ namespace NasaPicOfDay
 			Int32.TryParse(versionStrings[1], out _serverMinorVersion);
 			Int32.TryParse(versionStrings[2], out _serverBuildNumber);
 
+			if (GlobalVariables.LoggingEnabled)
+			{
+				ExceptionManager.WriteInformation(string.Format("Application version on GIT {0}.{1}.{2}", _serverMajorVersion, _serverMinorVersion, _serverBuildNumber));
+				ExceptionManager.WriteInformation(string.Format("Application version on this machine {0}.{1}.{2}", GlobalVariables.CurrentMajorVersion, GlobalVariables.CurrentMinorVersion, GlobalVariables.CurrentBuildNumber));
+			}
+
 			//Compare against global variables for version
 			if (GlobalVariables.CurrentMajorVersion < _serverMajorVersion)
 			{
