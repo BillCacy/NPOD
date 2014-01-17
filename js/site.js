@@ -25,8 +25,8 @@ $( document ).ready(function() {
     $('#lu-mac').html(macLastMod);
   });
   
-  var trackMacDownloads = "_gaq.push(['_trackEvent', 'Downloads', 'Mac']);";
-  var trackWinDownloads = "_gaq.push(['_trackEvent', 'Downloads', 'Windows']);";
+  var trackMacDownloads = "ga('send', 'event', 'Downloads', 'Mac');";
+  var trackWinDownloads = "ga('send', 'event', 'Downloads', 'Windows');";
   
   if(navigator.platform.match(/^win/i)) {
     $('.download').append('<a href="https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi" class="btn btn-primary" onClick="'+trackWinDownloads+'">Windows</a>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip" class="btn btn-default" onClick="'+trackMacDownloads+'">Mac</a> <a href="mac-install.htm">Install instructions</a>');
