@@ -25,11 +25,14 @@ $( document ).ready(function() {
     $('#lu-mac').html(macLastMod);
   });
   
+  var trackMacDownloads = "_gaq.push(['_trackEvent', 'Downloads', 'Mac']);";
+  var trackWinDownloads = "_gaq.push(['_trackEvent', 'Downloads', 'Windows']);";
+  
   if(navigator.platform.match(/^win/i)) {
-    $('.download').append('<a href="https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi" class="btn btn-primary">Windows</a>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip" class="btn btn-default">Mac</a> <a href="mac-install.htm">Install instructions</a>');
+    $('.download').append('<a href="https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi" class="btn btn-primary" onClick="'+trackWinDownloads+'">Windows</a>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip" class="btn btn-default" onClick="'+trackMacDownloads+'">Mac</a> <a href="mac-install.htm">Install instructions</a>');
   }
   else {
-    $('.download').append('<a href="https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip" class="btn btn-primary">Mac</a> <a href="mac-install.htm">Install instructions</a>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi" class="btn btn-default">Windows</a>');
+    $('.download').append('<a href="https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip" class="btn btn-primary" onClick="'+trackMacDownloads+'">Mac</a> <a href="mac-install.htm">Install instructions</a>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi" class="btn btn-default" onClick="'+trackWinDownloads+'">Windows</a>');
   }
 
   // parse a date in yyyy-mm-dd format
