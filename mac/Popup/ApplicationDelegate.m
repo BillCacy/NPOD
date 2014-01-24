@@ -122,9 +122,15 @@ void *kContextActivePanel = &kContextActivePanel;
     
     // start putting the version number in the build.
     // compare the version number of the running app to the version number from github in the .app package's info.plist xml file.
-    double currentVersion = [[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
-    NSLog(@"%f",currentVersion);
-    NSString *currentVersionStr = [NSString stringWithFormat:@"%.2f", currentVersion];
+    NSString *currentVersion = [NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+    
+    NSArray *currentVersionList = [currentVersion componentsSeparatedByString:@"."];
+    
+    for (id object in currentVersionList) {
+        // do something with object
+        NSLog(@"%@",object);
+    }
+    
     //https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist
     //[[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
     
@@ -134,11 +140,25 @@ void *kContextActivePanel = &kContextActivePanel;
     NSArray *nodes = [iotdxml nodesForXPath:@"./plist[1]/dict[1]/key[text()='CFBundleShortVersionString']"
                                       error:&err];
     NSXMLNode *versionNode = [[nodes objectAtIndex:0] nextSibling];
-    double latestVersion = [[versionNode stringValue] doubleValue];
-    NSString *latestVersionStr = [NSString stringWithFormat:@"%.2f", latestVersion];
-    NSLog(@"%f",latestVersion);
+    NSString *latestVersion = [versionNode stringValue];
+    NSArray *latestVersionList = [latestVersion componentsSeparatedByString:@"."];
     
-    if(latestVersion > currentVersion) {
+    int mostItems = ([latestVersionList count] > [currentVersionList count]) ? [latestVersionList count] : [currentVersionList count];
+    int curVer = 0;
+    int latVer = 0;
+    bool update = FALSE;
+    
+    for(int i = 0; i < mostItems; i++) {
+        curVer = ([currentVersionList count] > i) ? [[currentVersionList objectAtIndex:i] integerValue] : 0;
+        latVer = ([latestVersionList count] > i) ? [[latestVersionList objectAtIndex:i] integerValue] : 0;
+        
+        if(curVer < latVer) {
+            update = TRUE;
+            i = mostItems;
+        }
+    }
+    
+    if(update) {
         //ask the user if they would like to update to the latest version.
         //if they choose yes, continue to update.
         //if they choose no, don't update.
@@ -146,7 +166,7 @@ void *kContextActivePanel = &kContextActivePanel;
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
-        NSString *msgTxt = [[[[@"A new version of NASA Pic Of The Day is available!\n\nCurrent Version: " stringByAppendingString:currentVersionStr] stringByAppendingString:@"\nLatest Version: "] stringByAppendingString:latestVersionStr] stringByAppendingString:@"\n\nWould you like to update now?"];
+        NSString *msgTxt = [[[[@"A new version of NASA Pic Of The Day is available!\n\nCurrent Version: " stringByAppendingString:currentVersion] stringByAppendingString:@"\nLatest Version: "] stringByAppendingString:latestVersion] stringByAppendingString:@"\n\nWould you like to update now?"];
         [alert setMessageText:msgTxt];
         [alert setAlertStyle:NSWarningAlertStyle];
         
