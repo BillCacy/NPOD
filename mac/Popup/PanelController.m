@@ -283,8 +283,8 @@
             [_iotdUpdateStatus setStringValue:@"The latest image is already set."];
         }
         
-        [_iotdTitle setStringValue:[titleDesc objectAtIndex:0]];
-        NSString * s = [titleDesc objectAtIndex:1];
+        [_iotdTitle setStringValue:[[titleDesc objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+        NSString * s = [[titleDesc objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSString* sI = (__bridge NSString*)CFXMLCreateStringByUnescapingEntities(NULL, (__bridge CFStringRef)s, NULL);
         NSRange range = NSMakeRange(0, [[_iotdDescription textStorage] length]);
         [[_iotdDescription textStorage] replaceCharactersInRange:range withString:sI];

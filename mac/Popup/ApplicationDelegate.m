@@ -99,13 +99,22 @@ void *kContextActivePanel = &kContextActivePanel;
     BackgroundChanger *bc = [BackgroundChanger new];
     NSArray *titleDesc = [bc setWallpaper:nil];
     if(titleDesc) {
-        _iotdTitle = [titleDesc objectAtIndex:0];
-        _iotdDescription = [titleDesc objectAtIndex:1];
+        _iotdTitle = [[titleDesc objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        _iotdDescription = [[titleDesc objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     else {
         _iotdTitle = @"There was a problem downloading the image.";
         _iotdDescription = @"";
     }
+    [self updatePanelText];
+}
+
+- (void)updatePanelText {
+    [_panelController.iotdTitle setStringValue:_iotdTitle];
+    
+    NSString* sI = (__bridge NSString*)CFXMLCreateStringByUnescapingEntities(NULL, (__bridge CFStringRef)_iotdDescription, NULL);
+    NSRange range = NSMakeRange(0, [[_panelController.iotdDescription textStorage] length]);
+    [[_panelController.iotdDescription textStorage] replaceCharactersInRange:range withString:sI];
 }
 
 - (void)checkForUpdate {
@@ -342,7 +351,6 @@ void *kContextActivePanel = &kContextActivePanel;
         //set execute permissions on MacOS/NPOD and Resources/relaunch
         NSString *npodPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app/Contents/MacOS/NPOD"];
         NSString *relaunchPath = [unzipDir stringByAppendingPathComponent:@"NPOD.app/Contents/Resources/relaunch"];
-        NSLog(@"%@", npodPath);
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:[NSNumber numberWithInt:493] forKey:NSFilePosixPermissions]; /*511 is Decimal for the 777 octal. 493 is Decimal for the 755 octal.*/
