@@ -122,19 +122,13 @@ void *kContextActivePanel = &kContextActivePanel;
     
     // start putting the version number in the build.
     // compare the version number of the running app to the version number from github in the .app package's info.plist xml file.
-    NSString *currentVersion = [NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
-    
+    NSString *currentVersion = [NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];    
     NSArray *currentVersionList = [currentVersion componentsSeparatedByString:@"."];
-    
-    for (id object in currentVersionList) {
-        // do something with object
-        NSLog(@"%@",object);
-    }
     
     //https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist
     //[[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
     
-    NSURL *myURL2 = [NSURL URLWithString:@"https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist"];
+    NSURL *myURL2 = [NSURL URLWithString:@"https://raw.github.com/BillCacy/NPOD/dev/mac/NPOD.app/Contents/Info.plist"];
     NSXMLDocument *iotdxml = [[NSXMLDocument alloc] initWithContentsOfURL:myURL2 options:0 error:&err];
     
     NSArray *nodes = [iotdxml nodesForXPath:@"./plist[1]/dict[1]/key[text()='CFBundleShortVersionString']"
@@ -143,12 +137,12 @@ void *kContextActivePanel = &kContextActivePanel;
     NSString *latestVersion = [versionNode stringValue];
     NSArray *latestVersionList = [latestVersion componentsSeparatedByString:@"."];
     
-    int mostItems = ([latestVersionList count] > [currentVersionList count]) ? [latestVersionList count] : [currentVersionList count];
-    int curVer = 0;
-    int latVer = 0;
+    long mostItems = ([latestVersionList count] > [currentVersionList count]) ? [latestVersionList count] : [currentVersionList count];
+    long curVer = 0;
+    long latVer = 0;
     bool update = FALSE;
     
-    for(int i = 0; i < mostItems; i++) {
+    for(long i = 0; i < mostItems; i++) {
         curVer = ([currentVersionList count] > i) ? [[currentVersionList objectAtIndex:i] integerValue] : 0;
         latVer = ([latestVersionList count] > i) ? [[latestVersionList objectAtIndex:i] integerValue] : 0;
         
@@ -173,7 +167,7 @@ void *kContextActivePanel = &kContextActivePanel;
         if ([alert runModal] == NSAlertFirstButtonReturn) {
             // Yes clicked, get the new version and install it.
             //download npod.zip from github to users downloads folder.
-            NSURL *downloadURL = [NSURL URLWithString:@"https://github.com/BillCacy/NPOD/raw/master/mac/NPOD.zip"];
+            NSURL *downloadURL = [NSURL URLWithString:@"https://github.com/BillCacy/NPOD/raw/dev/mac/NPOD.zip"];
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:downloadURL
                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                   timeoutInterval:60.0];
