@@ -42,9 +42,10 @@ void *kContextActivePanel = &kContextActivePanel;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    // add app to login items.
-    [self deleteAppFromLoginItem];
-    [self addAppAsLoginItem];
+    // add app to login items if it's not already there.
+    if(![self inLoginItems]) {
+        [self addAppAsLoginItem];
+    }
     
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
@@ -248,7 +249,7 @@ void *kContextActivePanel = &kContextActivePanel;
 	CFRelease(loginItems);
 }
 
--(void) deleteAppFromLoginItem{
+-(bool) inLoginItems{
 	NSString * appPath = [[NSBundle mainBundle] bundlePath];
     
 	// This will retrieve the path for the application
@@ -272,7 +273,8 @@ void *kContextActivePanel = &kContextActivePanel;
 			if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &url, NULL) == noErr) {
 				NSString * urlPath = [(__bridge NSURL*)url path];
 				if ([urlPath compare:appPath] == NSOrderedSame){
-					LSSharedFileListItemRemove(loginItems,itemRef);
+					//LSSharedFileListItemRemove(loginItems,itemRef);
+                    return true;
 				}
 			}
 		}
