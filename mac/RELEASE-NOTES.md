@@ -1,4 +1,4 @@
-## Release Notes
+## NPOD Release Notes (Mac)
 
 ### 1.1
 trimmed title and description text  
