@@ -9,7 +9,7 @@
 #import "ZipArchive.h"
 #import "NSApplication+Relaunch.h"
 
-#define ENV @"dev"
+#define ENV @"master"
 
 @implementation ApplicationDelegate
 
