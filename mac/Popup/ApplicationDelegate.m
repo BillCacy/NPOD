@@ -9,6 +9,8 @@
 #import "ZipArchive.h"
 #import "NSApplication+Relaunch.h"
 
+#define ENV @"dev"
+
 @implementation ApplicationDelegate
 
 @synthesize receivedData;
@@ -129,7 +131,7 @@ void *kContextActivePanel = &kContextActivePanel;
     //https://raw.github.com/BillCacy/NPOD/master/mac/NPOD.app/Contents/Info.plist
     //[[NSString stringWithFormat:@"%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]] doubleValue];
     
-    NSURL *myURL2 = [NSURL URLWithString:@"https://raw.github.com/BillCacy/NPOD/dev/mac/NPOD.app/Contents/Info.plist"];
+    NSURL *myURL2 = [NSURL URLWithString:[[@"https://raw.github.com/BillCacy/NPOD/" stringByAppendingString:ENV] stringByAppendingString:@"/mac/NPOD.app/Contents/Info.plist"]];
     NSXMLDocument *iotdxml = [[NSXMLDocument alloc] initWithContentsOfURL:myURL2 options:0 error:&err];
     
     NSArray *nodes = [iotdxml nodesForXPath:@"./plist[1]/dict[1]/key[text()='CFBundleShortVersionString']"
@@ -161,14 +163,15 @@ void *kContextActivePanel = &kContextActivePanel;
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
-        NSString *msgTxt = [[[[@"A new version of NASA Pic Of The Day is available!\n\nCurrent Version: " stringByAppendingString:currentVersion] stringByAppendingString:@"\nLatest Version: "] stringByAppendingString:latestVersion] stringByAppendingString:@"\n\nWould you like to update now?"];
+        NSString *msgTxt = [[[[[[@"A new version of NASA Pic Of The Day is available!\n\nA list of the changes made can be found here: https://github.com/BillCacy/NPOD/blob/" stringByAppendingString:ENV] stringByAppendingString:@"/mac/RELEASE-NOTES.md\n\nCurrent Version: "] stringByAppendingString:currentVersion] stringByAppendingString:@"\nLatest Version: "] stringByAppendingString:latestVersion] stringByAppendingString:@"\n\nWould you like to update now?"];
         [alert setMessageText:msgTxt];
         [alert setAlertStyle:NSWarningAlertStyle];
         
         if ([alert runModal] == NSAlertFirstButtonReturn) {
             // Yes clicked, get the new version and install it.
             //download npod.zip from github to users downloads folder.
-            NSURL *downloadURL = [NSURL URLWithString:@"https://github.com/BillCacy/NPOD/raw/dev/mac/NPOD.zip"];
+            
+            NSURL *downloadURL = [NSURL URLWithString:[[@"https://github.com/BillCacy/NPOD/raw/" stringByAppendingString:ENV] stringByAppendingString:@"/mac/NPOD.zip"]];
             NSURLRequest *theRequest=[NSURLRequest requestWithURL:downloadURL
                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                   timeoutInterval:60.0];
