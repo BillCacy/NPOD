@@ -168,30 +168,31 @@ $( document ).ready(function() {
     $('#lu-mac').html(macLastMod);
   });
   */
-  
-  $.get("https://api.github.com/repos/billcacy/NPOD/contents/windows/bin/Release/NasaPicOfDay.exe.config", function( data ) {
-    var winVersion = "";
-    var xml = Base64.decode(data.content);  
-    var xmlDoc = $.parseXML( $.trim(xml) );
-    var $xml = $( xmlDoc );
-    var winVersion = $xml.find( "setting[name='CurrentVersion']" ).children('value').text();
-    $('#lu-win').html(winVersion);
-  });
-
-  $.get("https://api.github.com/repos/billcacy/NPOD/contents/mac/NPOD.app/Contents/Info.plist", function( data ) {
-    var macVersion = "";
-    var xml = Base64.decode(data.content);
-    var xmlDoc = $.parseXML( $.trim(xml) );
-    var $xml = $( xmlDoc );
-    var $key = $xml.find( "key" );
-    $key.each(function() {
-      if($(this).text()=="CFBundleShortVersionString") {
-        macVersion = $(this).next().text();
-        return false;
-      }
+  if (!isIE()) {
+    $.get("https://api.github.com/repos/billcacy/NPOD/contents/windows/bin/Release/NasaPicOfDay.exe.config", function( data ) {
+      var winVersion = "";
+      var xml = Base64.decode(data.content);  
+      var xmlDoc = $.parseXML( $.trim(xml) );
+      var $xml = $( xmlDoc );
+      var winVersion = $xml.find( "setting[name='CurrentVersion']" ).children('value').text();
+      $('#lu-win').html(winVersion);
     });
-    $('#lu-mac').html(macVersion);
-  });
+
+    $.get("https://api.github.com/repos/billcacy/NPOD/contents/mac/NPOD.app/Contents/Info.plist", function( data ) {
+      var macVersion = "";
+      var xml = Base64.decode(data.content);
+      var xmlDoc = $.parseXML( $.trim(xml) );
+      var $xml = $( xmlDoc );
+      var $key = $xml.find( "key" );
+      $key.each(function() {
+        if($(this).text()=="CFBundleShortVersionString") {
+          macVersion = $(this).next().text();
+          return false;
+        }
+      });
+      $('#lu-mac').html(macVersion);
+    });
+  }
   
   var trackMacDownloads = "ga('send', 'event', 'Downloads', 'Mac');";
   var trackWinDownloads = "ga('send', 'event', 'Downloads', 'Windows');";
