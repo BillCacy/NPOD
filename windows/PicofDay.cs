@@ -128,8 +128,9 @@ namespace NasaPicOfDay
 
 		void appTimer_Tick(object sender, EventArgs e)
 		{
-			//Reload the application content
-			UpdateContent();
+			//Reload the application content, if there is still an internet connection
+			if (NetworkHelper.InternetAccessIsAvailable())
+				UpdateContent();
 			//Update the timer to fire 24 hours from now
 			_appTimer.Interval = 86400000; //milliseconds in 24 hours
 		}
@@ -192,7 +193,6 @@ namespace NasaPicOfDay
 			var changer = new BackgroundChanger();
 			GlobalVariables.NasaImage = changer.GetImage();
 			changer.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
-
 			UpdateControlContent();
 		}
 
