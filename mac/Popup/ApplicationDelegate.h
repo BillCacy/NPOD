@@ -10,6 +10,7 @@
 @property (nonatomic, strong, readonly) PanelController *panelController;
 @property (nonatomic, strong) NSString *iotdTitle;
 @property (nonatomic, strong) NSString *iotdDescription;
+@property (nonatomic, strong) NSTimer *updateHourly;
 
 - (IBAction)togglePanel:(id)sender;
 

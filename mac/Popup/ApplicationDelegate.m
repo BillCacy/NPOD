@@ -18,6 +18,7 @@
 @synthesize menubarController = _menubarController;
 @synthesize iotdTitle = _iotdTitle;
 @synthesize iotdDescription = _iotdDescription;
+@synthesize updateHourly = _updateHourly;
 
 #pragma mark -
 
@@ -47,14 +48,15 @@ void *kContextActivePanel = &kContextActivePanel;
     // add app to login items.
     [self deleteAppFromLoginItem];
     [self addAppAsLoginItem];
+    _updateHourly = nil;
     
     // Install icon into the menu bar
     self.menubarController = [[MenubarController alloc] init];
     
-    [self updateWallpaper];
+    BOOL updateSuccessful = [self updateWallpaper];
     
     [self checkForUpdate];
-    
+     //check for new image next noon.
     //get current datetime
     NSDate *now = [NSDate date];
     
@@ -65,28 +67,45 @@ void *kContextActivePanel = &kContextActivePanel;
     [dateFormatter setLocale:usLocale];
     NSString *formattedDateString = [dateFormatter stringFromDate:now];
     
-    //create a new date object for today at 10:30a EST (GMT-5)
-    NSString *string1030 = [formattedDateString stringByAppendingString:@" 10:30:00 -0500"];
-    NSDate *now1030 = [NSDate dateWithString:string1030];
+    //create a new date object for today at 12:00p EST
+    NSTimeZone *easternTimeZone = [NSTimeZone timeZoneWithName:@"US/Eastern"];
+    NSString *string1200 = [formattedDateString stringByAppendingString:@" 15:42:00 -0500"];
+    if ([easternTimeZone isDaylightSavingTime]) {
+        string1200 = [formattedDateString stringByAppendingString:@" 15:42:00 -0400"];
+    }
     
-    //Get the number of seconds between current time and today at 10:30a EST.
-    NSTimeInterval timeTil1030 = [now1030 timeIntervalSinceDate:now];
+    NSDate *now1200 = [NSDate dateWithString:string1200];
     
-    //if it's already past 10:30 today.
-    if(timeTil1030 <= 0) {
-        // set date to tomorrow at 10:30 by adding 24 hours.
-        now1030 = [now1030 dateByAddingTimeInterval:86400];
-        // Get the number of seconds between current time and tomorrow at 10:30a EST. 
-        timeTil1030 = [now1030 timeIntervalSinceDate:now]; 
+    //Get the number of seconds between current time and today at 12:00p EST.
+    NSTimeInterval timeTil1200 = [now1200 timeIntervalSinceDate:now];
+    
+    //if it's already past noon today.
+    if(timeTil1200 <= 0) {
+        // set date to tomorrow at noon by adding 24 hours.
+        now1200 = [now1200 dateByAddingTimeInterval:86400];
+        // Get the number of seconds between current time and tomorrow at 12:00p EST. 
+        timeTil1200 = [now1200 timeIntervalSinceDate:now];
     }
     //create a timer to update the wallpaper after the time interval calculated above has elapsed.
-    [NSTimer scheduledTimerWithTimeInterval:timeTil1030 target:self selector:@selector(update1030:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:timeTil1200 target:self selector:@selector(update1200:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:NO];
+    
+    if(!updateSuccessful){ // check for image failed. probably no internet connection.
+        //check for updated image hourly.
+        if(_updateHourly == nil) {
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+        }
+    }
 }
 
-- (void)update1030:(NSTimer*)theTimer {
+- (void)update1200:(NSTimer*)theTimer {
     NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
     NSLog(@"Timer started on %@", startDate);
-    [self updateWallpaper];
+    if(![self updateWallpaper]) {
+        //check for updated image hourly.
+        if(_updateHourly == nil) {
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+        }
+    }
     // create a new timer that will fire after 24 hours and repeats until the app is closed.
     [NSTimer scheduledTimerWithTimeInterval:86400 target:self selector:@selector(update24:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
 }
@@ -94,13 +113,32 @@ void *kContextActivePanel = &kContextActivePanel;
 - (void)update24:(NSTimer*)theTimer {
     NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
     NSLog(@"Timer started on %@", startDate);
-    [self updateWallpaper];
+    if(![self updateWallpaper]) {
+        //check for updated image hourly.
+        if(_updateHourly == nil) {
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+        }
+    }
 }
 
-- (void)updateWallpaper {
+- (void)update1:(NSTimer*)theTimer {
+    NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
+    NSLog(@"Timer started on %@", startDate);
+    if([self updateWallpaper]) {
+      //stop the timer.
+        if(_updateHourly)
+        {
+            [_updateHourly invalidate];
+            _updateHourly = nil;
+        }
+    }
+}
+
+- (BOOL)updateWallpaper {
     //Update Wallpaper.
     BackgroundChanger *bc = [BackgroundChanger new];
     NSArray *titleDesc = [bc setWallpaper:nil];
+    BOOL ret = true;
     if(titleDesc) {
         _iotdTitle = [[titleDesc objectAtIndex:0] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         _iotdDescription = [[titleDesc objectAtIndex:1] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -108,8 +146,10 @@ void *kContextActivePanel = &kContextActivePanel;
     else {
         _iotdTitle = @"There was a problem downloading the image.";
         _iotdDescription = @"";
+        ret = false;
     }
     [self updatePanelText];
+    return ret;
 }
 
 - (void)updatePanelText {
