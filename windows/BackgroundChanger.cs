@@ -57,6 +57,10 @@ namespace NasaPicOfDay
 		{
 			try
 			{
+				if (!NetworkHelper.InternetAccessIsAvailable())
+					throw new Exception("Attempted to retrieve image, but internet connection was not available.");
+
+
 				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Retrieving system screen resolution");
 				GetCurrentScreenResolution();
 				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("System screen resolution is: {0}", _currentScreenResolution));
