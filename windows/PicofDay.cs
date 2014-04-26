@@ -98,21 +98,21 @@ namespace NasaPicOfDay
 				//We did it this way to avoid setting up a scheduled task on the user's machine.
 				_appTimer = new Timer();
 
-				//Checking for updates at 10:30 a.m. EST (GMT-5) everyday
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking the system time for 10:30 EST update.");
+				//Checking for updates at 12 p.m. EST (GMT-5) everyday
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Checking the system time for 12 p.m. EST update.");
 
 				//Setting the current UTC time
 				DateTime utcNow = DateTime.UtcNow;
 				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Current UTC time is [Hours:{0}, Minutes:{1}, Seconds:{2}]", utcNow.Hour, utcNow.Minute, utcNow.Second));
-				DateTime updateTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 15, 30, 0);
+				DateTime updateTime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 17, 0, 0);
 
-				//Get the amount of time between now and 10:30 a.m. EST
-				TimeSpan timeUntilEst1030 = utcNow - updateTime;
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 10:30 EST [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst1030.Hours), Math.Abs(timeUntilEst1030.Minutes), Math.Abs(timeUntilEst1030.Seconds)));
+				//Get the amount of time between now and 12 p.m. EST
+				TimeSpan timeUntilEst12Pm = utcNow - updateTime;
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Time until 12 p.m. EST [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst12Pm.Hours), Math.Abs(timeUntilEst12Pm.Minutes), Math.Abs(timeUntilEst12Pm.Seconds)));
 
 				//set the interval for the timer
-				_appTimer.Interval = Math.Abs((int)timeUntilEst1030.TotalMilliseconds);
-				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst1030.Hours), Math.Abs(timeUntilEst1030.Minutes), Math.Abs(timeUntilEst1030.Seconds)));
+				_appTimer.Interval = Math.Abs((int)timeUntilEst12Pm.TotalMilliseconds);
+				if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation(string.Format("Next update will occur in [Hours:{0}, Minutes:{1}, Seconds:{2}]", Math.Abs(timeUntilEst12Pm.Hours), Math.Abs(timeUntilEst12Pm.Minutes), Math.Abs(timeUntilEst12Pm.Seconds)));
 				_appTimer.Tick += appTimer_Tick;
 
 				//Launch the main part of the data retrieval
