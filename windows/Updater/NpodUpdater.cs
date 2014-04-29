@@ -7,8 +7,7 @@ namespace Updater
 {
 	public class NpodUpdater
 	{
-		private const string GitPath = "https://raw.github.com/BillCacy/NPOD/master/windows/bin/Release/";
-		private readonly string[] _fileList = { "NasaPicOfDay.exe", "NasaPicOfDay.exe.config", "Newtonsoft.Json.dll", "world.ico" };
+		private const string InstallerPath = "https://raw.github.com/BillCacy/NPOD/master/windows/Setup/NPODSetup/Release/setup.exe";
 
 		public bool UpdateNpod()
 		{
@@ -43,16 +42,14 @@ namespace Updater
 				UpdateLogger.WriteInformation(appDirectory, "Retrieving updated NPOD files");
 				using (var webClient = new WebClient())
 				{
-					foreach (var file in _fileList)
-					{
-						webClient.DownloadFile(new Uri(string.Format("{0}\\{1}", GitPath, file)), string.Format("{0}\\{1}", appDirectory, file));
-					}
+						webClient.DownloadFile(new Uri(InstallerPath), string.Format("{0}\\setup.exe", appDirectory));
 				}
 				UpdateLogger.WriteInformation(appDirectory, "Successfully retrieved files");
 
-				//Restart NPOD
-				UpdateLogger.WriteInformation(appDirectory, "Starting NPOD process");
-				Process.Start("NasaPicOfDay.exe");
+				//Run the installer
+				//Need the 'runas' verb to allow admin privileges for update
+				var startInfo = new ProcessStartInfo("setup.exe") { Verb = "runas" };
+				Process.Start(startInfo);
 
 				return true;
 			}
@@ -62,6 +59,5 @@ namespace Updater
 				return false;
 			}
 		}
-
 	}
 }

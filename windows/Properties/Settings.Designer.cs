@@ -37,7 +37,7 @@ namespace NasaPicOfDay.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.0.2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0.3")]
         public string CurrentVersion {
             get {
                 return ((string)(this["CurrentVersion"]));

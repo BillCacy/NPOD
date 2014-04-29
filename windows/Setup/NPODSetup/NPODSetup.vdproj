@@ -46,13 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -167,11 +167,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_23E6C5842DCB676C4AD79F274C75E06B"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -289,15 +284,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
-        "ProductCode" = "8:{2355ADBB-2BAB-4015-8B9C-1F4BFEB18380}"
-        "PackageCode" = "8:{BB71F0CA-880F-42A7-AE83-AF7A85798B34}"
+        "ProductCode" = "8:{950A02F9-8168-413B-9F58-AECDB6FD27FE}"
+        "PackageCode" = "8:{8F9ABD50-E58D-43AA-A496-4B2C647FC3A4}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:SpaceAppsChallenge"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
