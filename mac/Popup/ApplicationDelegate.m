@@ -69,9 +69,9 @@ void *kContextActivePanel = &kContextActivePanel;
     
     //create a new date object for today at 12:00p EST
     NSTimeZone *easternTimeZone = [NSTimeZone timeZoneWithName:@"US/Eastern"];
-    NSString *string1200 = [formattedDateString stringByAppendingString:@" 15:42:00 -0500"];
+    NSString *string1200 = [formattedDateString stringByAppendingString:@" 12:00:00 -0500"];
     if ([easternTimeZone isDaylightSavingTime]) {
-        string1200 = [formattedDateString stringByAppendingString:@" 15:42:00 -0400"];
+        string1200 = [formattedDateString stringByAppendingString:@" 12:00:00 -0400"];
     }
     
     NSDate *now1200 = [NSDate dateWithString:string1200];
@@ -92,7 +92,7 @@ void *kContextActivePanel = &kContextActivePanel;
     if(!updateSuccessful){ // check for image failed. probably no internet connection.
         //check for updated image hourly.
         if(_updateHourly == nil) {
-            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
         }
     }
 }
@@ -103,7 +103,7 @@ void *kContextActivePanel = &kContextActivePanel;
     if(![self updateWallpaper]) {
         //check for updated image hourly.
         if(_updateHourly == nil) {
-            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
         }
     }
     // create a new timer that will fire after 24 hours and repeats until the app is closed.
@@ -116,7 +116,7 @@ void *kContextActivePanel = &kContextActivePanel;
     if(![self updateWallpaper]) {
         //check for updated image hourly.
         if(_updateHourly == nil) {
-            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
+            _updateHourly = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(update1:) userInfo:@{ @"StartDate" : [NSDate date] } repeats:YES];
         }
     }
 }

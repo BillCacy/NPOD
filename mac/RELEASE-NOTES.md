@@ -1,5 +1,8 @@
 ## NPOD Release Notes (Mac)
 
+### 1.1.2 - 4/30/2014
+Bug fixed: Image was updating daily at 3:42p instead of 12p.
+
 ### 1.1.1 - 4/12/2014
 updates are now made at 12:00p EST instead of 10:30a. Sometimes the new image wouldn't post until after 10:30a so this accounts for that.
 now correctly accounts for daylight savings.
