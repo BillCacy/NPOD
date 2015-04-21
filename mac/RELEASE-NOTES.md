@@ -1,5 +1,8 @@
 ## NPOD Release Notes (Mac)
 
+### 1.1.3 - 4/21/2015
+Bug fixed: The nasa.gov redesign changed some code that the app relied on to function. This update fixes it.
+
 ### 1.1.2 - 4/30/2014
 Bug fixed: Image was updating daily at 3:42p instead of 12p.
 
