@@ -1,5 +1,8 @@
 ## NPOD Release Notes (Mac)
 
+### 1.1.4 - 4/22/2015
+Bug fixed: Now correctly downloads the high resolution image instead of lower res one.
+
 ### 1.1.3 - 4/21/2015
 Bug fixed: The nasa.gov redesign changed some code that the app relied on to function. This update fixes it.
 

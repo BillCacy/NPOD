@@ -80,10 +80,10 @@
                     
                     NSArray *latestImages = [results2 objectForKey: @"images"];
                     NSDictionary *firstNode2 = [latestImages objectAtIndex: 0];
-                    NSString     *imageURL = [firstNode2 objectForKey: @"fullWidthFeature"];
+                    NSString     *imageURL = [firstNode2 objectForKey: @"filename"];
                     
                     // append http://www.nasa.gov to the value.
-                    NSString *baseURL = @"http://www.nasa.gov";
+                    NSString *baseURL = @"http://www.nasa.gov/sites/default/files/thumbnails/image/";
                     imageURL = [baseURL stringByAppendingString:imageURL];
                     //NSLog(@"%@",imageURL);
                     
