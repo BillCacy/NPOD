@@ -67,7 +67,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -89,6 +89,8 @@
     <Compile Include="DownloadHelper.cs" />
     <Compile Include="ExceptionManager.cs" />
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="ImageNodeImage.cs" />
+    <Compile Include="ImageNodeUber.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="LoadingScreen.cs">
       <SubType>Form</SubType>
@@ -97,9 +99,10 @@
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="NetworkHelper.cs" />
-    <Compile Include="Node2.cs" />
+    <Compile Include="ImageNode.cs" />
     <Compile Include="NasaImages.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="UberMeta.cs" />
+    <Compile Include="UberNode.cs" />
     <Compile Include="PicofDay.cs">
       <SubType>Form</SubType>
     </Compile>

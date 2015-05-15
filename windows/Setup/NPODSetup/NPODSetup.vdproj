@@ -1,4 +1,4 @@
-﻿"DeployProject"
+"DeployProject"
 {
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "MsmKey" = "8:_1E43D07C2BAE9CB4BDA38739CFEBCF88"
         "OwnerKey" = "8:_35FFD80318C44D09B1A5DDD3C0317A84"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,13 +46,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_23E6C5842DCB676C4AD79F274C75E06B"
+        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFA0EBFE959F467081FDF283158DE93B"
+        "OwnerKey" = "8:_1E43D07C2BAE9CB4BDA38739CFEBCF88"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -160,13 +160,18 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_23E6C5842DCB676C4AD79F274C75E06B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1E43D07C2BAE9CB4BDA38739CFEBCF88"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_1E43D07C2BAE9CB4BDA38739CFEBCF88"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -285,7 +290,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
         "ProductCode" = "8:{950A02F9-8168-413B-9F58-AECDB6FD27FE}"
-        "PackageCode" = "8:{8F9ABD50-E58D-43AA-A496-4B2C647FC3A4}"
+        "PackageCode" = "8:{76A7A4C0-74EA-48C8-AC35-42E60CCCA46F}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -293,16 +298,16 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.3"
-        "Manufacturer" = "8:SpaceAppsChallenge"
+        "Manufacturer" = "8:Bill Cacy"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:NPODSetup"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:SpaceAppsChallenge"
+        "ARPCONTACT" = "8:Bill Cacy"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_990ECA6589C24CCCBC4B4F483E137E7F"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

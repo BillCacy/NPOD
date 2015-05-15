@@ -1,11 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NasaPicOfDay", "NasaPicOfDay.csproj", "{CB1FE289-C0D5-4FD5-B058-CF412263E904}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NPODSetup", "Setup\NPODSetup\NPODSetup.vdproj", "{78496374-5DE7-4EF2-9619-59BB84E40C14}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NPODSetup", "Setup\NPODSetup\NPODSetup.vdproj", "{B883BFA8-173A-4C94-8E17-2935A13DA581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,13 +19,14 @@ Global
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Debug|x86.Build.0 = Debug|x86
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|x86.ActiveCfg = Release|x86
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|x86.Build.0 = Release|x86
-		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Debug|x86.ActiveCfg = Debug
-		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Release|x86.ActiveCfg = Release
-		{78496374-5DE7-4EF2-9619-59BB84E40C14}.Release|x86.Build.0 = Release
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.ActiveCfg = Debug|x86
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.Build.0 = Debug|x86
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.ActiveCfg = Release|x86
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.Build.0 = Release|x86
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|x86.ActiveCfg = Debug
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|x86.Build.0 = Debug
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|x86.ActiveCfg = Release
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

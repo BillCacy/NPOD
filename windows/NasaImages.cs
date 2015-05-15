@@ -4,10 +4,10 @@ namespace NasaPicOfDay
 {
 	public class NasaImages
 	{
-		[JsonProperty("nodes")]
-		public Node[] Nodes { get; set; }
+		[JsonProperty("ubernodes")]
+		public UberNode[] UberNodes { get; set; }
 
-		[JsonProperty("count")]
-		public int Count { get; set; }
+		[JsonProperty("meta")]
+		public UberMeta Meta { get; set; }
 	}
 }

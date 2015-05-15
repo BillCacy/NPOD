@@ -1,0 +1,4 @@
+*windows/[Bb]in
+*windows/[Bb]in/[Dd]ebug*/
+*windows/obj/
+*windows/[Bb]in/[Rr]elease*/

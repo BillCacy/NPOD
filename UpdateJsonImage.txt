@@ -1,0 +1,66 @@
+http://www.nasa.gov/api/1/record/node/358048.json
+
+{
+	"images":
+	[
+		{
+			"fid":514446,
+			"uid":"12",
+			"filename":"s49-91-029.jpg",
+			"uri":"public://thumbnails/image/s49-91-029.jpg",
+			"filemime":"image/jpeg",
+			"filesize":"7443045",
+			"status":"1",
+			"timestamp":"1431530858",
+			"uuid":"6f244e2d-94f2-4971-ac12-26555a8b7884",
+			"alt":"Three astronauts on a spacewalk maneuver a satellite into space shuttle cargo bay, with Earth visible in background",
+			"title":"",
+			"width":"6922",
+			"height":"6922",
+			"crop1x1":"/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/s49-91-029.jpg?itok=YaER5W_c",
+			"crop2x1":"/sites/default/files/styles/2x1_cardfeed/public/thumbnails/image/s49-91-029.jpg?itok=-57egrYN",
+			"crop2x2":"/sites/default/files/styles/2x2_cardfeed/public/thumbnails/image/s49-91-029.jpg?itok=pM9OkkWD",
+			"crop3x1":"/sites/default/files/styles/3x1_cardfeed/public/thumbnails/image/s49-91-029.jpg?itok=inq1ryWc",
+			"crop1x2":"/sites/default/files/styles/1x2_cardfeed/public/thumbnails/image/s49-91-029.jpg?itok=IclskFDO",
+			"crop4x3ratio":"/sites/default/files/styles/image_card_4x3_ratio/public/thumbnails/image/s49-91-029.jpg?itok=uiD-PyOm",
+			"cropHumongo":"/sites/default/files/styles/4x1_cardfeed_humongo/public/thumbnails/image/s49-91-029.jpg?itok=PxYJ0uRs",
+			"cropBanner":"/sites/default/files/styles/card_page_banner/public/thumbnails/image/s49-91-029.jpg?itok=8eFhp_e-",
+			"cropUnHoriz":"/sites/default/files/styles/ubernode_alt_horiz/public/thumbnails/image/s49-91-029.jpg?itok=i6KPXdA9",
+			"cropUnVert":"/sites/default/files/styles/ubernode_alt_vert/public/thumbnails/image/s49-91-029.jpg?itok=Uuiu-w-U",
+			"fullWidthFeature":"/sites/default/files/styles/full_width_feature/public/thumbnails/image/s49-91-029.jpg?itok=SeOX-Nqa",
+			"lrThumbnail":"/sites/default/files/styles/lr_thumbnail/public/thumbnails/image/s49-91-029.jpg?itok=XfAdwtx4"
+		}
+	],
+	"ubernode":
+	{
+		"title":"May 13, 1992, Record-Setting Spacewalk on Shuttle Endeavour's First Mission",
+		"nid":"358186",
+		"type":"ubernode",
+		"changed":"1431534219",
+		"uuid":"3dbfc76e-dfb2-4016-b7e2-2f353c863363",
+		"body":"<p>On May 13, 1992, following the successful capture of the\u00a0Intelsat VI satellite, three astronauts continue moving the 4.5 ton communications satellite into the space shuttle Endeavour's cargo bay. A fellow crew member recorded this 70mm still frame from inside Endeavour's cabin. Left to right, astronauts Richard J. Hieb, Thomas D. Akers and Pierre J. Thuot, cooperate on the effort to attach a specially designed grapple bar underneath the satellite. Thuot stands on the end of the Remote Manipulator System's (RMS) arm while Hieb and Akers are on Portable Foot Restraints (PFR) affixed to Endeavour's portside and the Multipurpose Support Structure (MPESS), respectively. The sections of Earth which form the backdrop for the scene are blanketed with thousands of square miles of clouds.\u00a0</p>\n\n<p>The Intelsat\u00a0satellite, stranded in an unusable orbit since its launch aboard a Titan vehicle in March 1990, was\u00a0equipped with a new perigee kick motor. The satellite was subsequently released into orbit and the new motor fired to put the spacecraft into a geosynchronous orbit for operational use.\u00a0The capture required three spacewalks: a planned one by astronaut Pierre J. Thuot and Richard J. Hieb who were unable to attach a capture bar to the satellite from a position on the RMS; a second unscheduled but identical attempt the following day; and finally an unscheduled but successful hand capture by Pierre J. Thuot and fellow crewmen Richard J. Hieb and Thomas D. Akers as Commander Daniel C. Brandenstein delicately maneuvered the orbiter to within a few feet of the 4.5 ton communications satellite.</p>\n\n<p>The <a href=\"http://www.nasa.gov/mission_pages/shuttle/shuttlemissions/archives/sts-49.html\">STS-49 mission</a>, the first flight of shuttle Endeavour, set records for the first (and only, to date) spacewalk involving three astronauts; first shuttle mission to feature four spacewalks; first shuttle mission requiring three rendezvous with an orbiting spacecraft; first attachment of a live rocket motor to an orbiting satellite and first use of a drag chute during a shuttle landing.</p>\n<em>Image Credit: NASA</em>",
+		"name":"Sarah Loff",
+		"uri":"/image-feature/may-13-1992-record-setting-spacewalk-on-shuttle-endeavours-first-mission",
+		"collections":["7628"],
+		"enableComments":"0",
+		"linkOrAttachment":"link",
+		"masterImage":514446,
+		"missions":
+		[
+			"3297",
+			"3378",
+			"3439",
+			"7450"
+		],
+		"primaryTag":"3136",
+		"promoDateTime":"2015-05-13T11:20:00-04:00",
+		"routes":["1446"],
+		"secondaryTag":"7628",
+		"topics":["3136"],
+		"ubernodeImage":"1",
+		"ubernodeType":"image",
+		"imageFeatureCaption":"On May 13, 1992, following the successful capture of the Intelsat VI satellite, three astronauts continue moving the 4.5 ton communications satellite into the space shuttle Endeavour's cargo bay. The sections of Earth which form the backdrop for the scene are blanketed with thousands of square miles of clouds. ",
+		"cardfeedTitle":"May 13, 1992, Record-Setting Spacewalk on Endeavour's First Mission",
+		"onS3":"1"
+	}
+}

@@ -7,7 +7,7 @@ namespace Updater
 {
 	public class NpodUpdater
 	{
-		private const string InstallerPath = "https://raw.github.com/BillCacy/NPOD/master/windows/Setup/NPODSetup/Release/setup.exe";
+      private const string InstallerPath = "https://github.com/BillCacy/NPOD/raw/master/windows/Setup/NPODSetup/Release/NPODSetup.msi";
 
 		public bool UpdateNpod()
 		{
