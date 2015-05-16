@@ -11,20 +11,34 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "NPODSetup", "Setup\NPODSetu
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Debug|x86.ActiveCfg = Debug|x86
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Debug|x86.Build.0 = Debug|x86
+		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|x86.ActiveCfg = Release|x86
 		{CB1FE289-C0D5-4FD5-B058-CF412263E904}.Release|x86.Build.0 = Release|x86
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.ActiveCfg = Debug|x86
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Debug|x86.Build.0 = Debug|x86
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.ActiveCfg = Release|x86
 		{DE7749F7-1354-4E31-B00D-A2B6163D6A3A}.Release|x86.Build.0 = Release|x86
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|Any CPU.ActiveCfg = Debug
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|Any CPU.Build.0 = Debug
 		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|x86.ActiveCfg = Debug
 		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Debug|x86.Build.0 = Debug
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|Any CPU.ActiveCfg = Release
+		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|Any CPU.Build.0 = Release
 		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|x86.ActiveCfg = Release
 		{B883BFA8-173A-4C94-8E17-2935A13DA581}.Release|x86.Build.0 = Release
 	EndGlobalSection

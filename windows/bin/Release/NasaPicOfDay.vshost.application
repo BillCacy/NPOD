@@ -4,17 +4,17 @@
   <description asmv2:publisher="Paragon Consulting, Inc." asmv2:product="NasaPicOfDay" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.5.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="NasaPicOfDay.exe.manifest" size="4568">
+    <dependentAssembly dependencyType="install" codebase="NasaPicOfDay.exe.manifest" size="4640">
       <assemblyIdentity name="NasaPicOfDay.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Yw7gvRcINZvjI5kM3M0rq9rQrhg=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>oGKdRX5fOftDByl/77vJ/UuFcw+qOCjL1kh8uUtyzxY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

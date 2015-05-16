@@ -4,7 +4,7 @@
   <description asmv2:iconFile="world.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="NasaPicOfDay" version="1.0.4.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="NasaPicOfDay" version="1.0.5.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="NasaPicOfDay.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NasaPicOfDay.exe" size="894464">
-      <assemblyIdentity name="NasaPicOfDay" version="1.0.4.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="NasaPicOfDay" version="1.0.5.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>meOs0VjTzROSC/Mvul8WptUawKo=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ezILm3Ut9rsts6sZ6GChdoj7cdAavtb/rN8SkEFl/iw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,18 +61,18 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>jjOVsw6AJd5cn4id1v/bKJek6aM=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>MuYcgHQvNDegLb5j+R8Y5XPJJL3FYkbdd+LW1TfWlXI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="NasaPicOfDay.exe.config" size="1520">
+  <file name="NasaPicOfDay.exe.config" size="1602">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>4IPBLE/qsb+hOayGceN/SJBJyd0=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>s0g+HXyFOKFhrCVEpQ14F1zUPww4r6BoDBgJWsvRRGA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="world.ico" size="273118">
@@ -80,8 +80,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>SB5FfDXqAyU+yYj6FDmdbxwZ1lA=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>IL8jZNEFo5ZlQFDn7GxlnFGfP0yuCo1sjY1CJECL99U=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

@@ -152,7 +152,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.0"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.5.1"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=131000"
                 }
@@ -290,7 +290,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NPOD"
         "ProductCode" = "8:{950A02F9-8168-413B-9F58-AECDB6FD27FE}"
-        "PackageCode" = "8:{76A7A4C0-74EA-48C8-AC35-42E60CCCA46F}"
+        "PackageCode" = "8:{593F6128-0709-4E17-812D-2A5B82C3856A}"
         "UpgradeCode" = "8:{B9441B88-00AD-42B4-8704-48EBFD5D0CA8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -311,7 +311,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -853,7 +853,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_35FFD80318C44D09B1A5DDD3C0317A84"
             {
-            "SourcePath" = "8:..\\..\\obj\\x86\\Release\\NasaPicOfDay.exe"
+            "SourcePath" = "8:..\\..\\obj\\Release\\NasaPicOfDay.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
@@ -881,7 +881,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EFA0EBFE959F467081FDF283158DE93B"
             {
-            "SourcePath" = "8:..\\..\\Updater\\obj\\x86\\Release\\Updater.exe"
+            "SourcePath" = "8:..\\..\\Updater\\obj\\Release\\Updater.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1D21A6E64F8443D082C1CD8C6B915797"
