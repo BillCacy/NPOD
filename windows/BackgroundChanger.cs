@@ -47,14 +47,15 @@ namespace NasaPicOfDay
       /// <returns>Null is returned if an error occurred</returns>
       public BackgroundImage GetImage()
       {
-         return GetImage(0);
+         return GetImage(0, 0);
       }
       /// <summary>
       /// Overloaded GetImage that allows the retrieval of previous images based on their position in the XML document
       /// provided from the nasa.gov website.
       /// </summary>
       /// <param name="selectedOffset">Position of the image within the node list of images, 1 being the very first (newest)</param>
-      public BackgroundImage GetImage(int? selectedOffset)
+      /// <param name="selectedPage">Page number to retrieve the page that contains the selected image.</param>
+      public BackgroundImage GetImage(int? selectedOffset, int? selectedPage)
       {
          try
          {
@@ -70,12 +71,12 @@ namespace NasaPicOfDay
 
             //Get the JSON string data
             if (GlobalVariables.LoggingEnabled) ExceptionManager.WriteInformation("Preparing to download image information");
-            var nasaImages = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, selectedOffset));
+            var nasaImages = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, selectedPage));
             if (nasaImages == null || nasaImages.UberNodes.Length == 0)
                throw new Exception("Unable to retrieve image data from JSON request");
 
             //Get the image node
-            var imageId = nasaImages.UberNodes[0].UberNodeId;
+            var imageId = nasaImages.UberNodes[(int) selectedOffset].UberNodeId;
 
             var currentImageFullUrl = string.Format("{0}{1}.json", NasaApiUrl, imageId);
 

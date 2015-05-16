@@ -29,7 +29,7 @@ namespace NasaPicOfDay
 
 			var errorBuilder = new StringBuilder();
 
-			errorBuilder.Append(string.Format("{0:yyyyddMMHHmmss}\t", DateTime.Now));
+			errorBuilder.Append(string.Format("{0:yyyyddMM HH:mm:ss}\t", DateTime.Now));
 			errorBuilder.Append(string.Format("{0}\t", ex.Message));
 			errorBuilder.Append(string.Format("{0}\t", ex.StackTrace));
 

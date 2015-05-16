@@ -8,13 +8,13 @@ namespace NasaPicOfDay
    public partial class ImagesForm : Form
    {
       private int _totalDocImageCount;
-      private int _currentImagePosition;
-      private int _totalNumberOfImages;
+      private int _currentImageNumber;
       private const string NasaLatestImagesUrl = "https://www.nasa.gov/api/1/query/ubernodes.json?unType%5B%5D=image&routes%5B%5D=1446&page={0}&pageSize=24";
       private const string NasaImageBaseUrl = "http://www.nasa.gov";
       private const string NasaApiUrl = "http://www.nasa.gov/api/1/record/node/";
       private NasaImages _images;
-      private int _currentOffset;
+      private int _displayImageNumber;
+      private int _currentPage = 0;
 
       public ImagesForm()
       {
@@ -30,83 +30,83 @@ namespace NasaPicOfDay
 
       private void btnBackImage_Click(object sender, EventArgs e)
       {
-         if (_currentOffset == _totalDocImageCount - 1)
+         if (_displayImageNumber == _totalDocImageCount - 1)
          {
             btnBackImage.Enabled = false;
             return;
          }
 
-         if (_currentImagePosition < _totalNumberOfImages - 1)
+         //Current image number out of the total amount of images
+         if (_currentImageNumber < _totalDocImageCount - 1)
          {
-            _currentImagePosition++;
-            _currentOffset++;
+            _currentImageNumber++;
+            _displayImageNumber++;
          }
-         else if (_currentImagePosition == _totalNumberOfImages - 1)
+
+         if (_currentImageNumber == 23)
          {
             //need to grab the next 24 images
-            _currentOffset++;
-            LoadNasaImageList(_currentOffset);
-            _currentImagePosition = 0;
-         }
-         else if (_currentOffset == _totalDocImageCount - 1)
-         {
-            SetButtonEnabled();
-            return;
+            //so the offset should be set back to 0 to run through the next 24 images
+            _currentImageNumber = 0;
+            _currentPage++;
+            LoadNasaImageList(_currentPage);
          }
 
          SetButtonEnabled();
-         GetImageThumbnail(_currentImagePosition);
-         lblCount.Text = string.Format("{0} of {1} images", (_currentOffset + 1), _totalDocImageCount);
-
+         GetImageThumbnail(_currentImageNumber);
+         lblCount.Text = string.Format("{0} of {1} images", (_displayImageNumber + 1), _totalDocImageCount);
       }
 
       private void btnForwardImage_Click(object sender, EventArgs e)
       {
-         if (_currentOffset == 0)
+         if (_displayImageNumber == 0)
          {
             btnForwardImage.Enabled = false;
             return;
          }
 
-         if (_currentImagePosition > 0)
+         if (_currentImageNumber > 0)
          {
-            _currentImagePosition--;
-            _currentOffset--;
+            _currentImageNumber--;
+            _displayImageNumber--;
          }
-         else if (_currentOffset % 50 == 0)
+
+         if (_currentImageNumber == 23)
          {
-            //need to grab the next 50 images
-            _currentOffset--;
-            LoadNasaImageList(_currentOffset - 50);
-            _currentImagePosition = 49;
+            //need to grab the next 24 images
+            _displayImageNumber--;
+            _currentPage = _currentPage != 0 ? _currentPage-- : 0;
+            LoadNasaImageList(_currentPage);
+            _currentImageNumber = 0;
          }
 
          SetButtonEnabled();
-         GetImageThumbnail(_currentImagePosition);
-         lblCount.Text = string.Format("{0} of {1} images", (_currentOffset + 1), _totalDocImageCount);
+         GetImageThumbnail(_currentImageNumber);
+         lblCount.Text = string.Format("{0} of {1} images", (_displayImageNumber + 1), _totalDocImageCount);
       }
 
       private void SetButtonEnabled()
       {
-         btnBackImage.Enabled = _currentOffset != _totalDocImageCount;
+         btnBackImage.Enabled = _currentImageNumber != _totalDocImageCount;
 
-         btnForwardImage.Enabled = _currentOffset != 0;
+         btnForwardImage.Enabled = _currentImageNumber != 0;
       }
 
       private void btnCurrentImage_Click(object sender, EventArgs e)
       {
-         _currentImagePosition = 0;
-         _currentOffset = 0;
+         _currentImageNumber = 0;
+         _displayImageNumber = 0;
+         _currentPage = 0;
          LoadNasaImageList(0);
          SetButtonEnabled();
-         GetImageThumbnail(_currentImagePosition);
-         lblCount.Text = string.Format("{0} of {1} images", (_currentOffset + 1), _totalDocImageCount);
+         GetImageThumbnail(_currentImageNumber);
+         lblCount.Text = string.Format("{0} of {1} images", (_displayImageNumber + 1), _totalDocImageCount);
       }
 
       private void btnSetImage_Click(object sender, EventArgs e)
       {
          var bgChanger = new BackgroundChanger();
-         GlobalVariables.NasaImage = bgChanger.GetImage(_currentOffset);
+         GlobalVariables.NasaImage = bgChanger.GetImage(_currentImageNumber, _currentPage);
          bgChanger.SetDesktopBackground(GlobalVariables.NasaImage.DownloadedPath);
          Close();
       }
@@ -130,29 +130,28 @@ namespace NasaPicOfDay
             btnCurrentImage.Enabled = true;
          }
 
-         if (!GetImageThumbnail(_currentImagePosition))
+         if (!GetImageThumbnail(_currentImageNumber))
             MessageBox.Show(Resources.ImageRetrievalError, Resources.Oops, MessageBoxButtons.OK);
 
-         lblCount.Text = string.Format("{0} of {1} images", (_currentOffset + 1), _totalDocImageCount);
+         lblCount.Text = string.Format("{0} of {1} images", (_displayImageNumber + 1), _totalDocImageCount);
       }
 
-      private void LoadNasaImageList(int offset)
+      private void LoadNasaImageList(int pageNumber)
       {
          try
          {
-            if (offset < 0)
+            if (pageNumber < 0)
             {
-               offset = 0;
-               _currentImagePosition = 23;
-               _currentOffset = 23;
+               pageNumber = 0;
+               _currentImageNumber = 0;
+               _displayImageNumber = 0;
             }
 
-            _images = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, offset));
+            _images = JsonHelper.DownloadSerializedJsonData(string.Format(NasaLatestImagesUrl, pageNumber));
             if (_images == null)
                throw new Exception("Unable to retrieve the image data");
 
             _totalDocImageCount = Convert.ToInt32(_images.Meta.TotalRows);
-            _totalNumberOfImages = _images.UberNodes.Length;
          }
          catch (Exception ex)
          {
@@ -166,7 +165,7 @@ namespace NasaPicOfDay
          try
          {
             if (_images == null)
-               LoadNasaImageList(0);
+               LoadNasaImageList(_currentPage);
 
             if (imagePosition < 0)
                throw new Exception("Invalid image position.");
